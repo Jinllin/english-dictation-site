@@ -107,6 +107,34 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .btnp{width:100%;padding:15px;background:var(--t1);color:#fff;border:none;border-radius:var(--r);
   font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;transition:all .12s;letter-spacing:-.01em}
 .btnp:active{transform:scale(.98);opacity:.85}
+.btnp:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ── PET / REWARD SYSTEM ── */
+.gem{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-weight:700}
+.gem::before{content:'';width:14px;height:14px;border:2px solid #111;border-radius:4px;background:linear-gradient(135deg,#FFE15A 0 25%,#31B7FF 25% 50%,#7B61FF 50% 74%,#FF7A45 74%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+.gem-pill{display:inline-flex;align-items:center;gap:7px;background:var(--sur);border:1px solid var(--bd);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--t1);box-shadow:0 8px 24px rgba(17,17,17,.04)}
+.pet-mini{margin:0 20px 22px;padding:14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:flex;align-items:center;gap:14px;cursor:pointer}
+.pet-mini-info{flex:1;min-width:0}.pet-mini-name{font-size:15px;font-weight:700}.pet-mini-sub{font-size:12px;color:var(--t3);margin-top:2px}.pet-mini-bar{height:6px;background:var(--s3);border-radius:6px;margin-top:8px;overflow:hidden}.pet-mini-fill{height:100%;background:var(--t1);border-radius:6px}
+.pet-head{padding:20px 20px 12px;display:flex;align-items:center;justify-content:space-between}.pet-title{font-size:28px;font-weight:800;letter-spacing:-.04em}.pet-tabs{display:flex;gap:8px;padding:0 20px 18px;overflow-x:auto;scrollbar-width:none}.pet-tabs::-webkit-scrollbar{display:none}
+.ptab{flex-shrink:0;border:none;background:var(--s2);color:var(--t2);border-radius:999px;padding:9px 14px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer}.ptab.on{background:var(--t1);color:#fff}
+.pet-panel{padding:0 20px 96px}.pet-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(17,17,17,.05)}
+.pet-profile{display:grid;grid-template-columns:136px 1fr;gap:18px;align-items:center}.pet-stage{height:136px;background:var(--s2);border-radius:28px;display:flex;align-items:center;justify-content:center}
+.pet-name{font-size:27px;font-weight:800;letter-spacing:-.04em}.rar{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:800;background:var(--s2);color:var(--t3);font-family:var(--mono)}.rar.r{background:#DDEEFF;color:#2878D8}.rar.sr{background:#F3D8FF;color:#B326D8}
+.pet-level{font-size:28px;font-weight:800;font-family:var(--mono);margin-top:10px}.pet-exp{height:8px;background:var(--s3);border-radius:10px;margin-top:10px;overflow:hidden}.pet-exp>span{display:block;height:100%;background:var(--t1);border-radius:10px}.pet-exp-t{font-size:12px;color:var(--t3);text-align:right;margin-top:5px;font-family:var(--mono)}
+.pet-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.pet-stat{background:var(--s2);border-radius:14px;padding:10px;text-align:center}.pet-stat b{display:block;font-size:16px}.pet-stat span{font-size:11px;color:var(--t3)}
+.pet-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.pet-action{border:none;background:var(--s2);border-radius:18px;padding:13px 10px;font-family:var(--sans);font-weight:800;font-size:15px;color:var(--t1);cursor:pointer}
+.pet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.shop-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:14px;box-shadow:0 14px 35px rgba(17,17,17,.04)}
+.shop-art{height:118px;background:var(--s2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}.shop-name{font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.2}.shop-tags{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.tag{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--s2);color:var(--t2);font-weight:700}.price{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border-radius:999px;padding:7px 10px;font-family:var(--mono);font-weight:800}.shop-btn{width:100%;margin-top:10px;border:none;background:var(--t1);color:#fff;border-radius:12px;padding:10px;font-weight:800;font-family:var(--sans);cursor:pointer}.shop-btn.owned,.shop-btn:disabled{background:var(--s2);color:var(--t3);cursor:default}
+.pet-msg{min-height:20px;text-align:center;color:var(--t2);font-size:12px;margin:10px 0}.lottery{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}.lottery-box{width:150px;height:150px;border:4px solid var(--t1);border-radius:30px;background:linear-gradient(135deg,#FFE15A,#7B61FF,#31B7FF);box-shadow:0 18px 45px rgba(17,17,17,.1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:58px;font-weight:900}
+.reward-card{margin:0 0 14px;padding:13px 14px;background:var(--gbg);border:1px solid color-mix(in srgb,var(--gold),transparent 70%);border-radius:var(--r);font-size:13px;color:var(--gold);display:none}.reward-card.on{display:block}
+.mobile-go{display:block;width:100%;border:none;background:var(--t1);color:#fff;border-radius:16px;padding:14px 16px;font-family:var(--sans);font-size:16px;font-weight:800;cursor:pointer;margin:4px 0 8px}
+
+.px{width:72px;height:72px;image-rendering:pixelated;position:relative;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
+.px::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;background:#111;box-shadow:8px -8px var(--p1,#C28A4C),16px -8px var(--p1,#C28A4C),24px 0 var(--p1,#C28A4C),32px 8px var(--p1,#C28A4C),40px 16px var(--p1,#C28A4C),40px 24px var(--p1,#C28A4C),32px 32px var(--p1,#C28A4C),24px 40px var(--p2,#FFF4D8),16px 40px var(--p2,#FFF4D8),8px 32px var(--p1,#C28A4C),0 24px var(--p1,#C28A4C),0 16px var(--p1,#C28A4C),16px 16px #111,32px 16px #111,24px 24px var(--p2,#FFF4D8),8px 48px #111,32px 48px #111,-8px 16px var(--p3,#8D5E35),-16px 8px var(--p3,#8D5E35)}
+.px.dog{--p1:#D6A15D;--p2:#FFF4E0;--p3:#8A5A2C}.px.sheep{--p1:#F2E6D8;--p2:#FFFFFF;--p3:#A65A4A}.px.westie{--p1:#F8F4E8;--p2:#FFFFFF;--p3:#A06B3C}.px.cat{--p1:#C48B4E;--p2:#FFF1D4;--p3:#7A4B2A}
+.pet-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16));mix-blend-mode:multiply}
+.pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}
+.foodpx{width:72px;height:72px;position:relative;image-rendering:pixelated}.foodpx::before{content:'';position:absolute;left:14px;top:30px;width:8px;height:8px;background:#111;box-shadow:8px 0 var(--f1,#D68B3A),16px -8px var(--f1,#D68B3A),24px -8px var(--f2,#F7C46B),32px 0 var(--f1,#D68B3A),40px 0 #111,8px 8px var(--f2,#F7C46B),16px 8px var(--f2,#F7C46B),24px 8px var(--f1,#D68B3A),32px 8px #111}.foodpx.toast{--f1:#C7833B;--f2:#FFE8A3}.foodpx.choco{--f1:#5A2E22;--f2:#8A4A32}.foodpx.sand{--f1:#E5B24D;--f2:#FFF0A8}
 
 /* ── DICT overlay — completely independent from .sc flow ── */
 #dict-overlay{
@@ -309,7 +337,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 @media (min-width:760px){
   body{background:linear-gradient(180deg,#FBFAF9 0%,#F4F2EE 100%)}
   .app{max-width:1040px}
-  .nav{top:18px;bottom:auto;max-width:360px;border:1px solid var(--bd);border-radius:999px;padding:5px;background:rgba(255,255,255,.82)}
+  .nav{top:18px;bottom:auto;max-width:460px;border:1px solid var(--bd);border-radius:999px;padding:5px;background:rgba(255,255,255,.82)}
   .sc{padding:78px 0 34px}
   .hdr{padding:22px 34px 10px}
   .hero{padding:30px 34px 18px;text-align:center}
@@ -333,6 +361,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   .sent-tipbar{padding-top:18px}
   .toolbar{padding-left:16px;padding-right:16px}
   .rb{max-width:680px;width:100%;align-self:center}
+  .pet-panel,.pet-tabs,.pet-head{max-width:920px;width:100%;align-self:center;margin-left:auto;margin-right:auto}
+  .pet-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
 </head>
@@ -348,6 +378,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <button class="ni" onclick="tab('errors')" id="n-errors">
     <svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
     <span class="nl">错题本</span><div class="ni-d"></div>
+  </button>
+  <button class="ni" onclick="tab('pets')" id="n-pets">
+    <svg viewBox="0 0 24 24"><path d="M11 4a2 2 0 104 0M7 8a2 2 0 104 0m6 0a2 2 0 104 0M5.5 14.5c1.2-2.3 3-3.5 6.5-3.5s5.3 1.2 6.5 3.5c1 1.9-.2 4.5-2.4 4.5-1.5 0-2.4-.7-4.1-.7s-2.6.7-4.1.7c-2.2 0-3.4-2.6-2.4-4.5z"/></svg>
+    <span class="nl">宠物</span><div class="ni-d"></div>
   </button>
   <button class="ni" onclick="openImport()" id="n-import">
     <svg viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
@@ -375,6 +409,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
     <div class="sc2 fu" style="animation-delay:.1s"><div class="sn" id="s-acc">—</div><div class="sl">正确率</div></div>
     <div class="sc2 fu" style="animation-delay:.15s"><div class="sn" id="s-mas">0</div><div class="sl">已掌握</div></div>
   </div>
+  <div class="pet-mini" onclick="tab('pets')" id="home-pet-card"></div>
   <div class="sh"><span class="st">练习模式</span></div>
   <div class="mtabs" id="type-tabs">
     <div class="mt on" data-t="word" onclick="pickType('word')">单词</div>
@@ -415,6 +450,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 
   <!-- Bottom action toolbar -->
   <div class="df">
+    <button class="mobile-go" id="mobile-go" onclick="handleGo()">提交答案</button>
     <div class="toolbar">
       <button class="tb" type="button" onclick="prevItem()" title="上一题">
         <span class="tb-icon"><svg viewBox="0 0 24 24"><path d="M19 12H5m0 0l7 7m-7-7l7-7"/></svg></span>
@@ -445,6 +481,24 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   </div>
 </div>
 
+<!-- ── PETS ── -->
+<div class="sc" id="sc-pets">
+  <div class="pet-head">
+    <div><div class="pet-title">宠物</div><div class="hero-s">学习赚晶石，养成你的像素伙伴</div></div>
+    <div class="gem-pill"><span class="gem" id="pet-gems">0</span></div>
+  </div>
+  <div class="pet-tabs">
+    <button class="ptab on" data-pv="bag" onclick="setPetView('bag')">背包</button>
+    <button class="ptab" data-pv="skins" onclick="setPetView('skins')">形象商店</button>
+    <button class="ptab" data-pv="foods" onclick="setPetView('foods')">零食商店</button>
+    <button class="ptab" data-pv="lottery" onclick="setPetView('lottery')">抽奖</button>
+  </div>
+  <div class="pet-panel">
+    <div class="pet-msg" id="pet-msg"></div>
+    <div id="pet-content"></div>
+  </div>
+</div>
+
 <!-- ── RESULT ── -->
 <div class="sc" id="sc-result">
   <div class="hdr"><div class="logo"><div class="lm">听</div>听写侠</div></div>
@@ -455,6 +509,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
       <div class="rst"><div class="rsv g" id="r-ok"></div><div class="rsl">正确</div></div>
       <div class="rst"><div class="rsv r" id="r-ng"></div><div class="rsl">错误</div></div>
     </div>
+    <div class="reward-card" id="reward-card"></div>
     <div id="r-wrongs"></div>
     <div class="rbtns">
       <button class="btna sec" id="btn-retry" onclick="retryWrong()">错题重练</button>
@@ -644,12 +699,35 @@ let S={
   errors: JSON.parse(localStorage.getItem('eb4')||'{}'),
   custom: JSON.parse(localStorage.getItem('cu4')||'{"word":{},"phrase":{},"sentence":{}}'),
   favs: JSON.parse(localStorage.getItem('fv4')||'{}'),
+  pet: JSON.parse(localStorage.getItem('pet4')||'null'),
   showTranslation: localStorage.getItem('sho4')!=='0',
   sentenceMode: localStorage.getItem('sm4')||'blank',
   ebf:'all',
   impType:'word',
+  petView:'bag',
   randomOrder:true
 };
+
+const PET_CATALOG={
+  calico:{id:'calico',name:'红围巾三花猫',rarity:'N',asset:'assets/pets/calico-cat.png',price:0},
+  puppy:{id:'puppy',name:'蓝围巾白团犬',rarity:'N',asset:'assets/pets/white-puppy.png',price:1200},
+  penguin:{id:'penguin',name:'粉围巾企鹅',rarity:'N',asset:'assets/pets/penguin.png',price:1500},
+  reindeer:{id:'reindeer',name:'节日驯鹿',rarity:'R',asset:'assets/pets/reindeer.png',price:2400},
+  snowcat:{id:'snowcat',name:'雪豹猫',rarity:'R',asset:'assets/pets/snow-leopard.png',price:2600},
+  fox:{id:'fox',name:'金围巾奶油狐',rarity:'R',asset:'assets/pets/cream-fox.png',price:3000},
+  blackcat:{id:'blackcat',name:'紫围巾黑猫',rarity:'SR',asset:'assets/pets/black-cat.png',price:4200},
+  corgi:{id:'corgi',name:'绿围巾柯基',rarity:'SR',asset:'assets/pets/corgi.png',price:4500},
+  bunny:{id:'bunny',name:'胡萝卜小兔',rarity:'SR',asset:'assets/pets/bunny.png',price:4800},
+  raccoon:{id:'raccoon',name:'蓝围巾浣熊',rarity:'SSR',asset:'assets/pets/raccoon.png',price:6000}
+};
+const FOOD_CATALOG={
+  baguette:{id:'baguette',name:'法棍面包',rarity:'N',skin:'baguette',price:25,exp:5,mood:5},
+  toast:{id:'toast',name:'面包',rarity:'N',skin:'toast',price:25,exp:5,mood:5},
+  choco:{id:'choco',name:'巧克力面包',rarity:'R',skin:'choco',price:50,exp:10,mood:10},
+  sandwich:{id:'sandwich',name:'三明治',rarity:'SR',skin:'sand',price:125,exp:25,mood:18}
+};
+const SHOP_ITEMS={skins:['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'],foods:['baguette','toast','choco','sandwich']};
+const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'penguin'};
 
 function esc(s){
   return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -709,6 +787,56 @@ function wordHint(word,asked){
   if(asked)return ['focus','听写词'];
   return [/ly$/.test(key)?'adv.':/ing$|ed$/.test(key)?'verb':'word',''];
 }
+function defaultPetState(){
+  return {gems:120,currentPetId:'calico',pets:[makePet('calico')],foods:{},ownedSkins:['calico'],lotteryCount:0,lastRewardSig:''};
+}
+function makePet(id){
+  id=LEGACY_PET_MAP[id]||id;
+  const c=PET_CATALOG[id]||PET_CATALOG.calico;
+  return {id:c.id,name:c.name,rarity:c.rarity,level:1,exp:0,mood:70,hunger:70,ownedAt:Date.now(),asset:c.asset};
+}
+function ensurePetState(){
+  if(!S.pet||!S.pet.pets||!S.pet.pets.length)S.pet=defaultPetState();
+  S.pet.pets=S.pet.pets.map(p=>{
+    const id=LEGACY_PET_MAP[p.id]||p.id;
+    const c=PET_CATALOG[id]||PET_CATALOG.calico;
+    return {...p,id:c.id,name:c.name,rarity:c.rarity,asset:c.asset,skin:undefined};
+  });
+  if(!S.pet.currentPetId)S.pet.currentPetId=S.pet.pets[0].id;
+  S.pet.currentPetId=LEGACY_PET_MAP[S.pet.currentPetId]||S.pet.currentPetId;
+  if(!PET_CATALOG[S.pet.currentPetId])S.pet.currentPetId='calico';
+  if(!S.pet.foods)S.pet.foods={};
+  if(!S.pet.ownedSkins)S.pet.ownedSkins=S.pet.pets.map(p=>p.id);
+  S.pet.ownedSkins=[...new Set(S.pet.ownedSkins.map(id=>LEGACY_PET_MAP[id]||id).filter(id=>PET_CATALOG[id]))];
+  if(!S.pet.ownedSkins.includes('calico'))S.pet.ownedSkins.unshift('calico');
+  if(typeof S.pet.gems!=='number')S.pet.gems=0;
+}
+function savePet(){ensurePetState();localStorage.setItem('pet4',JSON.stringify(S.pet))}
+function currentPet(){
+  ensurePetState();
+  return S.pet.pets.find(p=>p.id===S.pet.currentPetId)||S.pet.pets[0];
+}
+function expNeed(p){return 250+(Math.max(1,p.level)-1)*100}
+function addPetExp(amount){
+  const p=currentPet();let gain=amount;
+  while(gain>0){
+    const need=expNeed(p);
+    const room=need-p.exp;
+    if(gain>=room){p.level++;p.exp=0;gain-=room;p.mood=Math.min(100,p.mood+6)}
+    else{p.exp+=gain;gain=0}
+  }
+}
+function petArt(kind,size=''){
+  kind=LEGACY_PET_MAP[kind]||kind;
+  const c=PET_CATALOG[kind]||PET_CATALOG.calico;
+  return `<img class="pet-img ${esc(size)}" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
+}
+function foodArt(kind){
+  const c=FOOD_CATALOG[kind]||FOOD_CATALOG.baguette;
+  return `<div class="foodpx ${esc(c.skin)}"></div>`;
+}
+function rarityClass(r){return String(r||'N').toLowerCase()}
+function setPetMsg(msg){const el=document.getElementById('pet-msg');if(el)el.textContent=msg||''}
 
 // ════════════════════════════════
 //  BANK HELPERS
@@ -724,10 +852,11 @@ function currentBanks(){ return getBanks(S.type); }
 //  INIT
 // ════════════════════════════════
 function init(){
+  ensurePetState();savePet();
   const h=new Date().getHours();
   document.getElementById('greet').textContent=
     h<6?'夜深了，坚持就是胜利':h<12?'早上好，新的一天':h<18?'下午好，保持节奏':'晚上好，再练一组';
-  renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();
+  renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();renderHomePet();renderPets();
   if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
 }
 
@@ -741,8 +870,81 @@ function refreshStats(){
   document.getElementById('strk-n').textContent=s.streak+'天';
   const bk=currentBanks()[S.bank];
   document.getElementById('btag').textContent=bk?bk.words.length+(S.type==='word'?' 词':S.type==='phrase'?' 条':' 句'):'';
+  renderHomePet();
 }
 function save(){localStorage.setItem('ds4',JSON.stringify(S.stats));localStorage.setItem('eb4',JSON.stringify(S.errors));localStorage.setItem('cu4',JSON.stringify(S.custom))}
+
+function renderHomePet(){
+  const card=document.getElementById('home-pet-card');if(!card)return;
+  ensurePetState();const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
+  card.innerHTML=`<div class="pet-stage" style="width:70px;height:70px;border-radius:18px">${petArt(p.id)}</div>
+    <div class="pet-mini-info"><div class="pet-mini-name">${esc(p.name)} · Lv.${p.level}</div>
+    <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 心情 ${p.mood} · 饱食 ${p.hunger}</div>
+    <div class="pet-mini-bar"><div class="pet-mini-fill" style="width:${pct}%"></div></div></div>`;
+}
+function setPetView(v){
+  S.petView=v;
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.toggle('on',b.dataset.pv===v));
+  renderPets();
+}
+function renderPets(){
+  ensurePetState();
+  const gem=document.getElementById('pet-gems');if(gem)gem.textContent=S.pet.gems;
+  const root=document.getElementById('pet-content');if(!root)return;
+  if(S.petView==='skins')return renderShop('skins');
+  if(S.petView==='foods')return renderShop('foods');
+  if(S.petView==='lottery')return renderLottery();
+  const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
+  root.innerHTML=`<div class="pet-card"><div class="pet-profile"><div class="pet-stage">${petArt(p.id)}</div>
+    <div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><div class="pet-name">${esc(p.name)}</div><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span></div>
+    <div class="pet-level">Lv.${p.level}</div><div class="pet-exp"><span style="width:${pct}%"></span></div><div class="pet-exp-t">${p.exp}/${need}</div></div></div>
+    <div class="pet-stats"><div class="pet-stat"><b>${p.mood}</b><span>心情</span></div><div class="pet-stat"><b>${p.hunger}</b><span>饱食</span></div><div class="pet-stat"><b>${S.pet.lotteryCount||0}</b><span>抽奖</span></div></div>
+    <div class="pet-actions"><button class="pet-action" onclick="quickFeed()">喂食</button><button class="pet-action" onclick="setPetView('skins')">形象</button><button class="pet-action" onclick="setPetView('foods')">零食</button><button class="pet-action" onclick="setPetView('lottery')">抽奖</button></div></div>
+    <div class="sh" style="padding:18px 0 10px"><span class="st">已领养</span></div><div class="pet-grid">${S.pet.pets.map(pp=>petOwnedCard(pp)).join('')}</div>`;
+}
+function petOwnedCard(p){
+  const active=p.id===S.pet.currentPetId;
+  return `<div class="shop-card"><div class="shop-art">${petArt(p.id)}</div><div class="shop-name">${esc(p.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span><span class="tag">Lv.${p.level}</span></div><button class="shop-btn ${active?'owned':''}" onclick="adoptPet('${p.id}')" ${active?'disabled':''}>${active?'当前伙伴':'设为当前'}</button></div>`;
+}
+function renderShop(type){
+  const root=document.getElementById('pet-content');if(!root)return;
+  const ids=SHOP_ITEMS[type];
+  const title=type==='skins'?'每日限时':'每日特价';
+  root.innerHTML=`<div class="sh" style="padding:0 0 12px"><span class="st" style="font-size:20px;color:var(--t1);letter-spacing:0">${title}</span><span class="stag">学习晶石兑换</span></div><div class="pet-grid">${ids.map(id=>type==='skins'?skinCard(id):foodCard(id)).join('')}</div>`;
+}
+function skinCard(id){
+  const c=PET_CATALOG[id],owned=S.pet.ownedSkins.includes(id);
+  return `<div class="shop-card"><div class="shop-art">${petArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">形象</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn ${owned?'owned':''}" onclick="${owned?`adoptPet('${id}')`:`buyItem('skin','${id}')`}">${owned?'使用':'购买'}</button></div>`;
+}
+function foodCard(id){
+  const c=FOOD_CATALOG[id],n=S.pet.foods[id]||0;
+  return `<div class="shop-card"><div class="shop-art">${foodArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">经验: ${c.exp}</span><span class="tag">库存: ${n}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('food','${id}')">购买</button><button class="shop-btn ${n?'':'owned'}" onclick="feedPet('${id}')" ${n?'':'disabled'}>喂食</button></div>`;
+}
+function renderLottery(){
+  const root=document.getElementById('pet-content');if(!root)return;
+  root.innerHTML=`<div class="pet-card lottery"><div class="lottery-box">?</div><div class="pet-name">晶石抽奖</div><div class="pet-mini-sub">60 晶石一次，有机会获得宠物形象或零食</div><button class="btnp" onclick="drawLottery()">抽一次</button></div>`;
+}
+function buyItem(type,id){
+  ensurePetState();const item=type==='skin'?PET_CATALOG[id]:FOOD_CATALOG[id];
+  if(!item)return;if(S.pet.gems<item.price){setPetMsg('晶石不足，完成练习可以获得更多晶石。');return}
+  S.pet.gems-=item.price;
+  if(type==='skin'){if(!S.pet.ownedSkins.includes(id))S.pet.ownedSkins.push(id);if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;setPetMsg(`已领养 ${item.name}`)}
+  else{S.pet.foods[id]=(S.pet.foods[id]||0)+1;setPetMsg(`已购买 ${item.name}`)}
+  savePet();renderHomePet();renderPets();
+}
+function adoptPet(id){ensurePetState();if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;savePet();setPetMsg('已切换当前宠物。');renderHomePet();renderPets()}
+function feedPet(id){
+  ensurePetState();const f=FOOD_CATALOG[id];if(!f||!(S.pet.foods[id]>0)){setPetMsg('没有这份零食，先去零食商店购买。');return}
+  S.pet.foods[id]--;const p=currentPet();p.hunger=Math.min(100,p.hunger+18);p.mood=Math.min(100,p.mood+f.mood);addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，经验 +${f.exp}`);renderHomePet();renderPets();
+}
+function quickFeed(){const id=Object.keys(S.pet.foods||{}).find(k=>S.pet.foods[k]>0);if(id)feedPet(id);else{setPetView('foods');setPetMsg('先购买一份零食再喂食。')}}
+function drawLottery(){
+  ensurePetState();const cost=60;if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
+  S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='';
+  if(r<.22){const ids=['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'];const id=ids[Math.floor(Math.random()*ids.length)];if(S.pet.ownedSkins.includes(id)){S.pet.gems+=30;msg=`抽到重复 ${PET_CATALOG[id].name}，转化为 30 晶石。`}else{S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${PET_CATALOG[id].name}`}}
+  else{const ids=Object.keys(FOOD_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)];S.pet.foods[id]=(S.pet.foods[id]||0)+1;msg=`抽到零食：${FOOD_CATALOG[id].name}`}
+  savePet();setPetMsg(msg);renderHomePet();renderPets();
+}
 
 // ════════════════════════════════
 //  TYPE
@@ -815,6 +1017,7 @@ function tab(t){
   document.getElementById('n-'+t).classList.add('on');
   if(t==='home'){refreshStats();showSc('sc-home')}
   else if(t==='errors'){renderEB();showSc('sc-errors')}
+  else if(t==='pets'){renderPets();showSc('sc-pets')}
 }
 function goHome(){tab('home')}
 
@@ -887,6 +1090,7 @@ function loadItem(){
   document.getElementById('pfill').style.width=`${i/t*100}%`;
   const lab=document.getElementById('gobtn-lab');if(lab)lab.textContent='提交答案';
   S.answered=false;
+  updateGoCta();
 
   const body=document.getElementById('dict-body');
   body.innerHTML='';body.classList.remove('cv'); // reset each time
@@ -896,6 +1100,7 @@ function loadItem(){
     renderWordItem(body);
   }
   updateFavBtn();
+  updateGoCta();
   // Click anywhere on body after answered → next item
   body.addEventListener('click',function bodyClick(){
     if(!S.answered)return;
@@ -1076,6 +1281,7 @@ function handleGo(){
     S.stats.total++;if(allOk)S.stats.correct++;save();
     refreshLiveStats();
     document.getElementById('gobtn-lab').textContent=S.idx<S.words.length-1?'下一题':'查看结果';
+    updateGoCta();
     return;
   }
 
@@ -1104,6 +1310,29 @@ function handleGo(){
   S.stats.total++;if(ok)S.stats.correct++;save();
   refreshLiveStats();
   document.getElementById('gobtn-lab').textContent=S.idx<S.words.length-1?'下一题':'查看结果';
+  updateGoCta();
+}
+
+function updateGoCta(){
+  const btn=document.getElementById('mobile-go');if(!btn)return;
+  if(!document.getElementById('dict-overlay').classList.contains('show'))return;
+  btn.textContent=S.answered?(S.idx<S.words.length-1?'下一题':'查看结果'):'提交答案';
+}
+function applyStudyReward(results,acc){
+  ensurePetState();
+  const sig=results.map(r=>`${r.word.w}:${r.correct?'1':'0'}:${r.userAnswer}`).join('|')+'@'+Date.now();
+  let gems=0,exp=0;
+  results.forEach(r=>{if(r.correct){gems+=3;exp+=5}else{gems+=1;exp+=1}});
+  const bonus=acc>=90?20:acc>=70?10:0;
+  gems+=bonus;
+  S.pet.gems+=gems;
+  addPetExp(exp);
+  const p=currentPet();
+  p.hunger=Math.max(0,p.hunger-Math.ceil(results.length/4));
+  p.mood=Math.min(100,p.mood+(acc>=70?4:0));
+  S.pet.lastRewardSig=sig;
+  savePet();renderHomePet();
+  return {gems,exp,bonus,pet:p};
 }
 
 // ════════════════════════════════
@@ -1112,12 +1341,15 @@ function handleGo(){
 function showResult(){
   finalizeSession(S.results); // always finalize on normal completion
   const ok=S.results.filter(r=>r.correct).length,t=S.results.length,acc=Math.round(ok/t*100);
+  const reward=applyStudyReward(S.results,acc);
   const ng=S.results.filter(r=>!r.correct);
   document.getElementById('ricon').textContent='本组表现';
   document.getElementById('rscore').textContent=acc+'%';
   document.getElementById('r-tot').textContent=t;
   document.getElementById('r-ok').textContent=ok;
   document.getElementById('r-ng').textContent=ng.length;
+  const rc=document.getElementById('reward-card');
+  if(rc){rc.classList.add('on');rc.innerHTML=`本组获得 <span class="gem">${reward.gems}</span> · 宠物经验 +${reward.exp}${reward.bonus?` · 准确率奖励 +${reward.bonus}`:''}<br>${esc(reward.pet.name)} 现在 Lv.${reward.pet.level}`;}
   const el=document.getElementById('r-wrongs');
   if(ng.length){
     el.innerHTML=`<div class="wh">需复习项 (${ng.length})</div><div class="wlist">${ng.map(r=>`<div class="wr fu"><div><div class="wrw">${esc(r.word.w.substring(0,48))}</div><div class="wrm">${esc(r.word.m)}</div></div><span class="wry">${esc(r.userAnswer)}</span></div>`).join('')}</div>`;
@@ -1307,7 +1539,7 @@ function skipItem(){
   save();
   S.idx++;
   if(S.idx>=S.words.length){showResult();return}
-  loadItem();
+  loadItem();updateGoCta();
 }
 function toggleFav(){
   const item=S.words[S.idx];if(!item)return;
@@ -1385,7 +1617,7 @@ if(localStorage.getItem('dk4')==='1')document.documentElement.classList.add('dar
 function clearAllData(){
   if(!confirm('确定清空所有学习数据？此操作不可恢复。'))return;
   if(!confirm('再次确认：将清空累计练习数、错题本、收藏和所有自定义词库？'))return;
-  ['ds4','eb4','cu4','fv4','sho4','dk4','sm4'].forEach(k=>localStorage.removeItem(k));
+  ['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'].forEach(k=>localStorage.removeItem(k));
   location.reload();
 }
 
