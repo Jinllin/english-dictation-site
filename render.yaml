@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: english-dictation-server
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_PATH
+        value: ./data/dictation.sqlite
+      - key: CORS_ORIGINS
+        value: https://jinllin.github.io,http://localhost:3000,http://127.0.0.1:3000

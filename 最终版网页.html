@@ -59,6 +59,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .lm{width:30px;height:30px;background:var(--t1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
 .strk{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--gold);background:var(--gbg);padding:5px 11px;border-radius:20px;border:1px solid color-mix(in srgb,var(--gold),transparent 60%)}
 .strk::before{content:'连续';font-size:10px;color:var(--gold);opacity:.72;letter-spacing:.04em}
+.acct-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:7px 10px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;max-width:118px}
+.acct-btn.on{color:var(--ok);background:var(--okbg);border-color:color-mix(in srgb,var(--ok),transparent 62%)}
+.acct-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);flex-shrink:0}.acct-btn.on .sync-dot{background:var(--ok)}
+.sync-card{margin:0 20px 16px;padding:12px 14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:none;gap:10px;align-items:center;justify-content:space-between}
+.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
 
 /* ── SCREENS ── */
 .sc{display:none;flex-direction:column;flex:1;padding-bottom:76px}.sc.on{display:flex}
@@ -323,6 +329,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btnp{flex:1}.mbtnc{flex:1;padding:14px;background:var(--s2);color:var(--t2);border:1px solid var(--bd);border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer}
 .modal-msg{font-size:12px;text-align:center;min-height:16px;color:var(--ng)}
+.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -394,6 +401,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div class="hdr">
     <div class="logo"><div class="lm">听</div>听写侠</div>
     <div style="display:flex;align-items:center;gap:8px">
+      <button class="acct-btn" id="acct-btn" onclick="openAuth()" title="账号同步"><span class="sync-dot"></span><span id="acct-label">未登录</span></button>
       <button class="bico" onclick="toggleDark()" title="日/夜间模式" style="width:32px;height:32px;border-radius:50%">
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="dark-icon"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
       </button>
@@ -408,6 +416,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
     <div class="sc2 fu" style="animation-delay:.05s"><div class="sn" id="s-tot">0</div><div class="sl">累计练习</div></div>
     <div class="sc2 fu" style="animation-delay:.1s"><div class="sn" id="s-acc">—</div><div class="sl">正确率</div></div>
     <div class="sc2 fu" style="animation-delay:.15s"><div class="sn" id="s-mas">0</div><div class="sl">已掌握</div></div>
+  </div>
+  <div class="sync-card" id="sync-card">
+    <div class="sync-info"><div class="sync-title" id="sync-title">账号同步</div><div class="sync-sub" id="sync-sub">登录后可在多设备同步学习数据</div></div>
+    <div class="sync-actions">
+      <button class="sync-mini" onclick="syncPull(true)">恢复</button>
+      <button class="sync-mini primary" onclick="syncNow('manual')">同步</button>
+    </div>
   </div>
   <div class="pet-mini" onclick="tab('pets')" id="home-pet-card"></div>
   <div class="sh"><span class="st">练习模式</span></div>
@@ -548,6 +563,31 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
       <button class="mbtnc" onclick="closeImport()">取消</button>
       <button class="btnp" onclick="doImport()">导入</button>
     </div>
+  </div>
+</div>
+
+<!-- ── AUTH / SYNC MODAL ── -->
+<div class="modal-bg" id="auth-bg" onclick="closeAuthBg(event)">
+  <div class="modal" id="auth-modal">
+    <div class="modal-title">账号同步</div>
+    <p class="modal-sub">登录后会把本机学习记录、错题、自定义词库、收藏和宠物数据同步到云端。未登录时仍可离线使用。</p>
+    <div class="auth-fields">
+      <input class="auth-input" id="api-base" placeholder="后端地址，如 http://localhost:3000">
+      <input class="auth-input" id="auth-email" type="email" placeholder="邮箱">
+      <input class="auth-input" id="auth-password" type="password" placeholder="密码（至少 6 位）">
+      <input class="auth-input" id="auth-nickname" placeholder="昵称（注册时可填）" maxlength="24">
+    </div>
+    <div class="auth-status" id="auth-status"></div>
+    <div class="auth-row">
+      <button class="mbtnc" onclick="closeAuth()">取消</button>
+      <button class="mbtnc" onclick="doAuth('register')">注册</button>
+      <button class="btnp" onclick="doAuth('login')">登录</button>
+    </div>
+    <div class="auth-row" id="auth-sync-row" style="display:none">
+      <button class="mbtnc" onclick="syncPull(true)">从云端恢复</button>
+      <button class="btnp" onclick="syncNow('manual')">保存到云端</button>
+    </div>
+    <button class="mbtnc" id="logout-btn" style="display:none;width:100%;padding:12px" onclick="logout()">退出登录</button>
   </div>
 </div>
 
@@ -708,6 +748,20 @@ let S={
   randomOrder:true
 };
 
+const SYNC_KEYS=['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'];
+const AUTH_TOKEN_KEY='auth4';
+const API_BASE_KEY='api4';
+const SYNC_AT_KEY='syncAt4';
+const DEFAULT_API_BASE=(location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://localhost:3000':'';
+let AUTH={
+  token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
+  user:null,
+  timer:null,
+  busy:false,
+  ready:false,
+  lastSync:localStorage.getItem(SYNC_AT_KEY)||''
+};
+
 const PET_CATALOG={
   calico:{id:'calico',name:'红围巾三花猫',rarity:'N',asset:'assets/pets/calico-cat.png',price:0},
   puppy:{id:'puppy',name:'蓝围巾白团犬',rarity:'N',asset:'assets/pets/white-puppy.png',price:1200},
@@ -731,6 +785,150 @@ const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'pengui
 
 function esc(s){
   return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function apiBase(){
+  const field=document.getElementById('api-base');
+  if(field&&field.value.trim()){
+    localStorage.setItem(API_BASE_KEY,field.value.trim().replace(/\/+$/,''));
+  }
+  return (localStorage.getItem(API_BASE_KEY)||DEFAULT_API_BASE||'').replace(/\/+$/,'');
+}
+function localSnapshot(){
+  const data={};
+  SYNC_KEYS.forEach(k=>{data[k]=localStorage.getItem(k)});
+  return {version:1,updatedAt:new Date().toISOString(),data};
+}
+function applySnapshot(snapshot){
+  if(!snapshot||!snapshot.data)return;
+  SYNC_KEYS.forEach(k=>{
+    const v=snapshot.data[k];
+    if(v===null||typeof v==='undefined')localStorage.removeItem(k);
+    else localStorage.setItem(k,typeof v==='string'?v:JSON.stringify(v));
+  });
+}
+function hasLocalProgress(){
+  try{
+    const stats=JSON.parse(localStorage.getItem('ds4')||'{}');
+    if((stats.total||0)>0)return true;
+    if(Object.keys(JSON.parse(localStorage.getItem('eb4')||'{}')).length)return true;
+    const custom=JSON.parse(localStorage.getItem('cu4')||'{}');
+    if(Object.values(custom).some(v=>v&&Object.keys(v).length))return true;
+    if(Object.keys(JSON.parse(localStorage.getItem('fv4')||'{}')).length)return true;
+    const pet=JSON.parse(localStorage.getItem('pet4')||'null');
+    return !!(pet&&((pet.gems||0)>120||(pet.pets||[]).length>1||Object.keys(pet.foods||{}).length));
+  }catch{return false}
+}
+function setAuthStatus(msg,type=''){
+  const el=document.getElementById('auth-status');if(el){el.textContent=msg||'';el.className='auth-status '+type}
+  const sub=document.getElementById('sync-sub');if(sub&&msg)sub.textContent=msg;
+}
+function renderAuth(){
+  const logged=!!(AUTH.token&&AUTH.user);
+  document.getElementById('acct-btn')?.classList.toggle('on',logged);
+  const label=document.getElementById('acct-label');if(label)label.textContent=logged?(AUTH.user.nickname||AUTH.user.email):'未登录';
+  const card=document.getElementById('sync-card');if(card)card.classList.toggle('on',logged);
+  const title=document.getElementById('sync-title');if(title)title.textContent=logged?`已登录：${AUTH.user.nickname||AUTH.user.email}`:'账号同步';
+  const sub=document.getElementById('sync-sub');
+  if(sub)sub.textContent=logged?(AUTH.lastSync?`上次同步：${new Date(AUTH.lastSync).toLocaleString()}`:'已登录，完成练习后会自动同步'):'登录后可在多设备同步学习数据';
+  const syncRow=document.getElementById('auth-sync-row');if(syncRow)syncRow.style.display=logged?'flex':'none';
+  const logoutBtn=document.getElementById('logout-btn');if(logoutBtn)logoutBtn.style.display=logged?'block':'none';
+}
+async function apiFetch(path,opts={}){
+  const base=apiBase();
+  if(!base)throw new Error('请先填写后端地址');
+  const headers={'Content-Type':'application/json',...(opts.headers||{})};
+  if(AUTH.token)headers.Authorization=`Bearer ${AUTH.token}`;
+  const res=await fetch(base+path,{...opts,headers});
+  const data=await res.json().catch(()=>({}));
+  if(!res.ok)throw new Error(data.error||`请求失败 (${res.status})`);
+  return data;
+}
+function queueSync(reason='auto'){
+  if(!AUTH.ready||!AUTH.token||AUTH.busy)return;
+  clearTimeout(AUTH.timer);
+  setAuthStatus('本地已保存，准备同步…');
+  AUTH.timer=setTimeout(()=>syncNow(reason,false),900);
+}
+async function authInit(){
+  const api=document.getElementById('api-base');if(api)api.value=apiBase();
+  renderAuth();
+  if(!AUTH.token){AUTH.ready=true;return}
+  try{
+    const data=await apiFetch('/api/auth/me');
+    AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
+  }catch(err){
+    AUTH.token='';AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
+  }
+}
+function openAuth(){
+  const api=document.getElementById('api-base');if(api)api.value=apiBase();
+  document.getElementById('auth-bg').classList.add('on');
+  document.getElementById('auth-modal').classList.add('on');
+  renderAuth();
+}
+function closeAuth(){document.getElementById('auth-bg').classList.remove('on')}
+function closeAuthBg(e){if(e.target===document.getElementById('auth-bg'))closeAuth()}
+async function doAuth(mode){
+  const api=document.getElementById('api-base').value.trim().replace(/\/+$/,'');
+  const email=document.getElementById('auth-email').value.trim();
+  const password=document.getElementById('auth-password').value;
+  const nickname=document.getElementById('auth-nickname').value.trim();
+  if(api)localStorage.setItem(API_BASE_KEY,api);
+  try{
+    setAuthStatus(mode==='register'?'正在注册…':'正在登录…');
+    const data=await apiFetch(mode==='register'?'/api/auth/register':'/api/auth/login',{
+      method:'POST',
+      body:JSON.stringify({email,password,nickname})
+    });
+    AUTH.token=data.token;AUTH.user=data.user;
+    AUTH.ready=true;
+    localStorage.setItem(AUTH_TOKEN_KEY,AUTH.token);
+    renderAuth();
+    await resolveFirstSync();
+  }catch(err){setAuthStatus(err.message,'ng')}
+}
+async function resolveFirstSync(){
+  const cloud=await apiFetch('/api/sync');
+  const snapshot=cloud.snapshot;
+  if(snapshot&&snapshot.data){
+    if(hasLocalProgress()){
+      const upload=confirm('检测到本机和云端都有学习数据。\n\n点“确定”：上传本机数据覆盖云端。\n点“取消”：使用云端数据覆盖本机。');
+      if(upload){await syncNow('login',false);setAuthStatus('已上传本机数据','ok');return}
+      applySnapshot(snapshot);localStorage.setItem(SYNC_AT_KEY,new Date().toISOString());location.reload();return;
+    }
+    applySnapshot(snapshot);localStorage.setItem(SYNC_AT_KEY,new Date().toISOString());location.reload();return;
+  }
+  await syncNow('login',false);
+  setAuthStatus('已创建云端同步数据','ok');
+}
+async function syncNow(reason='manual',showDone=true){
+  if(!AUTH.token){openAuth();return}
+  if(AUTH.busy)return;
+  AUTH.busy=true;
+  try{
+    setAuthStatus('正在同步到云端…');
+    const data=await apiFetch('/api/sync',{method:'PUT',body:JSON.stringify(localSnapshot())});
+    AUTH.lastSync=data.snapshot?.updatedAt||new Date().toISOString();
+    localStorage.setItem(SYNC_AT_KEY,AUTH.lastSync);
+    renderAuth();
+    if(showDone)setAuthStatus('已同步到云端','ok');
+  }catch(err){setAuthStatus(`本地已保存，云端同步失败：${err.message}`,'ng')}
+  finally{AUTH.busy=false}
+}
+async function syncPull(ask=true){
+  if(!AUTH.token){openAuth();return}
+  try{
+    setAuthStatus('正在读取云端数据…');
+    const data=await apiFetch('/api/sync');
+    if(!data.snapshot){setAuthStatus('云端还没有可恢复的数据','ng');return}
+    if(ask&&!confirm('确定用云端数据覆盖本机当前数据？'))return;
+    applySnapshot(data.snapshot);
+    localStorage.setItem(SYNC_AT_KEY,new Date().toISOString());
+    location.reload();
+  }catch(err){setAuthStatus(err.message,'ng')}
+}
+function logout(){
+  AUTH.token='';AUTH.user=null;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();setAuthStatus('已退出登录');
 }
 function normalizeAnswer(v){
   return String(v||'')
@@ -811,7 +1009,7 @@ function ensurePetState(){
   if(!S.pet.ownedSkins.includes('calico'))S.pet.ownedSkins.unshift('calico');
   if(typeof S.pet.gems!=='number')S.pet.gems=0;
 }
-function savePet(){ensurePetState();localStorage.setItem('pet4',JSON.stringify(S.pet))}
+function savePet(){ensurePetState();localStorage.setItem('pet4',JSON.stringify(S.pet));queueSync('pet')}
 function currentPet(){
   ensurePetState();
   return S.pet.pets.find(p=>p.id===S.pet.currentPetId)||S.pet.pets[0];
@@ -856,7 +1054,7 @@ function init(){
   const h=new Date().getHours();
   document.getElementById('greet').textContent=
     h<6?'夜深了，坚持就是胜利':h<12?'早上好，新的一天':h<18?'下午好，保持节奏':'晚上好，再练一组';
-  renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();renderHomePet();renderPets();
+  renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();renderHomePet();renderPets();authInit();
   if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
 }
 
@@ -872,7 +1070,7 @@ function refreshStats(){
   document.getElementById('btag').textContent=bk?bk.words.length+(S.type==='word'?' 词':S.type==='phrase'?' 条':' 句'):'';
   renderHomePet();
 }
-function save(){localStorage.setItem('ds4',JSON.stringify(S.stats));localStorage.setItem('eb4',JSON.stringify(S.errors));localStorage.setItem('cu4',JSON.stringify(S.custom))}
+function save(){localStorage.setItem('ds4',JSON.stringify(S.stats));localStorage.setItem('eb4',JSON.stringify(S.errors));localStorage.setItem('cu4',JSON.stringify(S.custom));queueSync('study')}
 
 function renderHomePet(){
   const card=document.getElementById('home-pet-card');if(!card)return;
@@ -960,6 +1158,7 @@ function pickType(t){
 function setSentenceMode(mode){
   S.sentenceMode=mode==='full'?'full':'blank';
   localStorage.setItem('sm4',S.sentenceMode);
+  queueSync('settings');
   renderSentenceMode();
 }
 function renderSentenceMode(){
@@ -1548,6 +1747,7 @@ function toggleFav(){
   if(S.favs[key]){delete S.favs[key]}
   else{S.favs[key]={...item,bank:S.bank,type:S.type,addedAt:Date.now()}}
   localStorage.setItem('fv4',JSON.stringify(S.favs));
+  queueSync('favorites');
   updateFavBtn();
 }
 function updateFavBtn(){
@@ -1562,6 +1762,7 @@ function updateFavBtn(){
 function toggleTr(){
   S.showTranslation=S.showTranslation===false?true:false;
   localStorage.setItem('sho4',S.showTranslation?'1':'0');
+  queueSync('settings');
   // Only sentence mode shows translation in dict body
   if(S.type==='sentence'){
     const tr=document.querySelector('.sent-tr');
@@ -1606,6 +1807,7 @@ function toggleDark(){
   document.documentElement.classList.toggle('dark');
   const isDark=document.documentElement.classList.contains('dark');
   localStorage.setItem('dk4',isDark?'1':'0');
+  queueSync('settings');
   const ico=document.getElementById('dark-icon');
   if(ico)ico.innerHTML=isDark
     ?'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'
@@ -1614,10 +1816,13 @@ function toggleDark(){
 // Restore dark mode on load
 if(localStorage.getItem('dk4')==='1')document.documentElement.classList.add('dark');
 
-function clearAllData(){
+async function clearAllData(){
   if(!confirm('确定清空所有学习数据？此操作不可恢复。'))return;
   if(!confirm('再次确认：将清空累计练习数、错题本、收藏和所有自定义词库？'))return;
   ['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'].forEach(k=>localStorage.removeItem(k));
+  if(AUTH.token&&confirm('是否同时清空云端同步数据？')){
+    await syncNow('clear',false);
+  }
   location.reload();
 }
 
