@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>听写侠 — 英语听写训练</title>
+<title>EchoPet — 英语听写训练</title>
 <meta name="theme-color" content="#FAF9F7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="description" content="英语听写训练工具 - 四六级/雅思/考研词汇、短语、句子听写">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>听</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>听</text></svg>">
+<meta name="description" content="EchoPet 英语听写训练 - 四六级/雅思/考研词汇、短语、句子听写">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>E</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>E</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -399,7 +399,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 <!-- ── HOME ── -->
 <div class="sc on" id="sc-home">
   <div class="hdr">
-    <div class="logo"><div class="lm">听</div>听写侠</div>
+    <div class="logo"><div class="lm">E</div>EchoPet</div>
     <div style="display:flex;align-items:center;gap:8px">
       <button class="acct-btn" id="acct-btn" onclick="openAuth()" title="账号同步"><span class="sync-dot"></span><span id="acct-label">未登录</span></button>
       <button class="bico" onclick="toggleDark()" title="日/夜间模式" style="width:32px;height:32px;border-radius:50%">
@@ -516,7 +516,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 
 <!-- ── RESULT ── -->
 <div class="sc" id="sc-result">
-  <div class="hdr"><div class="logo"><div class="lm">听</div>听写侠</div></div>
+  <div class="hdr"><div class="logo"><div class="lm">E</div>EchoPet</div></div>
   <div class="rb">
     <div class="rh pop"><div class="ri" id="ricon"></div><div class="rsco" id="rscore"></div><div class="rl">正确率</div></div>
     <div class="rstats">
@@ -535,7 +535,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 
 <!-- ── ERROR BOOK ── -->
 <div class="sc" id="sc-errors">
-  <div class="hdr"><div class="logo"><div class="lm">听</div>听写侠</div></div>
+  <div class="hdr"><div class="logo"><div class="lm">E</div>EchoPet</div></div>
   <div class="ebh"><div class="ebt">错题本</div><div class="ebs" id="eb-sub">记录每次写错的内容</div></div>
   <div class="frow" id="eb-filters"></div>
   <div id="eb-content" style="flex:1;overflow-y:auto"></div>
@@ -572,10 +572,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
     <div class="modal-title">账号同步</div>
     <p class="modal-sub">登录后会把本机学习记录、错题、自定义词库、收藏和宠物数据同步到云端。未登录时仍可离线使用。</p>
     <div class="auth-fields">
-      <input class="auth-input" id="api-base" placeholder="后端地址，如 http://localhost:3000">
+      <input class="auth-input" id="auth-nickname" placeholder="昵称（注册时可填）" maxlength="24">
       <input class="auth-input" id="auth-email" type="email" placeholder="邮箱">
       <input class="auth-input" id="auth-password" type="password" placeholder="密码（至少 6 位）">
-      <input class="auth-input" id="auth-nickname" placeholder="昵称（注册时可填）" maxlength="24">
     </div>
     <div class="auth-status" id="auth-status"></div>
     <div class="auth-row">
@@ -752,7 +751,8 @@ const SYNC_KEYS=['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'];
 const AUTH_TOKEN_KEY='auth4';
 const API_BASE_KEY='api4';
 const SYNC_AT_KEY='syncAt4';
-const DEFAULT_API_BASE=(location.protocol==='file:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')?'http://localhost:3000':'';
+const DEPLOYED_API_BASE='http://43.135.34.31';
+const DEFAULT_API_BASE=location.protocol==='file:'?'http://localhost:3000':(location.hostname.includes('github.io')?DEPLOYED_API_BASE:'');
 let AUTH={
   token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
   user:null,
@@ -787,10 +787,6 @@ function esc(s){
   return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function apiBase(){
-  const field=document.getElementById('api-base');
-  if(field&&field.value.trim()){
-    localStorage.setItem(API_BASE_KEY,field.value.trim().replace(/\/+$/,''));
-  }
   return (localStorage.getItem(API_BASE_KEY)||DEFAULT_API_BASE||'').replace(/\/+$/,'');
 }
 function localSnapshot(){
@@ -835,7 +831,6 @@ function renderAuth(){
 }
 async function apiFetch(path,opts={}){
   const base=apiBase();
-  if(!base)throw new Error('请先填写后端地址');
   const headers={'Content-Type':'application/json',...(opts.headers||{})};
   if(AUTH.token)headers.Authorization=`Bearer ${AUTH.token}`;
   const res=await fetch(base+path,{...opts,headers});
@@ -850,7 +845,6 @@ function queueSync(reason='auto'){
   AUTH.timer=setTimeout(()=>syncNow(reason,false),900);
 }
 async function authInit(){
-  const api=document.getElementById('api-base');if(api)api.value=apiBase();
   renderAuth();
   if(!AUTH.token){AUTH.ready=true;return}
   try{
@@ -861,7 +855,6 @@ async function authInit(){
   }
 }
 function openAuth(){
-  const api=document.getElementById('api-base');if(api)api.value=apiBase();
   document.getElementById('auth-bg').classList.add('on');
   document.getElementById('auth-modal').classList.add('on');
   renderAuth();
@@ -869,11 +862,9 @@ function openAuth(){
 function closeAuth(){document.getElementById('auth-bg').classList.remove('on')}
 function closeAuthBg(e){if(e.target===document.getElementById('auth-bg'))closeAuth()}
 async function doAuth(mode){
-  const api=document.getElementById('api-base').value.trim().replace(/\/+$/,'');
   const email=document.getElementById('auth-email').value.trim();
   const password=document.getElementById('auth-password').value;
   const nickname=document.getElementById('auth-nickname').value.trim();
-  if(api)localStorage.setItem(API_BASE_KEY,api);
   try{
     setAuthStatus(mode==='register'?'正在注册…':'正在登录…');
     const data=await apiFetch(mode==='register'?'/api/auth/register':'/api/auth/login',{
