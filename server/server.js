@@ -115,7 +115,7 @@ app.get('/health', (req, res) => {
 app.post('/api/auth/register', authLimiter, async (req, res) => {
   const email = normalizeEmail(req.body?.email);
   const password = String(req.body?.password || '');
-  const nickname = String(req.body?.nickname || email.split('@')[0] || '听写侠用户').trim().slice(0, 24);
+  const nickname = String(req.body?.nickname || email.split('@')[0] || 'EchoPet用户').trim().slice(0, 24);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: '请输入有效邮箱' });
   if (password.length < 6) return res.status(400).json({ error: '密码至少 6 位' });
   const passwordHash = await bcrypt.hash(password, 10);

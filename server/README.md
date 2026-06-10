@@ -1,6 +1,6 @@
-# 听写侠后端
+# EchoPet后端
 
-这是听写侠的第一版账号同步后端，使用 Express、SQLite、JWT 和 bcrypt。
+这是EchoPet的第一版账号同步后端，使用 Express、SQLite、JWT 和 bcrypt。
 
 ## 本地运行
 
