@@ -330,6 +330,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-btns .btnp{flex:1}.mbtnc{flex:1;padding:14px;background:var(--s2);color:var(--t2);border:1px solid var(--bd);border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer}
 .modal-msg{font-size:12px;text-align:center;min-height:16px;color:var(--ng)}
 .auth-fields{display:flex;flex-direction:column;gap:8px}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
+.guide-card{display:flex;flex-direction:column;gap:14px;min-height:280px}.guide-hero{height:112px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,var(--s2),var(--sur));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.guide-pet{width:84px;height:84px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}.guide-icon{width:72px;height:72px;border-radius:24px;background:var(--t1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}.guide-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.guide-copy{font-size:14px;line-height:1.7;color:var(--t2)}.guide-dots{display:flex;justify-content:center;gap:6px;padding:4px 0}.guide-dot{width:6px;height:6px;border-radius:999px;background:var(--bd);transition:all .2s}.guide-dot.on{width:18px;background:var(--t1)}.guide-actions{display:flex;gap:8px}.guide-actions .mbtnc{flex:.38}.guide-actions .btnp{flex:1}
+.fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -340,6 +342,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .pop{animation:pop .28s ease-out both}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal.on{animation:slideUp .3s cubic-bezier(.32,1,.23,1) both}
+@keyframes toastIn{0%{opacity:0;transform:translateY(-12px) scale(.96)}14%,82%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-8px) scale(.98)}}@keyframes gemFly{0%{opacity:0;transform:translate3d(var(--sx),var(--sy),0) scale(.6) rotate(0)}18%{opacity:1}100%{opacity:0;transform:translate3d(var(--tx),var(--ty),0) scale(.2) rotate(260deg)}}@keyframes petHop{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-8px) scale(1.04)}70%{transform:translateY(0) scale(.99)}}@keyframes masteredFade{0%{opacity:1;transform:translateY(0)}60%{opacity:.48;transform:translateY(-4px)}100%{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.reward-toast{animation:none}.fx-gem{display:none}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage,.wr.fx-mastered,.ei.fx-mastered{animation:none}.fu,.pop,.shake,.modal.on{animation:none}}
 
 @media (min-width:760px){
   body{background:linear-gradient(180deg,#FBFAF9 0%,#F4F2EE 100%)}
@@ -586,9 +590,28 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
       <button class="mbtnc" onclick="syncPull(true)">从云端恢复</button>
       <button class="btnp" onclick="syncNow('manual')">保存到云端</button>
     </div>
+    <button class="mbtnc" style="width:100%;padding:12px" onclick="openGuide(true)">查看玩法介绍</button>
     <button class="mbtnc" id="logout-btn" style="display:none;width:100%;padding:12px" onclick="logout()">退出登录</button>
   </div>
 </div>
+
+<!-- ── NEW USER GUIDE ── -->
+<div class="modal-bg" id="guide-bg" onclick="closeGuideBg(event)">
+  <div class="modal" id="guide-modal">
+    <div class="guide-card">
+      <div class="guide-hero" id="guide-hero"></div>
+      <div class="guide-title" id="guide-title"></div>
+      <div class="guide-copy" id="guide-copy"></div>
+      <div class="guide-dots" id="guide-dots"></div>
+      <div class="guide-actions">
+        <button class="mbtnc" onclick="finishGuide('skip')">跳过</button>
+        <button class="btnp" id="guide-next" onclick="nextGuide()">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fx-layer" id="fx-layer" aria-live="polite"></div>
 
 </div><!-- .app -->
 <script>
@@ -744,13 +767,15 @@ let S={
   ebf:'all',
   impType:'word',
   petView:'bag',
+  guideIndex:0,
   randomOrder:true
 };
 
-const SYNC_KEYS=['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'];
+const SYNC_KEYS=['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4','guide4'];
 const AUTH_TOKEN_KEY='auth4';
 const API_BASE_KEY='api4';
 const SYNC_AT_KEY='syncAt4';
+const GUIDE_KEY='guide4';
 const DEPLOYED_API_BASE='http://43.135.34.31';
 const DEFAULT_API_BASE=location.protocol==='file:'?'http://localhost:3000':(location.hostname.includes('github.io')?DEPLOYED_API_BASE:'');
 let AUTH={
@@ -782,6 +807,13 @@ const FOOD_CATALOG={
 };
 const SHOP_ITEMS={skins:['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'],foods:['baguette','toast','choco','sandwich']};
 const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'penguin'};
+const GUIDE_STEPS=[
+  {title:'先完成一组听写',copy:'选择单词、短语或句子词库，听音后输入答案。完成一组后会获得晶石、经验和宠物活力。',kind:'pet'},
+  {title:'错题会自动收进错题本',copy:'写错或跳过的内容会自动保存。回到错题本重练，能更快修复薄弱项。',kind:'book'},
+  {title:'宠物需要活力',copy:'新宠物初始活力 60。每天会消耗活力，学习和喂食都可以帮它恢复状态。',kind:'pet'},
+  {title:'晶石可以兑换成长物品',copy:'练习会积累晶石，用来领养新伙伴、购买零食和装饰，让学习进度看得见。',kind:'gem'},
+  {title:'登录后自动同步',copy:'学习记录、错题、自定义词库、收藏和宠物数据都会保存到云端，多设备继续练。',kind:'sync'}
+];
 
 function esc(s){
   return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -818,6 +850,79 @@ function setAuthStatus(msg,type=''){
   const el=document.getElementById('auth-status');if(el){el.textContent=msg||'';el.className='auth-status '+type}
   const sub=document.getElementById('sync-sub');if(sub&&msg)sub.textContent=msg;
 }
+function guideSeen(){return localStorage.getItem(GUIDE_KEY)==='done'}
+function openGuide(force=false){
+  if(!force&&guideSeen())return;
+  S.guideIndex=0;
+  renderGuide();
+  document.getElementById('guide-bg')?.classList.add('on');
+  document.getElementById('guide-modal')?.classList.add('on');
+}
+function closeGuide(){document.getElementById('guide-bg')?.classList.remove('on')}
+function closeGuideBg(e){if(e.target===document.getElementById('guide-bg'))finishGuide('skip')}
+function finishGuide(){
+  localStorage.setItem(GUIDE_KEY,'done');
+  queueSync('guide');
+  closeGuide();
+}
+function nextGuide(){
+  if(S.guideIndex>=GUIDE_STEPS.length-1){finishGuide('done');return}
+  S.guideIndex++;
+  renderGuide();
+}
+function renderGuide(){
+  const step=GUIDE_STEPS[S.guideIndex]||GUIDE_STEPS[0];
+  const hero=document.getElementById('guide-hero');
+  const pet=(PET_CATALOG.calico||{}).asset;
+  const icon=step.kind==='book'?'错':step.kind==='gem'?'晶':step.kind==='sync'?'云':'E';
+  if(hero)hero.innerHTML=step.kind==='pet'&&pet?`<img class="guide-pet" src="${esc(pet)}" alt="EchoPet">`:`<div class="guide-icon">${icon}</div>`;
+  const title=document.getElementById('guide-title');if(title)title.textContent=step.title;
+  const copy=document.getElementById('guide-copy');if(copy)copy.textContent=step.copy;
+  const dots=document.getElementById('guide-dots');if(dots)dots.innerHTML=GUIDE_STEPS.map((_,i)=>`<span class="guide-dot${i===S.guideIndex?' on':''}"></span>`).join('');
+  const btn=document.getElementById('guide-next');if(btn)btn.textContent=S.guideIndex>=GUIDE_STEPS.length-1?'开始练习':'下一步';
+}
+function maybeShowGuide(){if(!guideSeen())setTimeout(()=>openGuide(false),450)}
+function showRewardFx(type,payload={}){
+  const layer=document.getElementById('fx-layer');if(!layer)return;
+  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const map={
+    practice:{title:payload.title||'本组完成',mark:'E'},
+    errors:{title:payload.title||'薄弱项修复',mark:'✓'},
+    feed:{title:payload.title||'喂食成功',mark:'+'}
+  };
+  const meta=map[type]||map.practice;
+  const parts=[];
+  if(payload.gems)parts.push(`晶石 +${payload.gems}`);
+  if(payload.vitality)parts.push(`活力 +${payload.vitality}`);
+  if(payload.exp)parts.push(`经验 +${payload.exp}`);
+  if(payload.note)parts.push(payload.note);
+  layer.innerHTML=`<div class="reward-toast"><div class="reward-mark">${meta.mark}</div><div><div class="reward-main">${esc(meta.title)}</div><div class="reward-sub">${esc(parts.join(' · ')||'继续保持节奏')}</div></div></div>`;
+  clearTimeout(showRewardFx._timer);
+  showRewardFx._timer=setTimeout(()=>{layer.innerHTML=''},1450);
+  if(!reduced&&type==='practice'){
+    for(let i=0;i<9;i++){
+      const g=document.createElement('span');
+      g.className='fx-gem';
+      g.style.setProperty('--sx',(Math.random()*260-130)+'px');
+      g.style.setProperty('--sy',(70+Math.random()*80)+'px');
+      g.style.setProperty('--tx',(Math.random()*120-60)+'px');
+      g.style.setProperty('--ty',(-40-Math.random()*70)+'px');
+      g.style.left='50%';g.style.top='64px';g.style.animationDelay=(i*35)+'ms';
+      layer.appendChild(g);
+    }
+  }
+  if(type==='feed'){
+    const stage=document.querySelector('#sc-pets.on .pet-stage')||document.querySelector('#home-pet-card .pet-stage');
+    const bar=document.querySelector('#sc-pets.on .pet-exp')||document.querySelector('#home-pet-card .pet-mini-bar');
+    stage?.classList.add('fx-fed');bar?.classList.add('fx-glow');
+    setTimeout(()=>{stage?.classList.remove('fx-fed');bar?.classList.remove('fx-glow')},900);
+  }
+  if(type==='errors'){
+    document.querySelectorAll('#r-wrongs .wr,.elist .ei').forEach((el,i)=>{
+      if(i<6){el.classList.add('fx-mastered');setTimeout(()=>el.classList.remove('fx-mastered'),1100)}
+    });
+  }
+}
 function renderAuth(){
   const logged=!!(AUTH.token&&AUTH.user);
   document.getElementById('acct-btn')?.classList.toggle('on',logged);
@@ -850,6 +955,7 @@ async function authInit(){
   try{
     const data=await apiFetch('/api/auth/me');
     AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
+    maybeShowGuide();
   }catch(err){
     AUTH.token='';AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
   }
@@ -876,6 +982,7 @@ async function doAuth(mode){
     localStorage.setItem(AUTH_TOKEN_KEY,AUTH.token);
     renderAuth();
     await resolveFirstSync();
+    if(mode==='register')maybeShowGuide();
   }catch(err){setAuthStatus(err.message,'ng')}
 }
 async function resolveFirstSync(){
@@ -891,6 +998,7 @@ async function resolveFirstSync(){
   }
   await syncNow('login',false);
   setAuthStatus('已创建云端同步数据','ok');
+  maybeShowGuide();
 }
 async function syncNow(reason='manual',showDone=true){
   if(!AUTH.token){openAuth();return}
@@ -982,14 +1090,14 @@ function defaultPetState(){
 function makePet(id){
   id=LEGACY_PET_MAP[id]||id;
   const c=PET_CATALOG[id]||PET_CATALOG.calico;
-  return {id:c.id,name:c.name,rarity:c.rarity,level:1,exp:0,mood:70,hunger:70,ownedAt:Date.now(),asset:c.asset};
+  return {id:c.id,name:c.name,rarity:c.rarity,level:1,exp:0,mood:70,hunger:70,vitality:60,ownedAt:Date.now(),asset:c.asset};
 }
 function ensurePetState(){
   if(!S.pet||!S.pet.pets||!S.pet.pets.length)S.pet=defaultPetState();
   S.pet.pets=S.pet.pets.map(p=>{
     const id=LEGACY_PET_MAP[p.id]||p.id;
     const c=PET_CATALOG[id]||PET_CATALOG.calico;
-    return {...p,id:c.id,name:c.name,rarity:c.rarity,asset:c.asset,skin:undefined};
+    return {...p,vitality:typeof p.vitality==='number'?p.vitality:60,id:c.id,name:c.name,rarity:c.rarity,asset:c.asset,skin:undefined};
   });
   if(!S.pet.currentPetId)S.pet.currentPetId=S.pet.pets[0].id;
   S.pet.currentPetId=LEGACY_PET_MAP[S.pet.currentPetId]||S.pet.currentPetId;
@@ -1068,7 +1176,7 @@ function renderHomePet(){
   ensurePetState();const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
   card.innerHTML=`<div class="pet-stage" style="width:70px;height:70px;border-radius:18px">${petArt(p.id)}</div>
     <div class="pet-mini-info"><div class="pet-mini-name">${esc(p.name)} · Lv.${p.level}</div>
-    <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 心情 ${p.mood} · 饱食 ${p.hunger}</div>
+    <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 活力 ${p.vitality} · 心情 ${p.mood}</div>
     <div class="pet-mini-bar"><div class="pet-mini-fill" style="width:${pct}%"></div></div></div>`;
 }
 function setPetView(v){
@@ -1087,7 +1195,7 @@ function renderPets(){
   root.innerHTML=`<div class="pet-card"><div class="pet-profile"><div class="pet-stage">${petArt(p.id)}</div>
     <div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><div class="pet-name">${esc(p.name)}</div><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span></div>
     <div class="pet-level">Lv.${p.level}</div><div class="pet-exp"><span style="width:${pct}%"></span></div><div class="pet-exp-t">${p.exp}/${need}</div></div></div>
-    <div class="pet-stats"><div class="pet-stat"><b>${p.mood}</b><span>心情</span></div><div class="pet-stat"><b>${p.hunger}</b><span>饱食</span></div><div class="pet-stat"><b>${S.pet.lotteryCount||0}</b><span>抽奖</span></div></div>
+    <div class="pet-stats"><div class="pet-stat"><b>${p.vitality}</b><span>活力</span></div><div class="pet-stat"><b>${p.mood}</b><span>心情</span></div><div class="pet-stat"><b>${p.hunger}</b><span>饱食</span></div></div>
     <div class="pet-actions"><button class="pet-action" onclick="quickFeed()">喂食</button><button class="pet-action" onclick="setPetView('skins')">形象</button><button class="pet-action" onclick="setPetView('foods')">零食</button><button class="pet-action" onclick="setPetView('lottery')">抽奖</button></div></div>
     <div class="sh" style="padding:18px 0 10px"><span class="st">已领养</span></div><div class="pet-grid">${S.pet.pets.map(pp=>petOwnedCard(pp)).join('')}</div>`;
 }
@@ -1124,7 +1232,8 @@ function buyItem(type,id){
 function adoptPet(id){ensurePetState();if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;savePet();setPetMsg('已切换当前宠物。');renderHomePet();renderPets()}
 function feedPet(id){
   ensurePetState();const f=FOOD_CATALOG[id];if(!f||!(S.pet.foods[id]>0)){setPetMsg('没有这份零食，先去零食商店购买。');return}
-  S.pet.foods[id]--;const p=currentPet();p.hunger=Math.min(100,p.hunger+18);p.mood=Math.min(100,p.mood+f.mood);addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，经验 +${f.exp}`);renderHomePet();renderPets();
+  S.pet.foods[id]--;const p=currentPet();const vitalityGain=(f.rarity==='SR'||f.rarity==='SSR')?18:8;
+  p.hunger=Math.min(100,p.hunger+18);p.mood=Math.min(100,p.mood+f.mood);p.vitality=Math.min(100,(p.vitality||60)+vitalityGain);addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，活力 +${vitalityGain}，经验 +${f.exp}`);renderHomePet();renderPets();showRewardFx('feed',{vitality:vitalityGain,exp:f.exp,note:'心情提升'});
 }
 function quickFeed(){const id=Object.keys(S.pet.foods||{}).find(k=>S.pet.foods[k]>0);if(id)feedPet(id);else{setPetView('foods');setPetMsg('先购买一份零食再喂食。')}}
 function drawLottery(){
@@ -1268,8 +1377,8 @@ function startDict(){
   if(S.randomOrder)items.sort(()=>Math.random()-.5);
   runDict(items.slice(0,Math.min(S.count,items.length)),b.name);
 }
-function runDict(items,label){
-  S.words=items;S.idx=0;S.results=[];S.answered=false;S.dictLabel=label;
+function runDict(items,label,source='practice'){
+  S.words=items;S.idx=0;S.results=[];S.answered=false;S.dictLabel=label;S.dictSource=source;
   showDict();
   loadItem();
 }
@@ -1518,11 +1627,13 @@ function applyStudyReward(results,acc){
   S.pet.gems+=gems;
   addPetExp(exp);
   const p=currentPet();
+  const vitality=12+(acc>=80?8:0)+(S.dictSource==='errors'?10:0);
+  p.vitality=Math.min(100,(p.vitality||60)+vitality);
   p.hunger=Math.max(0,p.hunger-Math.ceil(results.length/4));
   p.mood=Math.min(100,p.mood+(acc>=70?4:0));
   S.pet.lastRewardSig=sig;
   savePet();renderHomePet();
-  return {gems,exp,bonus,pet:p};
+  return {gems,exp,bonus,vitality,pet:p};
 }
 
 // ════════════════════════════════
@@ -1539,7 +1650,7 @@ function showResult(){
   document.getElementById('r-ok').textContent=ok;
   document.getElementById('r-ng').textContent=ng.length;
   const rc=document.getElementById('reward-card');
-  if(rc){rc.classList.add('on');rc.innerHTML=`本组获得 <span class="gem">${reward.gems}</span> · 宠物经验 +${reward.exp}${reward.bonus?` · 准确率奖励 +${reward.bonus}`:''}<br>${esc(reward.pet.name)} 现在 Lv.${reward.pet.level}`;}
+  if(rc){rc.classList.add('on');rc.innerHTML=`本组获得 <span class="gem">${reward.gems}</span> · 活力 +${reward.vitality} · 宠物经验 +${reward.exp}${reward.bonus?` · 准确率奖励 +${reward.bonus}`:''}<br>${esc(reward.pet.name)} 现在 Lv.${reward.pet.level}`;}
   const el=document.getElementById('r-wrongs');
   if(ng.length){
     el.innerHTML=`<div class="wh">需复习项 (${ng.length})</div><div class="wlist">${ng.map(r=>`<div class="wr fu"><div><div class="wrw">${esc(r.word.w.substring(0,48))}</div><div class="wrm">${esc(r.word.m)}</div></div><span class="wry">${esc(r.userAnswer)}</span></div>`).join('')}</div>`;
@@ -1551,11 +1662,15 @@ function showResult(){
   document.getElementById('pfill').style.width='100%';
   hideDict();
   showSc('sc-result');
+  const isErrorRun=S.dictSource==='errors';
+  const title=isErrorRun?'薄弱项修复':(acc>=90?'稳定发挥':'本组完成');
+  const note=isErrorRun?'这些词我帮你记住了，明天再检查一遍。':(acc>=80?'听写状态很稳':'继续下一组会更熟');
+  setTimeout(()=>showRewardFx(isErrorRun?'errors':'practice',{title,gems:reward.gems,vitality:reward.vitality,exp:reward.exp,note}),180);
 }
 function retryWrong(){
   const items=S.results.filter(r=>!r.correct).map(r=>r.word);
   if(!items.length)return goHome();
-  runDict(items,'错题重练');
+  runDict(items,'错题重练','errors');
 }
 
 // ════════════════════════════════
@@ -1601,7 +1716,7 @@ function practiceErrors(){
   const typeCounts={};items.forEach(e=>{const t=e.type||'word';typeCounts[t]=(typeCounts[t]||0)+1});
   S.type=Object.entries(typeCounts).sort((a,b)=>b[1]-a[1])[0][0];
   tab('home');
-  setTimeout(()=>runDict(items.map(e=>({w:e.w,m:e.m,p:e.p||'',blank:e.blank||''})),'错题本练习'),50);
+  setTimeout(()=>runDict(items.map(e=>({w:e.w,m:e.m,p:e.p||'',blank:e.blank||''})),'错题本练习','errors'),50);
 }
 
 // ════════════════════════════════
@@ -1810,7 +1925,7 @@ if(localStorage.getItem('dk4')==='1')document.documentElement.classList.add('dar
 async function clearAllData(){
   if(!confirm('确定清空所有学习数据？此操作不可恢复。'))return;
   if(!confirm('再次确认：将清空累计练习数、错题本、收藏和所有自定义词库？'))return;
-  ['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4'].forEach(k=>localStorage.removeItem(k));
+  ['ds4','eb4','cu4','fv4','sho4','dk4','sm4','pet4','guide4'].forEach(k=>localStorage.removeItem(k));
   if(AUTH.token&&confirm('是否同时清空云端同步数据？')){
     await syncNow('clear',false);
   }
