@@ -859,11 +859,12 @@ function esc(s){
 }
 function apiBase(){
   const saved=(localStorage.getItem(API_BASE_KEY)||'').trim();
-  if(saved&&/english-dictation-server\.onrender\.com/i.test(saved)){
-    localStorage.removeItem(API_BASE_KEY);
-    return DEFAULT_API_BASE;
+  const isLocal=['localhost','127.0.0.1'].includes(location.hostname);
+  if(location.protocol==='file:'||isLocal){
+    return (saved||DEFAULT_API_BASE||'').replace(/\/+$/,'');
   }
-  return (saved||DEFAULT_API_BASE||'').replace(/\/+$/,'');
+  if(saved)localStorage.removeItem(API_BASE_KEY);
+  return DEFAULT_API_BASE;
 }
 function localSnapshot(){
   const data={};
