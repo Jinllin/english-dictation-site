@@ -10,7 +10,6 @@
 <meta name="description" content="EchoPet 英语听写训练 - 四六级/雅思/考研词汇、短语、句子听写">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>E</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif'>E</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -21,8 +20,8 @@
   --ng:#CC2D2D;--ngbg:#FDF0F0;
   --gold:#A07820;--gbg:#FFF8E8;
   --r:12px;--rsm:8px;--rxs:6px;
-  --sans:'Space Grotesk','Noto Sans SC',system-ui,sans-serif;
-  --mono:'JetBrains Mono','SF Mono',monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+  --mono:'SF Mono','Menlo','Consolas','Liberation Mono',monospace;
 }
 
 /* Dark mode */
@@ -138,8 +137,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .px{width:72px;height:72px;image-rendering:pixelated;position:relative;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
 .px::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;background:#111;box-shadow:8px -8px var(--p1,#C28A4C),16px -8px var(--p1,#C28A4C),24px 0 var(--p1,#C28A4C),32px 8px var(--p1,#C28A4C),40px 16px var(--p1,#C28A4C),40px 24px var(--p1,#C28A4C),32px 32px var(--p1,#C28A4C),24px 40px var(--p2,#FFF4D8),16px 40px var(--p2,#FFF4D8),8px 32px var(--p1,#C28A4C),0 24px var(--p1,#C28A4C),0 16px var(--p1,#C28A4C),16px 16px #111,32px 16px #111,24px 24px var(--p2,#FFF4D8),8px 48px #111,32px 48px #111,-8px 16px var(--p3,#8D5E35),-16px 8px var(--p3,#8D5E35)}
 .px.dog{--p1:#D6A15D;--p2:#FFF4E0;--p3:#8A5A2C}.px.sheep{--p1:#F2E6D8;--p2:#FFFFFF;--p3:#A65A4A}.px.westie{--p1:#F8F4E8;--p2:#FFFFFF;--p3:#A06B3C}.px.cat{--p1:#C48B4E;--p2:#FFF1D4;--p3:#7A4B2A}
-.pet-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16));mix-blend-mode:multiply}
-.pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}
+.pet-img,.item-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16))}
+.pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}.shop-art .item-img{width:88px;height:88px}.shop-art .item-img.accessory{width:82px;height:82px}
 .foodpx{width:72px;height:72px;position:relative;image-rendering:pixelated}.foodpx::before{content:'';position:absolute;left:14px;top:30px;width:8px;height:8px;background:#111;box-shadow:8px 0 var(--f1,#D68B3A),16px -8px var(--f1,#D68B3A),24px -8px var(--f2,#F7C46B),32px 0 var(--f1,#D68B3A),40px 0 #111,8px 8px var(--f2,#F7C46B),16px 8px var(--f2,#F7C46B),24px 8px var(--f1,#D68B3A),32px 8px #111}.foodpx.toast{--f1:#C7833B;--f2:#FFE8A3}.foodpx.choco{--f1:#5A2E22;--f2:#8A4A32}.foodpx.sand{--f1:#E5B24D;--f2:#FFF0A8}
 
 /* ── DICT overlay — completely independent from .sc flow ── */
@@ -329,7 +328,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btnp{flex:1}.mbtnc{flex:1;padding:14px;background:var(--s2);color:var(--t2);border:1px solid var(--bd);border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer}
 .modal-msg{font-size:12px;text-align:center;min-height:16px;color:var(--ng)}
-.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
+.auth-switch{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.auth-mode{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:var(--rsm);padding:10px;font-family:var(--sans);font-size:13px;font-weight:800;cursor:pointer}.auth-mode.on{background:var(--t1);border-color:var(--t1);color:#fff}.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-nickname-wrap.hidden{display:none}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
 .guide-card{display:flex;flex-direction:column;gap:14px;min-height:280px}.guide-hero{height:112px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,var(--s2),var(--sur));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.guide-pet{width:84px;height:84px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}.guide-icon{width:72px;height:72px;border-radius:24px;background:var(--t1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}.guide-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.guide-copy{font-size:14px;line-height:1.7;color:var(--t2)}.guide-dots{display:flex;justify-content:center;gap:6px;padding:4px 0}.guide-dot{width:6px;height:6px;border-radius:999px;background:var(--bd);transition:all .2s}.guide-dot.on{width:18px;background:var(--t1)}.guide-actions{display:flex;gap:8px}.guide-actions .mbtnc{flex:.38}.guide-actions .btnp{flex:1}
 .fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
 
@@ -509,6 +508,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div class="pet-tabs">
     <button class="ptab on" data-pv="bag" onclick="setPetView('bag')">背包</button>
     <button class="ptab" data-pv="skins" onclick="setPetView('skins')">形象商店</button>
+    <button class="ptab" data-pv="accessories" onclick="setPetView('accessories')">配饰商店</button>
     <button class="ptab" data-pv="foods" onclick="setPetView('foods')">零食商店</button>
     <button class="ptab" data-pv="lottery" onclick="setPetView('lottery')">抽奖</button>
   </div>
@@ -575,16 +575,19 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div class="modal" id="auth-modal">
     <div class="modal-title">账号同步</div>
     <p class="modal-sub">登录后会把本机学习记录、错题、自定义词库、收藏和宠物数据同步到云端。未登录时仍可离线使用。</p>
+    <div class="auth-switch">
+      <button class="auth-mode on" id="auth-mode-login" onclick="setAuthMode('login')">登录</button>
+      <button class="auth-mode" id="auth-mode-register" onclick="setAuthMode('register')">注册</button>
+    </div>
     <div class="auth-fields">
-      <input class="auth-input" id="auth-nickname" placeholder="昵称（注册时可填）" maxlength="24">
+      <div class="auth-nickname-wrap hidden" id="auth-nickname-wrap"><input class="auth-input" id="auth-nickname" placeholder="昵称（注册后登录不再需要）" maxlength="24"></div>
       <input class="auth-input" id="auth-email" type="email" placeholder="邮箱">
       <input class="auth-input" id="auth-password" type="password" placeholder="密码（至少 6 位）">
     </div>
     <div class="auth-status" id="auth-status"></div>
     <div class="auth-row">
       <button class="mbtnc" onclick="closeAuth()">取消</button>
-      <button class="mbtnc" onclick="doAuth('register')">注册</button>
-      <button class="btnp" onclick="doAuth('login')">登录</button>
+      <button class="btnp" id="auth-submit" onclick="doAuth()">登录</button>
     </div>
     <div class="auth-row" id="auth-sync-row" style="display:none">
       <button class="mbtnc" onclick="syncPull(true)">从云端恢复</button>
@@ -776,11 +779,15 @@ const AUTH_TOKEN_KEY='auth4';
 const API_BASE_KEY='api4';
 const SYNC_AT_KEY='syncAt4';
 const GUIDE_KEY='guide4';
-const DEPLOYED_API_BASE='http://43.135.34.31';
-const DEFAULT_API_BASE=location.protocol==='file:'?'http://localhost:3000':(location.hostname.includes('github.io')?DEPLOYED_API_BASE:'');
+const DEFAULT_API_BASE=(()=>{
+  if(location.protocol==='file:')return 'http://localhost:3000';
+  if(['localhost','127.0.0.1'].includes(location.hostname))return '';
+  return 'https://english-dictation-server.onrender.com';
+})();
 let AUTH={
   token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
   user:null,
+  mode:'login',
   timer:null,
   busy:false,
   ready:false,
@@ -788,24 +795,57 @@ let AUTH={
 };
 
 const PET_CATALOG={
-  calico:{id:'calico',name:'红围巾三花猫',rarity:'N',asset:'assets/pets/calico-cat.png',price:0},
-  puppy:{id:'puppy',name:'蓝围巾白团犬',rarity:'N',asset:'assets/pets/white-puppy.png',price:1200},
-  penguin:{id:'penguin',name:'粉围巾企鹅',rarity:'N',asset:'assets/pets/penguin.png',price:1500},
-  reindeer:{id:'reindeer',name:'节日驯鹿',rarity:'R',asset:'assets/pets/reindeer.png',price:2400},
-  snowcat:{id:'snowcat',name:'雪豹猫',rarity:'R',asset:'assets/pets/snow-leopard.png',price:2600},
-  fox:{id:'fox',name:'金围巾奶油狐',rarity:'R',asset:'assets/pets/cream-fox.png',price:3000},
-  blackcat:{id:'blackcat',name:'紫围巾黑猫',rarity:'SR',asset:'assets/pets/black-cat.png',price:4200},
-  corgi:{id:'corgi',name:'绿围巾柯基',rarity:'SR',asset:'assets/pets/corgi.png',price:4500},
-  bunny:{id:'bunny',name:'胡萝卜小兔',rarity:'SR',asset:'assets/pets/bunny.png',price:4800},
-  raccoon:{id:'raccoon',name:'蓝围巾浣熊',rarity:'SSR',asset:'assets/pets/raccoon.png',price:6000}
+  calico:{id:'calico',name:'基础三花猫',rarity:'N',asset:'assets/pixel-pet/base-pets/base-01-calico-cat.png',price:0},
+  puppy:{id:'puppy',name:'基础白团犬',rarity:'N',asset:'assets/pixel-pet/base-pets/base-02-white-puppy.png',price:1200},
+  penguin:{id:'penguin',name:'基础小企鹅',rarity:'N',asset:'assets/pixel-pet/base-pets/base-03-penguin.png',price:1500},
+  reindeer:{id:'reindeer',name:'基础小驯鹿',rarity:'R',asset:'assets/pixel-pet/base-pets/base-04-deer.png',price:2400},
+  snowcat:{id:'snowcat',name:'基础雪豹猫',rarity:'R',asset:'assets/pixel-pet/base-pets/base-05-snow-leopard-cub.png',price:2600},
+  fox:{id:'fox',name:'基础奶油狐',rarity:'R',asset:'assets/pixel-pet/base-pets/base-06-cream-fox.png',price:3000},
+  blackcat:{id:'blackcat',name:'基础黑猫',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-07-black-cat.png',price:4200},
+  corgi:{id:'corgi',name:'基础柯基',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-08-corgi.png',price:4500},
+  bunny:{id:'bunny',name:'基础白兔',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-09-white-rabbit.png',price:4800},
+  raccoon:{id:'raccoon',name:'基础浣熊',rarity:'SSR',asset:'assets/pixel-pet/base-pets/base-10-raccoon-pet.png',price:6000}
 };
 const FOOD_CATALOG={
-  baguette:{id:'baguette',name:'法棍面包',rarity:'N',skin:'baguette',price:25,exp:5,mood:5},
-  toast:{id:'toast',name:'面包',rarity:'N',skin:'toast',price:25,exp:5,mood:5},
-  choco:{id:'choco',name:'巧克力面包',rarity:'R',skin:'choco',price:50,exp:10,mood:10},
-  sandwich:{id:'sandwich',name:'三明治',rarity:'SR',skin:'sand',price:125,exp:25,mood:18}
+  fish:{id:'fish',name:'小鱼饼干',rarity:'N',asset:'assets/pixel-pet/snacks/snack-01-fish-biscuit.png',price:25,exp:5,mood:5},
+  bone:{id:'bone',name:'骨头饼干',rarity:'N',asset:'assets/pixel-pet/snacks/snack-02-bone-biscuit.png',price:25,exp:5,mood:5},
+  milk:{id:'milk',name:'小瓶牛奶',rarity:'N',asset:'assets/pixel-pet/snacks/snack-03-milk-bottle.png',price:35,exp:8,mood:6},
+  tuna:{id:'tuna',name:'金枪鱼罐头',rarity:'R',asset:'assets/pixel-pet/snacks/snack-04-tuna-can.png',price:55,exp:12,mood:10},
+  carrotCake:{id:'carrotCake',name:'胡萝卜杯糕',rarity:'R',asset:'assets/pixel-pet/snacks/snack-05-carrot-cupcake.png',price:60,exp:12,mood:12},
+  jelly:{id:'jelly',name:'莓果晶冻',rarity:'R',asset:'assets/pixel-pet/snacks/snack-06-berry-gem-jelly.png',price:70,exp:14,mood:14},
+  salmon:{id:'salmon',name:'三文鱼饭团',rarity:'SR',asset:'assets/pixel-pet/snacks/snack-07-salmon-rice-bite.png',price:95,exp:22,mood:16},
+  cheese:{id:'cheese',name:'奶酪方块',rarity:'SR',asset:'assets/pixel-pet/snacks/snack-08-cheese-cube.png',price:105,exp:24,mood:18},
+  starCookie:{id:'starCookie',name:'星星曲奇',rarity:'SR',asset:'assets/pixel-pet/snacks/snack-09-star-cookie.png',price:115,exp:26,mood:18},
+  crystalCandy:{id:'crystalCandy',name:'晶石糖果',rarity:'SSR',asset:'assets/pixel-pet/snacks/snack-10-crystal-candy.png',price:160,exp:36,mood:24}
 };
-const SHOP_ITEMS={skins:['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'],foods:['baguette','toast','choco','sandwich']};
+const ACCESSORY_CATALOG={
+  scarfRed:{id:'scarfRed',name:'红围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-red.png',price:80},
+  scarfBlue:{id:'scarfBlue',name:'蓝围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-blue.png',price:80},
+  scarfPink:{id:'scarfPink',name:'粉围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-pink.png',price:80},
+  scarfMustard:{id:'scarfMustard',name:'芥末黄围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-mustard.png',price:80},
+  scarfPurple:{id:'scarfPurple',name:'紫围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-purple.png',price:80},
+  scarfTeal:{id:'scarfTeal',name:'青绿围巾',rarity:'N',asset:'assets/pixel-pet/accessories/scarf-teal.png',price:80},
+  stripedScarf:{id:'stripedScarf',name:'节日条纹围巾',rarity:'R',asset:'assets/pixel-pet/accessories/scarf-striped-red-green.png',price:130},
+  fluffyCollar:{id:'fluffyCollar',name:'绒毛围脖',rarity:'R',asset:'assets/pixel-pet/accessories/collar-fluffy-white.png',price:140},
+  bellCollar:{id:'bellCollar',name:'铃铛项圈',rarity:'R',asset:'assets/pixel-pet/accessories/collar-gold-bell.png',price:150},
+  bowTie:{id:'bowTie',name:'红色领结',rarity:'R',asset:'assets/pixel-pet/accessories/bow-tie-red.png',price:120},
+  blueBeanie:{id:'blueBeanie',name:'蓝色毛线帽',rarity:'R',asset:'assets/pixel-pet/accessories/hat-blue-pom-beanie.png',price:160},
+  redWinterCap:{id:'redWinterCap',name:'红色冬帽',rarity:'R',asset:'assets/pixel-pet/accessories/hat-red-winter-cap.png',price:160},
+  greenBeret:{id:'greenBeret',name:'绿色贝雷帽',rarity:'SR',asset:'assets/pixel-pet/accessories/hat-green-beret.png',price:220},
+  tinyCrown:{id:'tinyCrown',name:'小王冠',rarity:'SR',asset:'assets/pixel-pet/accessories/hat-tiny-gold-crown.png',price:260},
+  creamHood:{id:'creamHood',name:'奶油软帽',rarity:'SR',asset:'assets/pixel-pet/accessories/hat-soft-cream-hood.png',price:230},
+  roundGlasses:{id:'roundGlasses',name:'圆框眼镜',rarity:'N',asset:'assets/pixel-pet/accessories/glasses-round.png',price:90},
+  squareGlasses:{id:'squareGlasses',name:'方框眼镜',rarity:'N',asset:'assets/pixel-pet/accessories/glasses-square.png',price:90},
+  sunglasses:{id:'sunglasses',name:'黑色墨镜',rarity:'R',asset:'assets/pixel-pet/accessories/glasses-black-sunglasses.png',price:150},
+  starGlasses:{id:'starGlasses',name:'星星眼镜',rarity:'SR',asset:'assets/pixel-pet/accessories/glasses-star.png',price:240},
+  monocle:{id:'monocle',name:'单片眼镜',rarity:'SR',asset:'assets/pixel-pet/accessories/glasses-monocle.png',price:220},
+  rabbitHeadband:{id:'rabbitHeadband',name:'兔耳头带',rarity:'SR',asset:'assets/pixel-pet/accessories/special-rabbit-ear-headband.png',price:240},
+  deerScarf:{id:'deerScarf',name:'鹿角围脖',rarity:'SR',asset:'assets/pixel-pet/accessories/special-deer-antler-scarf-collar.png',price:240},
+  penguinSash:{id:'penguinSash',name:'企鹅肚兜围饰',rarity:'SR',asset:'assets/pixel-pet/accessories/special-penguin-belly-sash.png',price:240},
+  tailBow:{id:'tailBow',name:'长尾蝴蝶结',rarity:'R',asset:'assets/pixel-pet/accessories/special-long-tail-bow.png',price:170},
+  tailRibbon:{id:'tailRibbon',name:'蓬尾丝带',rarity:'R',asset:'assets/pixel-pet/accessories/special-fluffy-tail-ribbon-wrap.png',price:170}
+};
+const SHOP_ITEMS={skins:['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'],accessories:Object.keys(ACCESSORY_CATALOG),foods:Object.keys(FOOD_CATALOG)};
 const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'penguin'};
 const GUIDE_STEPS=[
   {title:'先完成一组听写',copy:'选择单词、短语或句子词库，听音后输入答案。完成一组后会获得晶石、经验和宠物活力。',kind:'pet'},
@@ -938,7 +978,12 @@ async function apiFetch(path,opts={}){
   const base=apiBase();
   const headers={'Content-Type':'application/json',...(opts.headers||{})};
   if(AUTH.token)headers.Authorization=`Bearer ${AUTH.token}`;
-  const res=await fetch(base+path,{...opts,headers});
+  let res;
+  try{
+    res=await fetch(base+path,{...opts,headers});
+  }catch(err){
+    throw new Error(`服务器连接失败，请稍后再试或检查后端服务：${base||location.origin}`);
+  }
   const data=await res.json().catch(()=>({}));
   if(!res.ok)throw new Error(data.error||`请求失败 (${res.status})`);
   return data;
@@ -951,7 +996,7 @@ function queueSync(reason='auto'){
 }
 async function authInit(){
   renderAuth();
-  if(!AUTH.token){AUTH.ready=true;return}
+  if(!AUTH.token){AUTH.ready=true;setTimeout(()=>openAuth(),120);return}
   try{
     const data=await apiFetch('/api/auth/me');
     AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
@@ -961,27 +1006,39 @@ async function authInit(){
   }
 }
 function openAuth(){
+  setAuthMode(AUTH.mode||'login',false);
   document.getElementById('auth-bg').classList.add('on');
   document.getElementById('auth-modal').classList.add('on');
   renderAuth();
 }
 function closeAuth(){document.getElementById('auth-bg').classList.remove('on')}
 function closeAuthBg(e){if(e.target===document.getElementById('auth-bg'))closeAuth()}
-async function doAuth(mode){
+function setAuthMode(mode,clear=true){
+  AUTH.mode=mode==='register'?'register':'login';
+  document.getElementById('auth-mode-login')?.classList.toggle('on',AUTH.mode==='login');
+  document.getElementById('auth-mode-register')?.classList.toggle('on',AUTH.mode==='register');
+  document.getElementById('auth-nickname-wrap')?.classList.toggle('hidden',AUTH.mode!=='register');
+  const submit=document.getElementById('auth-submit');if(submit)submit.textContent=AUTH.mode==='register'?'注册':'登录';
+  if(clear)setAuthStatus('');
+}
+async function doAuth(mode=AUTH.mode){
   const email=document.getElementById('auth-email').value.trim();
   const password=document.getElementById('auth-password').value;
   const nickname=document.getElementById('auth-nickname').value.trim();
+  const body={email,password};
+  if(mode==='register')body.nickname=nickname;
   try{
     setAuthStatus(mode==='register'?'正在注册…':'正在登录…');
     const data=await apiFetch(mode==='register'?'/api/auth/register':'/api/auth/login',{
       method:'POST',
-      body:JSON.stringify({email,password,nickname})
+      body:JSON.stringify(body)
     });
     AUTH.token=data.token;AUTH.user=data.user;
     AUTH.ready=true;
     localStorage.setItem(AUTH_TOKEN_KEY,AUTH.token);
     renderAuth();
     await resolveFirstSync();
+    closeAuth();
     if(mode==='register')maybeShowGuide();
   }catch(err){setAuthStatus(err.message,'ng')}
 }
@@ -1028,6 +1085,25 @@ async function syncPull(ask=true){
 }
 function logout(){
   AUTH.token='';AUTH.user=null;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();setAuthStatus('已退出登录');
+  openAuth();
+}
+function isAuthGateOpenTarget(target){
+  return !!target.closest('#auth-bg,#guide-bg');
+}
+function requireLoginForUse(e){
+  if(AUTH.token)return;
+  const target=e.target;
+  if(isAuthGateOpenTarget(target))return;
+  e.preventDefault();
+  e.stopPropagation();
+  openAuth();
+  setAuthStatus('请先登录后再使用网站功能','ng');
+}
+function installAuthGate(){
+  if(installAuthGate.done)return;
+  installAuthGate.done=true;
+  document.addEventListener('click',requireLoginForUse,true);
+  document.addEventListener('submit',requireLoginForUse,true);
 }
 function normalizeAnswer(v){
   return String(v||'')
@@ -1103,6 +1179,7 @@ function ensurePetState(){
   S.pet.currentPetId=LEGACY_PET_MAP[S.pet.currentPetId]||S.pet.currentPetId;
   if(!PET_CATALOG[S.pet.currentPetId])S.pet.currentPetId='calico';
   if(!S.pet.foods)S.pet.foods={};
+  if(!S.pet.accessories)S.pet.accessories={};
   if(!S.pet.ownedSkins)S.pet.ownedSkins=S.pet.pets.map(p=>p.id);
   S.pet.ownedSkins=[...new Set(S.pet.ownedSkins.map(id=>LEGACY_PET_MAP[id]||id).filter(id=>PET_CATALOG[id]))];
   if(!S.pet.ownedSkins.includes('calico'))S.pet.ownedSkins.unshift('calico');
@@ -1129,8 +1206,12 @@ function petArt(kind,size=''){
   return `<img class="pet-img ${esc(size)}" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
 }
 function foodArt(kind){
-  const c=FOOD_CATALOG[kind]||FOOD_CATALOG.baguette;
-  return `<div class="foodpx ${esc(c.skin)}"></div>`;
+  const c=FOOD_CATALOG[kind]||FOOD_CATALOG.fish;
+  return `<img class="item-img" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
+}
+function accessoryArt(kind){
+  const c=ACCESSORY_CATALOG[kind]||ACCESSORY_CATALOG.scarfRed;
+  return `<img class="item-img accessory" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
 }
 function rarityClass(r){return String(r||'N').toLowerCase()}
 function setPetMsg(msg){const el=document.getElementById('pet-msg');if(el)el.textContent=msg||''}
@@ -1150,6 +1231,7 @@ function currentBanks(){ return getBanks(S.type); }
 // ════════════════════════════════
 function init(){
   ensurePetState();savePet();
+  installAuthGate();
   const h=new Date().getHours();
   document.getElementById('greet').textContent=
     h<6?'夜深了，坚持就是胜利':h<12?'早上好，新的一天':h<18?'下午好，保持节奏':'晚上好，再练一组';
@@ -1189,6 +1271,7 @@ function renderPets(){
   const gem=document.getElementById('pet-gems');if(gem)gem.textContent=S.pet.gems;
   const root=document.getElementById('pet-content');if(!root)return;
   if(S.petView==='skins')return renderShop('skins');
+  if(S.petView==='accessories')return renderShop('accessories');
   if(S.petView==='foods')return renderShop('foods');
   if(S.petView==='lottery')return renderLottery();
   const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
@@ -1206,8 +1289,8 @@ function petOwnedCard(p){
 function renderShop(type){
   const root=document.getElementById('pet-content');if(!root)return;
   const ids=SHOP_ITEMS[type];
-  const title=type==='skins'?'每日限时':'每日特价';
-  root.innerHTML=`<div class="sh" style="padding:0 0 12px"><span class="st" style="font-size:20px;color:var(--t1);letter-spacing:0">${title}</span><span class="stag">学习晶石兑换</span></div><div class="pet-grid">${ids.map(id=>type==='skins'?skinCard(id):foodCard(id)).join('')}</div>`;
+  const title=type==='skins'?'基础宠物':type==='accessories'?'像素配饰':'宠物零食';
+  root.innerHTML=`<div class="sh" style="padding:0 0 12px"><span class="st" style="font-size:20px;color:var(--t1);letter-spacing:0">${title}</span><span class="stag">学习晶石兑换</span></div><div class="pet-grid">${ids.map(id=>type==='skins'?skinCard(id):type==='accessories'?accessoryCard(id):foodCard(id)).join('')}</div>`;
 }
 function skinCard(id){
   const c=PET_CATALOG[id],owned=S.pet.ownedSkins.includes(id);
@@ -1217,15 +1300,20 @@ function foodCard(id){
   const c=FOOD_CATALOG[id],n=S.pet.foods[id]||0;
   return `<div class="shop-card"><div class="shop-art">${foodArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">经验: ${c.exp}</span><span class="tag">库存: ${n}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('food','${id}')">购买</button><button class="shop-btn ${n?'':'owned'}" onclick="feedPet('${id}')" ${n?'':'disabled'}>喂食</button></div>`;
 }
+function accessoryCard(id){
+  const c=ACCESSORY_CATALOG[id],n=S.pet.accessories[id]||0;
+  return `<div class="shop-card"><div class="shop-art">${accessoryArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">库存: ${n}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('accessory','${id}')">兑换</button></div>`;
+}
 function renderLottery(){
   const root=document.getElementById('pet-content');if(!root)return;
   root.innerHTML=`<div class="pet-card lottery"><div class="lottery-box">?</div><div class="pet-name">晶石抽奖</div><div class="pet-mini-sub">60 晶石一次，有机会获得宠物形象或零食</div><button class="btnp" onclick="drawLottery()">抽一次</button></div>`;
 }
 function buyItem(type,id){
-  ensurePetState();const item=type==='skin'?PET_CATALOG[id]:FOOD_CATALOG[id];
+  ensurePetState();const item=type==='skin'?PET_CATALOG[id]:type==='accessory'?ACCESSORY_CATALOG[id]:FOOD_CATALOG[id];
   if(!item)return;if(S.pet.gems<item.price){setPetMsg('晶石不足，完成练习可以获得更多晶石。');return}
   S.pet.gems-=item.price;
   if(type==='skin'){if(!S.pet.ownedSkins.includes(id))S.pet.ownedSkins.push(id);if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;setPetMsg(`已领养 ${item.name}`)}
+  else if(type==='accessory'){S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;setPetMsg(`已兑换配饰 ${item.name}`)}
   else{S.pet.foods[id]=(S.pet.foods[id]||0)+1;setPetMsg(`已购买 ${item.name}`)}
   savePet();renderHomePet();renderPets();
 }
@@ -1240,6 +1328,7 @@ function drawLottery(){
   ensurePetState();const cost=60;if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
   S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='';
   if(r<.22){const ids=['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'];const id=ids[Math.floor(Math.random()*ids.length)];if(S.pet.ownedSkins.includes(id)){S.pet.gems+=30;msg=`抽到重复 ${PET_CATALOG[id].name}，转化为 30 晶石。`}else{S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${PET_CATALOG[id].name}`}}
+  else if(r<.48){const ids=Object.keys(ACCESSORY_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)];S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;msg=`抽到配饰：${ACCESSORY_CATALOG[id].name}`}
   else{const ids=Object.keys(FOOD_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)];S.pet.foods[id]=(S.pet.foods[id]||0)+1;msg=`抽到零食：${FOOD_CATALOG[id].name}`}
   savePet();setPetMsg(msg);renderHomePet();renderPets();
 }
