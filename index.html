@@ -781,8 +781,7 @@ const SYNC_AT_KEY='syncAt4';
 const GUIDE_KEY='guide4';
 const DEFAULT_API_BASE=(()=>{
   if(location.protocol==='file:')return 'http://localhost:3000';
-  if(['localhost','127.0.0.1'].includes(location.hostname))return '';
-  return 'https://english-dictation-server.onrender.com';
+  return '';
 })();
 let AUTH={
   token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
@@ -859,7 +858,12 @@ function esc(s){
   return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 function apiBase(){
-  return (localStorage.getItem(API_BASE_KEY)||DEFAULT_API_BASE||'').replace(/\/+$/,'');
+  const saved=(localStorage.getItem(API_BASE_KEY)||'').trim();
+  if(saved&&/english-dictation-server\.onrender\.com/i.test(saved)){
+    localStorage.removeItem(API_BASE_KEY);
+    return DEFAULT_API_BASE;
+  }
+  return (saved||DEFAULT_API_BASE||'').replace(/\/+$/,'');
 }
 function localSnapshot(){
   const data={};
