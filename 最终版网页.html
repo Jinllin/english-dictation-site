@@ -139,6 +139,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .px.dog{--p1:#D6A15D;--p2:#FFF4E0;--p3:#8A5A2C}.px.sheep{--p1:#F2E6D8;--p2:#FFFFFF;--p3:#A65A4A}.px.westie{--p1:#F8F4E8;--p2:#FFFFFF;--p3:#A06B3C}.px.cat{--p1:#C48B4E;--p2:#FFF1D4;--p3:#7A4B2A}
 .pet-img,.item-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16))}
 .pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}.shop-art .item-img{width:88px;height:88px}.shop-art .item-img.accessory{width:82px;height:82px}
+.asset-missing::after{content:'图片未上传';font-size:12px;color:var(--t3);font-weight:800;letter-spacing:0;background:rgba(255,255,255,.72);border:1px dashed var(--bd);border-radius:999px;padding:7px 10px}.dark .asset-missing::after{background:rgba(20,20,20,.72)}
 .foodpx{width:72px;height:72px;position:relative;image-rendering:pixelated}.foodpx::before{content:'';position:absolute;left:14px;top:30px;width:8px;height:8px;background:#111;box-shadow:8px 0 var(--f1,#D68B3A),16px -8px var(--f1,#D68B3A),24px -8px var(--f2,#F7C46B),32px 0 var(--f1,#D68B3A),40px 0 #111,8px 8px var(--f2,#F7C46B),16px 8px var(--f2,#F7C46B),24px 8px var(--f1,#D68B3A),32px 8px #111}.foodpx.toast{--f1:#C7833B;--f2:#FFE8A3}.foodpx.choco{--f1:#5A2E22;--f2:#8A4A32}.foodpx.sand{--f1:#E5B24D;--f2:#FFF0A8}
 
 /* ── DICT overlay — completely independent from .sc flow ── */
@@ -331,6 +332,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .auth-switch{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.auth-mode{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:var(--rsm);padding:10px;font-family:var(--sans);font-size:13px;font-weight:800;cursor:pointer}.auth-mode.on{background:var(--t1);border-color:var(--t1);color:#fff}.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-nickname-wrap.hidden{display:none}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
 .guide-card{display:flex;flex-direction:column;gap:14px;min-height:280px}.guide-hero{height:112px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,var(--s2),var(--sur));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.guide-pet{width:84px;height:84px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}.guide-icon{width:72px;height:72px;border-radius:24px;background:var(--t1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}.guide-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.guide-copy{font-size:14px;line-height:1.7;color:var(--t2)}.guide-dots{display:flex;justify-content:center;gap:6px;padding:4px 0}.guide-dot{width:6px;height:6px;border-radius:999px;background:var(--bd);transition:all .2s}.guide-dot.on{width:18px;background:var(--t1)}.guide-actions{display:flex;gap:8px}.guide-actions .mbtnc{flex:.38}.guide-actions .btnp{flex:1}
 .fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
+.lottery-win{position:fixed;inset:0;z-index:720;background:rgba(17,17,17,.46);display:flex;align-items:center;justify-content:center;padding:24px;animation:lotteryFade .18s ease both}.lottery-win-card{width:min(340px,calc(100vw - 48px));background:var(--sur);border:1px solid var(--bd);border-radius:28px;padding:26px 22px 22px;text-align:center;box-shadow:0 28px 90px rgba(0,0,0,.22);animation:lotteryPop .48s cubic-bezier(.18,1.35,.28,1) both}.lottery-win.shrink .lottery-win-card{animation:lotteryPack .42s cubic-bezier(.45,0,.2,1) both}.lottery-prize-art{height:142px;border-radius:26px;background:var(--s2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}.lottery-prize-art .pet-img{width:122px;height:122px}.lottery-prize-art .item-img{width:108px;height:108px}.lottery-prize-art .item-img.accessory{width:102px;height:102px}.lottery-prize-title{font-size:26px;font-weight:900;letter-spacing:-.05em}.lottery-prize-sub{margin-top:7px;color:var(--t3);font-size:13px;line-height:1.5}.lottery-prize-tip{margin-top:16px;color:var(--t3);font-size:12px}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -341,8 +343,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .pop{animation:pop .28s ease-out both}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal.on{animation:slideUp .3s cubic-bezier(.32,1,.23,1) both}
-@keyframes toastIn{0%{opacity:0;transform:translateY(-12px) scale(.96)}14%,82%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-8px) scale(.98)}}@keyframes gemFly{0%{opacity:0;transform:translate3d(var(--sx),var(--sy),0) scale(.6) rotate(0)}18%{opacity:1}100%{opacity:0;transform:translate3d(var(--tx),var(--ty),0) scale(.2) rotate(260deg)}}@keyframes petHop{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-8px) scale(1.04)}70%{transform:translateY(0) scale(.99)}}@keyframes masteredFade{0%{opacity:1;transform:translateY(0)}60%{opacity:.48;transform:translateY(-4px)}100%{opacity:1;transform:translateY(0)}}
-@media (prefers-reduced-motion:reduce){.reward-toast{animation:none}.fx-gem{display:none}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage,.wr.fx-mastered,.ei.fx-mastered{animation:none}.fu,.pop,.shake,.modal.on{animation:none}}
+@keyframes toastIn{0%{opacity:0;transform:translateY(-12px) scale(.96)}14%,82%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-8px) scale(.98)}}@keyframes gemFly{0%{opacity:0;transform:translate3d(var(--sx),var(--sy),0) scale(.6) rotate(0)}18%{opacity:1}100%{opacity:0;transform:translate3d(var(--tx),var(--ty),0) scale(.2) rotate(260deg)}}@keyframes petHop{0%,100%{transform:translateY(0) scale(1)}35%{transform:translateY(-8px) scale(1.04)}70%{transform:translateY(0) scale(.99)}}@keyframes masteredFade{0%{opacity:1;transform:translateY(0)}60%{opacity:.48;transform:translateY(-4px)}100%{opacity:1;transform:translateY(0)}}@keyframes lotteryFade{from{opacity:0}to{opacity:1}}@keyframes lotteryPop{0%{opacity:0;transform:scale(.18) rotate(-5deg)}58%{opacity:1;transform:scale(1.08) rotate(1deg)}100%{opacity:1;transform:scale(1) rotate(0)}}@keyframes lotteryPack{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(.16) translate(-42vw,-34vh)}}
+@media (prefers-reduced-motion:reduce){.reward-toast,.lottery-win,.lottery-win-card,.lottery-win.shrink .lottery-win-card{animation:none}.fx-gem{display:none}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage,.wr.fx-mastered,.ei.fx-mastered{animation:none}.fu,.pop,.shake,.modal.on{animation:none}}
 
 @media (min-width:760px){
   body{background:linear-gradient(180deg,#FBFAF9 0%,#F4F2EE 100%)}
@@ -1208,15 +1210,15 @@ function addPetExp(amount){
 function petArt(kind,size=''){
   kind=LEGACY_PET_MAP[kind]||kind;
   const c=PET_CATALOG[kind]||PET_CATALOG.calico;
-  return `<img class="pet-img ${esc(size)}" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
+  return `<img class="pet-img ${esc(size)}" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function foodArt(kind){
   const c=FOOD_CATALOG[kind]||FOOD_CATALOG.fish;
-  return `<img class="item-img" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
+  return `<img class="item-img" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function accessoryArt(kind){
   const c=ACCESSORY_CATALOG[kind]||ACCESSORY_CATALOG.scarfRed;
-  return `<img class="item-img accessory" src="${esc(c.asset)}" alt="${esc(c.name)}">`;
+  return `<img class="item-img accessory" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function rarityClass(r){return String(r||'N').toLowerCase()}
 function setPetMsg(msg){const el=document.getElementById('pet-msg');if(el)el.textContent=msg||''}
@@ -1329,13 +1331,56 @@ function feedPet(id){
   p.hunger=Math.min(100,p.hunger+18);p.mood=Math.min(100,p.mood+f.mood);p.vitality=Math.min(100,(p.vitality||60)+vitalityGain);addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，活力 +${vitalityGain}，经验 +${f.exp}`);renderHomePet();renderPets();showRewardFx('feed',{vitality:vitalityGain,exp:f.exp,note:'心情提升'});
 }
 function quickFeed(){const id=Object.keys(S.pet.foods||{}).find(k=>S.pet.foods[k]>0);if(id)feedPet(id);else{setPetView('foods');setPetMsg('先购买一份零食再喂食。')}}
+function lotteryPrizeArt(prize){
+  if(!prize)return '<div class="guide-icon">?</div>';
+  if(prize.type==='skin')return petArt(prize.id);
+  if(prize.type==='accessory')return accessoryArt(prize.id);
+  if(prize.type==='food')return foodArt(prize.id);
+  return '<div class="guide-icon">晶</div>';
+}
+function showLotteryWin(prize){
+  if(!prize)return;
+  document.querySelector('.lottery-win')?.remove();
+  const overlay=document.createElement('div');
+  overlay.className='lottery-win';
+  overlay.innerHTML=`<div class="lottery-win-card" role="dialog" aria-label="抽奖结果">
+    <div class="lottery-prize-art">${lotteryPrizeArt(prize)}</div>
+    <div class="lottery-prize-title">${esc(prize.title)}</div>
+    <div class="lottery-prize-sub">${esc(prize.sub||'已放入背包')}</div>
+    <div class="lottery-prize-tip">点击空白处收进背包</div>
+  </div>`;
+  const close=()=>{
+    if(overlay.classList.contains('shrink'))return;
+    overlay.classList.add('shrink');
+    clearTimeout(showLotteryWin._timer);
+    setTimeout(()=>overlay.remove(),430);
+  };
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+  document.body.appendChild(overlay);
+  clearTimeout(showLotteryWin._timer);
+  showLotteryWin._timer=setTimeout(close,2000);
+}
 function drawLottery(){
   ensurePetState();const cost=60;if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
-  S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='';
-  if(r<.22){const ids=['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'];const id=ids[Math.floor(Math.random()*ids.length)];if(S.pet.ownedSkins.includes(id)){S.pet.gems+=30;msg=`抽到重复 ${PET_CATALOG[id].name}，转化为 30 晶石。`}else{S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${PET_CATALOG[id].name}`}}
-  else if(r<.48){const ids=Object.keys(ACCESSORY_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)];S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;msg=`抽到配饰：${ACCESSORY_CATALOG[id].name}`}
-  else{const ids=Object.keys(FOOD_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)];S.pet.foods[id]=(S.pet.foods[id]||0)+1;msg=`抽到零食：${FOOD_CATALOG[id].name}`}
-  savePet();setPetMsg(msg);renderHomePet();renderPets();
+  S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='',prize=null;
+  if(r<.22){
+    const ids=['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'];
+    const id=ids[Math.floor(Math.random()*ids.length)],c=PET_CATALOG[id];
+    if(S.pet.ownedSkins.includes(id)){
+      S.pet.gems+=30;msg=`抽到重复 ${c.name}，转化为 30 晶石。`;prize={type:'gem',id,title:'重复转化',sub:`${c.name} 已拥有，返还 30 晶石`};
+    }else{
+      S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${c.name}`;prize={type:'skin',id,title:c.name,sub:`${c.rarity} 宠物形象已放入背包`};
+    }
+  }
+  else if(r<.48){
+    const ids=Object.keys(ACCESSORY_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)],c=ACCESSORY_CATALOG[id];
+    S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;msg=`抽到配饰：${c.name}`;prize={type:'accessory',id,title:c.name,sub:`${c.rarity} 配饰已放入背包`};
+  }
+  else{
+    const ids=Object.keys(FOOD_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)],c=FOOD_CATALOG[id];
+    S.pet.foods[id]=(S.pet.foods[id]||0)+1;msg=`抽到零食：${c.name}`;prize={type:'food',id,title:c.name,sub:`经验 +${c.exp} 的零食已放入背包`};
+  }
+  savePet();setPetMsg(msg);renderHomePet();renderPets();showLotteryWin(prize);
 }
 
 // ════════════════════════════════
