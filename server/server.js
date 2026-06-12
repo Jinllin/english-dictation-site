@@ -18,7 +18,17 @@ const CORS_ORIGINS = (process.env.CORS_ORIGINS || '')
   .split(',')
   .map(s => s.trim())
   .filter(Boolean);
-const SNAPSHOT_KEYS = ['ds4', 'eb4', 'cu4', 'fv4', 'sho4', 'dk4', 'sm4', 'pet4'];
+const DEFAULT_ALLOWED_ORIGINS = [
+  'https://myechopet.com',
+  'https://www.myechopet.com',
+  'http://myechopet.com',
+  'http://www.myechopet.com',
+  'http://43.135.34.31',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000'
+];
+const ALLOWED_ORIGINS = new Set([...DEFAULT_ALLOWED_ORIGINS, ...CORS_ORIGINS]);
+const SNAPSHOT_KEYS = ['ds4', 'eb4', 'cu4', 'fv4', 'sho4', 'dk4', 'sm4', 'pet4', 'guide4'];
 const MAX_PAYLOAD_BYTES = 2 * 1024 * 1024;
 
 fs.mkdirSync(path.dirname(DATABASE_PATH), { recursive: true });
@@ -46,13 +56,15 @@ CREATE TABLE IF NOT EXISTS user_snapshots (
 const app = express();
 app.set('trust proxy', 1);
 app.use(helmet({ crossOriginResourcePolicy: false }));
-app.use(cors({
+const corsOptions = {
   origin(origin, cb) {
-    if (!origin || CORS_ORIGINS.length === 0 || CORS_ORIGINS.includes(origin)) return cb(null, true);
-    return cb(new Error('Not allowed by CORS'));
+    if (!origin || ALLOWED_ORIGINS.has(origin)) return cb(null, true);
+    return cb(null, false);
   },
   credentials: false
-}));
+};
+app.use(cors(corsOptions));
+app.options('/api/*', cors(corsOptions));
 app.use(express.json({ limit: `${MAX_PAYLOAD_BYTES}b` }));
 
 const authLimiter = rateLimit({
