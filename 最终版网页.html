@@ -319,6 +319,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .mt2:first-child{border-radius:var(--rsm) 0 0 var(--rsm)}.mt2:last-child{border-radius:0 var(--rsm) var(--rsm) 0;border-left:none}
 .mt2.on{background:var(--t1);color:#fff;border-color:var(--t1)}
 .modal-fmt{font-size:11px;color:var(--t3);background:var(--s2);border-radius:var(--rsm);padding:10px 12px;font-family:var(--mono);line-height:1.7;white-space:pre-wrap;word-break:break-all}
+.import-file-row{display:grid;grid-template-columns:auto auto 1fr;gap:8px;align-items:center}
+.import-file-btn{padding:10px 12px;border:1px solid var(--bd);border-radius:var(--rsm);background:var(--sur);color:var(--t1);font-family:var(--sans);font-size:12px;font-weight:800;cursor:pointer}
+.import-file-btn.secondary{background:var(--s2);color:var(--t2)}
+.import-file-btn:active{transform:translateY(1px)}
+.import-file-meta{min-width:0;color:var(--t3);font-size:11px;line-height:1.45;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .modal-ta{width:100%;height:140px;padding:10px 12px;font-size:13px;font-family:var(--mono);
   border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);
   outline:none;resize:vertical;line-height:1.6}
@@ -563,6 +568,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
     </div>
     <div class="modal-fmt" id="imp-fmt"></div>
     <input class="modal-name" id="imp-name" placeholder="词库名称（如：我的生词本）" maxlength="20">
+    <div class="import-file-row">
+      <button class="import-file-btn secondary" type="button" onclick="downloadImportTemplate()">下载模板</button>
+      <button class="import-file-btn" type="button" onclick="document.getElementById('imp-file').click()">选择 Excel/CSV</button>
+      <div class="import-file-meta" id="imp-file-name">支持 .xlsx / .xls / .csv / .tsv，也可直接粘贴内容</div>
+      <input id="imp-file" type="file" accept=".xlsx,.xls,.csv,.tsv" style="display:none" onchange="handleImportFile(event)">
+    </div>
     <textarea class="modal-ta" id="imp-ta" placeholder="在此粘贴内容…"></textarea>
     <div class="modal-msg" id="imp-msg"></div>
     <div class="modal-btns">
@@ -1874,15 +1885,16 @@ function practiceErrors(){
 //  IMPORT
 // ════════════════════════════════
 const FMT_HINTS={
-  word:`格式：每行一个词，英文,中文,音标（音标可省略）\n\n示例：\nepiphany,顿悟,/ɪˈpɪfəni/\nubiquitous,无处不在的`,
-  phrase:`格式：每行一个短语，短语,中文含义\n\n示例：\nbring to light,揭露\nat the mercy of,任由…摆布`,
-  sentence:`格式：每行一句，英文句子|中文翻译|重点词（重点词可省略）\n\n示例：\nShe managed to accomplish the task in time.|她及时完成了任务。|accomplish\nPrices tend to fluctuate in a free market.|价格在自由市场中会波动。|fluctuate`
+  word:`粘贴格式：英文,中文,音标（音标可省略）\nExcel格式：A列英文 / B列中文 / C列音标（可省略）\n\n示例：\nepiphany,顿悟,/ɪˈpɪfəni/\nubiquitous,无处不在的`,
+  phrase:`粘贴格式：短语,中文含义\nExcel格式：A列短语 / B列中文\n\n示例：\nbring to light,揭露\nat the mercy of,任由…摆布`,
+  sentence:`粘贴格式：英文句子|中文翻译|重点词（重点词可省略）\nExcel格式：A列英文句子 / B列中文 / C列重点词（可省略）\n\n示例：\nShe managed to accomplish the task in time.|她及时完成了任务。|accomplish\nPrices tend to fluctuate in a free market.|价格在自由市场中会波动。|fluctuate`
 };
 function openImport(){
   S.impType='word';
   document.querySelectorAll('.mt2').forEach(el=>el.classList.toggle('on',el.dataset.it==='word'));
   document.getElementById('imp-fmt').textContent=FMT_HINTS.word;
   document.getElementById('imp-ta').value='';document.getElementById('imp-name').value='';document.getElementById('imp-msg').textContent='';
+  document.getElementById('imp-file').value='';document.getElementById('imp-file-name').textContent='支持 .xlsx / .xls / .csv / .tsv，也可直接粘贴内容';
   document.getElementById('modal-bg').classList.add('on');document.getElementById('modal').classList.add('on');
 }
 function closeImport(){document.getElementById('modal-bg').classList.remove('on')}
@@ -1892,6 +1904,107 @@ function pickImpType(t){
   document.querySelectorAll('.mt2').forEach(el=>el.classList.toggle('on',el.dataset.it===t));
   document.getElementById('imp-fmt').textContent=FMT_HINTS[t];
   document.getElementById('imp-msg').textContent='';
+}
+function downloadImportTemplate(){
+  const a=document.createElement('a');
+  a.href='assets/echopet-import-template.xlsx';
+  a.download='EchoPet词库导入模板.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+function readImportFile(file, asBuffer=false){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(new Error('文件读取失败'));
+    asBuffer?reader.readAsArrayBuffer(file):reader.readAsText(file);
+  });
+}
+function loadXlsxLib(){
+  if(window.XLSX)return Promise.resolve(window.XLSX);
+  if(window.__xlsxLoading)return window.__xlsxLoading;
+  window.__xlsxLoading=new Promise((resolve,reject)=>{
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload=()=>window.XLSX?resolve(window.XLSX):reject(new Error('Excel解析组件加载失败'));
+    s.onerror=()=>reject(new Error('Excel解析组件加载失败，请检查网络，或先另存为CSV再导入'));
+    document.head.appendChild(s);
+  });
+  return window.__xlsxLoading;
+}
+function parseDelimitedRows(text, delimiter){
+  const rows=[];let row=[],cell='',inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i],next=text[i+1];
+    if(ch==='"'){
+      if(inQuotes&&next==='"'){cell+='"';i++}
+      else inQuotes=!inQuotes;
+    }else if(ch===delimiter&&!inQuotes){
+      row.push(cell);cell='';
+    }else if((ch==='\n'||ch==='\r')&&!inQuotes){
+      if(ch==='\r'&&next==='\n')i++;
+      row.push(cell);rows.push(row);row=[];cell='';
+    }else cell+=ch;
+  }
+  row.push(cell);rows.push(row);
+  return rows;
+}
+function cleanImportCell(v){return String(v??'').replace(/\s+/g,' ').trim()}
+function importHeaderIndex(headers,names,fallback){
+  const lowered=headers.map(h=>cleanImportCell(h).toLowerCase());
+  const idx=lowered.findIndex(h=>names.some(n=>h===n.toLowerCase()||h.includes(n.toLowerCase())));
+  return idx>=0?idx:fallback;
+}
+function rowsToImportText(rows,t){
+  const usable=rows.map(r=>Array.from(r||[]).map(cleanImportCell)).filter(r=>r.some(Boolean));
+  if(!usable.length)return '';
+  const first=usable[0].map(v=>v.toLowerCase()).join('|');
+  const hasHeader=/英文|单词|短语|句子|word|phrase|sentence|english|text|中文|释义|翻译|meaning|translation|音标|重点词|blank/.test(first);
+  let wi=0,mi=1,ci=2,start=0;
+  if(hasHeader){
+    const h=usable[0];
+    const textNames=t==='word'?['英文','单词','word','english','text']:t==='phrase'?['英文','短语','phrase','english','text']:['英文','句子','sentence','english','text'];
+    wi=importHeaderIndex(h,textNames,0);
+    mi=importHeaderIndex(h,['中文','释义','翻译','意思','meaning','translation','chinese','cn'],1);
+    ci=importHeaderIndex(h,t==='sentence'?['重点词','挖空','blank','keyword']:['音标','phonetic','pronunciation'],2);
+    start=1;
+  }
+  return usable.slice(start).map(r=>{
+    const w=r[wi]||'',m=r[mi]||'',c=r[ci]||'';
+    if(!w||!m)return '';
+    return t==='sentence'?[w,m,c].join('|'):[w,m,c].filter((_,i)=>i<2||c).join(',');
+  }).filter(Boolean).join('\n');
+}
+async function handleImportFile(e){
+  const file=e.target.files&&e.target.files[0];
+  if(!file)return;
+  const msg=document.getElementById('imp-msg');
+  const meta=document.getElementById('imp-file-name');
+  const nameInput=document.getElementById('imp-name');
+  msg.textContent='正在读取文件…';
+  meta.textContent=file.name;
+  if(!nameInput.value.trim())nameInput.value=file.name.replace(/\.(xlsx|xls|csv|tsv)$/i,'').slice(0,20);
+  try{
+    const isText=/\.(csv|tsv)$/i.test(file.name);
+    let rows=[];
+    if(isText){
+      const text=await readImportFile(file,false);
+      rows=parseDelimitedRows(text, /\.tsv$/i.test(file.name)?'\t':',');
+    }else{
+      const XLSX=await loadXlsxLib();
+      const buffer=await readImportFile(file,true);
+      const workbook=XLSX.read(buffer,{type:'array'});
+      const sheet=workbook.Sheets[workbook.SheetNames[0]];
+      rows=XLSX.utils.sheet_to_json(sheet,{header:1,defval:''});
+    }
+    const text=rowsToImportText(rows,S.impType);
+    if(!text)throw new Error('未识别到有效内容，请确认A列英文、B列中文');
+    document.getElementById('imp-ta').value=text;
+    msg.textContent=`已读取 ${text.split('\n').length} 行，请检查后点击导入`;
+  }catch(err){
+    msg.textContent=err.message||'文件解析失败，请检查表格格式';
+  }
 }
 function doImport(){
   const raw=document.getElementById('imp-ta').value.trim();
