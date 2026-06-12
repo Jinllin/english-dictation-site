@@ -124,7 +124,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .ptab{flex-shrink:0;border:none;background:var(--s2);color:var(--t2);border-radius:999px;padding:9px 14px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer}.ptab.on{background:var(--t1);color:#fff}
 .pet-panel{padding:0 20px 96px}.pet-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(17,17,17,.05)}
 .pet-profile{display:grid;grid-template-columns:136px 1fr;gap:18px;align-items:center}.pet-stage{height:136px;background:var(--s2);border-radius:28px;display:flex;align-items:center;justify-content:center}
-.pet-name{font-size:27px;font-weight:800;letter-spacing:-.04em}.rar{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:800;background:var(--s2);color:var(--t3);font-family:var(--mono)}.rar.r{background:#DDEEFF;color:#2878D8}.rar.sr{background:#F3D8FF;color:#B326D8}
+.pet-name{font-size:27px;font-weight:800;letter-spacing:-.04em}.rar{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:800;background:var(--s2);color:var(--t3);font-family:var(--mono)}.rar.r{background:#DDEEFF;color:#2878D8}.rar.sr{background:#F3D8FF;color:#B326D8}.rar.ssr{background:#FFF1B8;color:#B36B00;border:1px solid rgba(179,107,0,.22);box-shadow:0 0 0 3px rgba(255,209,102,.18)}
 .pet-level{font-size:28px;font-weight:800;font-family:var(--mono);margin-top:10px}.pet-exp{height:8px;background:var(--s3);border-radius:10px;margin-top:10px;overflow:hidden}.pet-exp>span{display:block;height:100%;background:var(--t1);border-radius:10px}.pet-exp-t{font-size:12px;color:var(--t3);text-align:right;margin-top:5px;font-family:var(--mono)}
 .pet-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.pet-stat{background:var(--s2);border-radius:14px;padding:10px;text-align:center}.pet-stat b{display:block;font-size:16px}.pet-stat span{font-size:11px;color:var(--t3)}
 .pet-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.pet-action{border:none;background:var(--s2);border-radius:18px;padding:13px 10px;font-family:var(--sans);font-weight:800;font-size:15px;color:var(--t1);cursor:pointer}
@@ -799,12 +799,12 @@ const PET_CATALOG={
   calico:{id:'calico',name:'基础三花猫',rarity:'N',asset:'assets/pixel-pet/base-pets/base-01-calico-cat.png',price:0},
   puppy:{id:'puppy',name:'基础白团犬',rarity:'N',asset:'assets/pixel-pet/base-pets/base-02-white-puppy.png',price:1200},
   penguin:{id:'penguin',name:'基础小企鹅',rarity:'N',asset:'assets/pixel-pet/base-pets/base-03-penguin.png',price:1500},
-  reindeer:{id:'reindeer',name:'基础小驯鹿',rarity:'R',asset:'assets/pixel-pet/base-pets/base-04-deer.png',price:2400},
+  reindeer:{id:'reindeer',name:'基础小驯鹿',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-04-deer.png',price:4800},
   snowcat:{id:'snowcat',name:'基础雪豹猫',rarity:'R',asset:'assets/pixel-pet/base-pets/base-05-snow-leopard-cub.png',price:2600},
   fox:{id:'fox',name:'基础奶油狐',rarity:'R',asset:'assets/pixel-pet/base-pets/base-06-cream-fox.png',price:3000},
   blackcat:{id:'blackcat',name:'基础黑猫',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-07-black-cat.png',price:4200},
   corgi:{id:'corgi',name:'基础柯基',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-08-corgi.png',price:4500},
-  bunny:{id:'bunny',name:'基础白兔',rarity:'SR',asset:'assets/pixel-pet/base-pets/base-09-white-rabbit.png',price:4800},
+  bunny:{id:'bunny',name:'基础白兔',rarity:'R',asset:'assets/pixel-pet/base-pets/base-09-white-rabbit.png',price:2400},
   raccoon:{id:'raccoon',name:'基础浣熊',rarity:'SSR',asset:'assets/pixel-pet/base-pets/base-10-raccoon-pet.png',price:6000}
 };
 const FOOD_CATALOG={
@@ -846,7 +846,7 @@ const ACCESSORY_CATALOG={
   tailBow:{id:'tailBow',name:'长尾蝴蝶结',rarity:'R',asset:'assets/pixel-pet/accessories/special-long-tail-bow.png',price:170},
   tailRibbon:{id:'tailRibbon',name:'蓬尾丝带',rarity:'R',asset:'assets/pixel-pet/accessories/special-fluffy-tail-ribbon-wrap.png',price:170}
 };
-const SHOP_ITEMS={skins:['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'],accessories:Object.keys(ACCESSORY_CATALOG),foods:Object.keys(FOOD_CATALOG)};
+const SHOP_ITEMS={skins:['puppy','penguin','bunny','snowcat','fox','blackcat','corgi','reindeer','raccoon'],accessories:Object.keys(ACCESSORY_CATALOG),foods:Object.keys(FOOD_CATALOG)};
 const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'penguin'};
 const GUIDE_STEPS=[
   {title:'先完成一组听写',copy:'选择单词、短语或句子词库，听音后输入答案。完成一组后会获得晶石、经验和宠物活力。',kind:'pet'},
@@ -1313,7 +1313,7 @@ function accessoryCard(id){
 }
 function renderLottery(){
   const root=document.getElementById('pet-content');if(!root)return;
-  root.innerHTML=`<div class="pet-card lottery"><div class="lottery-box">?</div><div class="pet-name">晶石抽奖</div><div class="pet-mini-sub">60 晶石一次，有机会获得宠物形象或零食</div><button class="btnp" onclick="drawLottery()">抽一次</button></div>`;
+  root.innerHTML=`<div class="pet-card lottery"><div class="lottery-box">?</div><div class="pet-name">晶石抽奖</div><div class="pet-mini-sub">60 晶石一次，主要获得零食/配饰，小概率获得宠物形象</div><button class="btnp" onclick="drawLottery()">抽一次</button></div>`;
 }
 function buyItem(type,id){
   ensurePetState();const item=type==='skin'?PET_CATALOG[id]:type==='accessory'?ACCESSORY_CATALOG[id]:FOOD_CATALOG[id];
@@ -1337,6 +1337,15 @@ function lotteryPrizeArt(prize){
   if(prize.type==='accessory')return accessoryArt(prize.id);
   if(prize.type==='food')return foodArt(prize.id);
   return '<div class="guide-icon">晶</div>';
+}
+function weightedPick(entries){
+  const total=entries.reduce((sum,item)=>sum+item.weight,0);
+  let roll=Math.random()*total;
+  for(const item of entries){
+    roll-=item.weight;
+    if(roll<=0)return item.id;
+  }
+  return entries[entries.length-1].id;
 }
 function showLotteryWin(prize){
   if(!prize)return;
@@ -1363,16 +1372,19 @@ function showLotteryWin(prize){
 function drawLottery(){
   ensurePetState();const cost=60;if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
   S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='',prize=null;
-  if(r<.22){
-    const ids=['puppy','penguin','reindeer','snowcat','fox','blackcat','corgi','bunny','raccoon'];
-    const id=ids[Math.floor(Math.random()*ids.length)],c=PET_CATALOG[id];
+  if(r<.06){
+    const id=weightedPick([
+      {id:'puppy',weight:28},{id:'penguin',weight:22},{id:'bunny',weight:18},
+      {id:'snowcat',weight:12},{id:'fox',weight:8},{id:'blackcat',weight:5},
+      {id:'corgi',weight:4},{id:'reindeer',weight:2},{id:'raccoon',weight:1}
+    ]),c=PET_CATALOG[id];
     if(S.pet.ownedSkins.includes(id)){
       S.pet.gems+=30;msg=`抽到重复 ${c.name}，转化为 30 晶石。`;prize={type:'gem',id,title:'重复转化',sub:`${c.name} 已拥有，返还 30 晶石`};
     }else{
       S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${c.name}`;prize={type:'skin',id,title:c.name,sub:`${c.rarity} 宠物形象已放入背包`};
     }
   }
-  else if(r<.48){
+  else if(r<.30){
     const ids=Object.keys(ACCESSORY_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)],c=ACCESSORY_CATALOG[id];
     S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;msg=`抽到配饰：${c.name}`;prize={type:'accessory',id,title:c.name,sub:`${c.rarity} 配饰已放入背包`};
   }
