@@ -123,10 +123,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .pet-head{padding:20px 20px 12px;display:flex;align-items:center;justify-content:space-between}.pet-title{font-size:28px;font-weight:800;letter-spacing:-.04em}.pet-tabs{display:flex;gap:8px;padding:0 20px 18px;overflow-x:auto;scrollbar-width:none}.pet-tabs::-webkit-scrollbar{display:none}
 .ptab{flex-shrink:0;border:none;background:var(--s2);color:var(--t2);border-radius:999px;padding:9px 14px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer}.ptab.on{background:var(--t1);color:#fff}
 .pet-panel{padding:0 20px 96px}.pet-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(17,17,17,.05)}
-.pet-profile{display:grid;grid-template-columns:136px 1fr;gap:18px;align-items:center}.pet-stage{height:136px;background:var(--s2);border-radius:28px;display:flex;align-items:center;justify-content:center}
+.pet-profile{display:grid;grid-template-columns:136px 1fr;gap:18px;align-items:center}.pet-stage{height:136px;background:var(--s2);border-radius:28px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .pet-name{font-size:27px;font-weight:800;letter-spacing:-.04em}.rar{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:800;background:var(--s2);color:var(--t3);font-family:var(--mono)}.rar.r{background:#DDEEFF;color:#2878D8}.rar.sr{background:#F3D8FF;color:#B326D8}.rar.ssr{background:#FFF1B8;color:#B36B00;border:1px solid rgba(179,107,0,.22);box-shadow:0 0 0 3px rgba(255,209,102,.18)}
 .pet-level{font-size:28px;font-weight:800;font-family:var(--mono);margin-top:10px}.pet-exp{height:8px;background:var(--s3);border-radius:10px;margin-top:10px;overflow:hidden}.pet-exp>span{display:block;height:100%;background:var(--t1);border-radius:10px}.pet-exp-t{font-size:12px;color:var(--t3);text-align:right;margin-top:5px;font-family:var(--mono)}
-.pet-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.pet-stat{background:var(--s2);border-radius:14px;padding:10px;text-align:center}.pet-stat b{display:block;font-size:16px}.pet-stat span{font-size:11px;color:var(--t3)}
+.pet-vitality{background:var(--s2);border-radius:16px;padding:12px;margin-top:16px}.pet-vitality-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--t2);font-weight:800}.vitality-track{height:8px;background:var(--s3);border-radius:999px;overflow:hidden;margin-top:8px}.vitality-fill{height:100%;border-radius:999px;background:#40B76A}.vitality-fill.normal{background:var(--t1)}.vitality-fill.low{background:#D88B26}.vitality-fill.resting{background:#B94B4B}
+.pet-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:18px}.pet-stat{background:var(--s2);border-radius:14px;padding:10px;text-align:center}.pet-stat b{display:block;font-size:16px}.pet-stat span{font-size:11px;color:var(--t3)}
 .pet-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.pet-action{border:none;background:var(--s2);border-radius:18px;padding:13px 10px;font-family:var(--sans);font-weight:800;font-size:15px;color:var(--t1);cursor:pointer}
 .pet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.shop-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:14px;box-shadow:0 14px 35px rgba(17,17,17,.04)}
 .shop-art{height:118px;background:var(--s2);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}.shop-name{font-size:17px;font-weight:800;letter-spacing:-.03em;line-height:1.2}.shop-tags{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.tag{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--s2);color:var(--t2);font-weight:700}.price{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border-radius:999px;padding:7px 10px;font-family:var(--mono);font-weight:800}.shop-btn{width:100%;margin-top:10px;border:none;background:var(--t1);color:#fff;border-radius:12px;padding:10px;font-weight:800;font-family:var(--sans);cursor:pointer}.shop-btn.owned,.shop-btn:disabled{background:var(--s2);color:var(--t3);cursor:default}
@@ -137,10 +138,14 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .px{width:72px;height:72px;image-rendering:pixelated;position:relative;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
 .px::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;background:#111;box-shadow:8px -8px var(--p1,#C28A4C),16px -8px var(--p1,#C28A4C),24px 0 var(--p1,#C28A4C),32px 8px var(--p1,#C28A4C),40px 16px var(--p1,#C28A4C),40px 24px var(--p1,#C28A4C),32px 32px var(--p1,#C28A4C),24px 40px var(--p2,#FFF4D8),16px 40px var(--p2,#FFF4D8),8px 32px var(--p1,#C28A4C),0 24px var(--p1,#C28A4C),0 16px var(--p1,#C28A4C),16px 16px #111,32px 16px #111,24px 24px var(--p2,#FFF4D8),8px 48px #111,32px 48px #111,-8px 16px var(--p3,#8D5E35),-16px 8px var(--p3,#8D5E35)}
 .px.dog{--p1:#D6A15D;--p2:#FFF4E0;--p3:#8A5A2C}.px.sheep{--p1:#F2E6D8;--p2:#FFFFFF;--p3:#A65A4A}.px.westie{--p1:#F8F4E8;--p2:#FFFFFF;--p3:#A06B3C}.px.cat{--p1:#C48B4E;--p2:#FFF1D4;--p3:#7A4B2A}
+.pet-stack{width:92px;height:92px;position:relative;display:flex;align-items:center;justify-content:center}.pet-stack .pet-img{position:absolute;left:0;top:0}.pet-stack .pet-base{z-index:1}.pet-equip{position:absolute;object-fit:contain;image-rendering:pixelated;pointer-events:none;z-index:2;filter:drop-shadow(0 3px 0 rgba(0,0,0,.14))}
+.pet-equip.slot-hat{width:52%;height:52%;left:24%;top:-2%}.pet-equip.slot-scarf{width:62%;height:42%;left:19%;top:48%}.pet-equip.slot-glasses{width:52%;height:34%;left:24%;top:33%}.pet-equip.slot-special{width:58%;height:58%;left:48%;top:35%}
+.pet-stage .pet-stack{width:112px;height:112px}.pet-mini .pet-stack{width:58px;height:58px}.shop-art .pet-stack{width:112px;height:112px}
 .pet-img,.item-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16))}
 .pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}.shop-art .item-img{width:88px;height:88px}.shop-art .item-img.accessory{width:82px;height:82px}
 .asset-missing::after{content:'图片未上传';font-size:12px;color:var(--t3);font-weight:800;letter-spacing:0;background:rgba(255,255,255,.72);border:1px dashed var(--bd);border-radius:999px;padding:7px 10px}.dark .asset-missing::after{background:rgba(20,20,20,.72)}
 .foodpx{width:72px;height:72px;position:relative;image-rendering:pixelated}.foodpx::before{content:'';position:absolute;left:14px;top:30px;width:8px;height:8px;background:#111;box-shadow:8px 0 var(--f1,#D68B3A),16px -8px var(--f1,#D68B3A),24px -8px var(--f2,#F7C46B),32px 0 var(--f1,#D68B3A),40px 0 #111,8px 8px var(--f2,#F7C46B),16px 8px var(--f2,#F7C46B),24px 8px var(--f1,#D68B3A),32px 8px #111}.foodpx.toast{--f1:#C7833B;--f2:#FFE8A3}.foodpx.choco{--f1:#5A2E22;--f2:#8A4A32}.foodpx.sand{--f1:#E5B24D;--f2:#FFF0A8}
+.onboard-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(17,17,17,.05)}.onboard-title{font-size:22px;font-weight:900;letter-spacing:-.04em}.onboard-copy{font-size:13px;color:var(--t3);line-height:1.7;margin:8px 0 16px}.task-list{display:grid;gap:10px}.task-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--s2);border-radius:16px;padding:12px 14px;font-weight:800}.task-row span{font-size:12px;color:var(--t3);font-weight:700}.task-dot{width:22px;height:22px;border-radius:50%;background:var(--sur);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)}.task-dot.done{background:var(--t1);color:#fff;border-color:var(--t1)}
 
 /* ── DICT overlay — completely independent from .sc flow ── */
 #dict-overlay{
@@ -336,8 +341,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-msg{font-size:12px;text-align:center;min-height:16px;color:var(--ng)}
 .auth-switch{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.auth-mode{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:var(--rsm);padding:10px;font-family:var(--sans);font-size:13px;font-weight:800;cursor:pointer}.auth-mode.on{background:var(--t1);border-color:var(--t1);color:#fff}.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-nickname-wrap.hidden{display:none}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
 .guide-card{display:flex;flex-direction:column;gap:14px;min-height:280px}.guide-hero{height:112px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,var(--s2),var(--sur));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.guide-pet{width:84px;height:84px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}.guide-icon{width:72px;height:72px;border-radius:24px;background:var(--t1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}.guide-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.guide-copy{font-size:14px;line-height:1.7;color:var(--t2)}.guide-dots{display:flex;justify-content:center;gap:6px;padding:4px 0}.guide-dot{width:6px;height:6px;border-radius:999px;background:var(--bd);transition:all .2s}.guide-dot.on{width:18px;background:var(--t1)}.guide-actions{display:flex;gap:8px}.guide-actions .mbtnc{flex:.38}.guide-actions .btnp{flex:1}
-.fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
-.lottery-win{position:fixed;inset:0;z-index:720;background:rgba(17,17,17,.46);display:flex;align-items:center;justify-content:center;padding:24px;animation:lotteryFade .18s ease both}.lottery-win-card{width:min(340px,calc(100vw - 48px));background:var(--sur);border:1px solid var(--bd);border-radius:28px;padding:26px 22px 22px;text-align:center;box-shadow:0 28px 90px rgba(0,0,0,.22);animation:lotteryPop .48s cubic-bezier(.18,1.35,.28,1) both}.lottery-win.shrink .lottery-win-card{animation:lotteryPack .42s cubic-bezier(.45,0,.2,1) both}.lottery-prize-art{height:142px;border-radius:26px;background:var(--s2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}.lottery-prize-art .pet-img{width:122px;height:122px}.lottery-prize-art .item-img{width:108px;height:108px}.lottery-prize-art .item-img.accessory{width:102px;height:102px}.lottery-prize-title{font-size:26px;font-weight:900;letter-spacing:-.05em}.lottery-prize-sub{margin-top:7px;color:var(--t3);font-size:13px;line-height:1.5}.lottery-prize-tip{margin-top:16px;color:var(--t3);font-size:12px}
+.fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow,.vitality-track.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
+.lottery-win{position:fixed;inset:0;z-index:720;background:rgba(17,17,17,.46);display:flex;align-items:center;justify-content:center;padding:24px;animation:lotteryFade .18s ease both}.lottery-win-card{width:min(340px,calc(100vw - 48px));background:var(--sur);border:1px solid var(--bd);border-radius:28px;padding:26px 22px 22px;text-align:center;box-shadow:0 28px 90px rgba(0,0,0,.22);animation:lotteryPop .48s cubic-bezier(.18,1.35,.28,1) both}.lottery-win.shrink .lottery-win-card{animation:lotteryPack .42s cubic-bezier(.45,0,.2,1) both}.lottery-prize-art{height:142px;border-radius:26px;background:var(--s2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}.lottery-prize-art .pet-img{width:122px;height:122px}.lottery-prize-art .item-img{width:108px;height:108px}.lottery-prize-art .item-img.accessory{width:102px;height:102px}.lottery-frag{width:112px;height:112px;border-radius:28px;background:linear-gradient(135deg,#FFF1B8,#8B6CFF 52%,#3AA7FF);border:5px solid #111;display:flex;align-items:center;justify-content:center;color:#fff;font-size:38px;font-weight:900;box-shadow:0 16px 38px rgba(70,80,180,.2)}.lottery-prize-title{font-size:26px;font-weight:900;letter-spacing:-.05em}.lottery-prize-sub{margin-top:7px;color:var(--t3);font-size:13px;line-height:1.5}.lottery-prize-tip{margin-top:16px;color:var(--t3);font-size:12px}.frag-track{width:100%;height:8px;border-radius:999px;background:var(--s2);overflow:hidden;margin:8px 0 2px}.frag-track span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#111,#777)}.frag-text{font-size:12px;color:var(--t3);font-weight:800}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -560,7 +565,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 <div class="modal-bg" id="modal-bg" onclick="closeImportBg(event)">
   <div class="modal" id="modal">
     <div class="modal-title">导入自定义词库</div>
-    <p class="modal-sub">支持导入单词、短语或句子，将永久保存在本地。</p>
+    <p class="modal-sub">支持导入单词、短语或句子。免费账号单个词库最多 4000 条，云端同步空间 10MB。</p>
     <div class="modal-tabs" id="imp-tabs">
       <div class="mt2 on" data-it="word" onclick="pickImpType('word')">单词</div>
       <div class="mt2" data-it="phrase" onclick="pickImpType('phrase')">短语</div>
@@ -796,6 +801,7 @@ const DEFAULT_API_BASE=(()=>{
   if(location.protocol==='file:')return 'http://localhost:3000';
   return '';
 })();
+const FREE_BANK_ITEM_LIMIT=4000;
 let AUTH={
   token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
   user:null,
@@ -805,6 +811,7 @@ let AUTH={
   ready:false,
   lastSync:localStorage.getItem(SYNC_AT_KEY)||''
 };
+function isPaidUser(){return !!(AUTH.user&&AUTH.user.isPaid)}
 
 const PET_CATALOG={
   calico:{id:'calico',name:'基础三花猫',rarity:'N',asset:'assets/pixel-pet/base-pets/base-01-calico-cat.png',price:0},
@@ -859,11 +866,21 @@ const ACCESSORY_CATALOG={
 };
 const SHOP_ITEMS={skins:['puppy','penguin','bunny','snowcat','fox','blackcat','corgi','reindeer','raccoon'],accessories:Object.keys(ACCESSORY_CATALOG),foods:Object.keys(FOOD_CATALOG)};
 const LEGACY_PET_MAP={tabby:'calico',beagle:'corgi',westie:'puppy',sheep:'penguin'};
+const ACCESSORY_SLOT_MAP={
+  scarfRed:'scarf',scarfBlue:'scarf',scarfPink:'scarf',scarfMustard:'scarf',scarfPurple:'scarf',scarfTeal:'scarf',
+  stripedScarf:'scarf',fluffyCollar:'scarf',bellCollar:'scarf',bowTie:'scarf',deerScarf:'scarf',penguinSash:'scarf',
+  blueBeanie:'hat',redWinterCap:'hat',greenBeret:'hat',tinyCrown:'hat',creamHood:'hat',rabbitHeadband:'hat',
+  roundGlasses:'glasses',squareGlasses:'glasses',sunglasses:'glasses',starGlasses:'glasses',monocle:'glasses',
+  tailBow:'special',tailRibbon:'special'
+};
+const FOOD_VITALITY_GAIN={N:8,R:14,SR:22,SSR:35};
+const VITALITY_DECAY_MS=6*60*60*1000;
 const GUIDE_STEPS=[
-  {title:'先完成一组听写',copy:'选择单词、短语或句子词库，听音后输入答案。完成一组后会获得晶石、经验和宠物活力。',kind:'pet'},
+  {title:'先完成一组听写',copy:'选择单词、短语或句子词库，听音后输入答案。完成一组后会获得晶石和宠物经验。',kind:'pet'},
   {title:'错题会自动收进错题本',copy:'写错或跳过的内容会自动保存。回到错题本重练，能更快修复薄弱项。',kind:'book'},
-  {title:'宠物需要活力',copy:'新宠物初始活力 60。每天会消耗活力，学习和喂食都可以帮它恢复状态。',kind:'pet'},
-  {title:'晶石可以兑换成长物品',copy:'练习会积累晶石，用来领养新伙伴、购买零食和装饰，让学习进度看得见。',kind:'gem'},
+  {title:'先闯三小关领养伙伴',copy:'完成单词、短语、句子各 3 题后，会领养第一只基础三花猫。',kind:'pet'},
+  {title:'宠物需要活力',copy:'新宠物初始活力 60。活力会随时间下降，零食是恢复活力的主要方式。',kind:'pet'},
+  {title:'晶石可以兑换成长物品',copy:'练习会积累晶石，用来购买零食、配饰和新伙伴，让学习进度看得见。',kind:'gem'},
   {title:'登录后自动同步',copy:'学习记录、错题、自定义词库、收藏和宠物数据都会保存到云端，多设备继续练。',kind:'sync'}
 ];
 
@@ -971,7 +988,7 @@ function showRewardFx(type,payload={}){
   }
   if(type==='feed'){
     const stage=document.querySelector('#sc-pets.on .pet-stage')||document.querySelector('#home-pet-card .pet-stage');
-    const bar=document.querySelector('#sc-pets.on .pet-exp')||document.querySelector('#home-pet-card .pet-mini-bar');
+    const bar=document.querySelector('#sc-pets.on .vitality-track')||document.querySelector('#home-pet-card .pet-mini-bar');
     stage?.classList.add('fx-fed');bar?.classList.add('fx-glow');
     setTimeout(()=>{stage?.classList.remove('fx-fed');bar?.classList.remove('fx-glow')},900);
   }
@@ -1179,7 +1196,7 @@ function wordHint(word,asked){
   return [/ly$/.test(key)?'adv.':/ing$|ed$/.test(key)?'verb':'word',''];
 }
 function defaultPetState(){
-  return {gems:120,currentPetId:'calico',pets:[makePet('calico')],foods:{},ownedSkins:['calico'],lotteryCount:0,lastRewardSig:''};
+  return {gems:120,currentPetId:'pending',pets:[],foods:{},accessories:{},accessoryFragments:{},ownedSkins:[],equippedAccessories:{},lotteryCount:0,lastRewardSig:'',lastVitalityTick:Date.now(),pendingExp:0,onboarding:{word:false,phrase:false,sentence:false,claimed:false}};
 }
 function makePet(id){
   id=LEGACY_PET_MAP[id]||id;
@@ -1187,41 +1204,83 @@ function makePet(id){
   return {id:c.id,name:c.name,rarity:c.rarity,level:1,exp:0,mood:70,hunger:70,vitality:60,ownedAt:Date.now(),asset:c.asset};
 }
 function ensurePetState(){
-  if(!S.pet||!S.pet.pets||!S.pet.pets.length)S.pet=defaultPetState();
+  if(!S.pet||typeof S.pet!=='object')S.pet=defaultPetState();
+  if(!Array.isArray(S.pet.pets))S.pet.pets=[];
   S.pet.pets=S.pet.pets.map(p=>{
     const id=LEGACY_PET_MAP[p.id]||p.id;
     const c=PET_CATALOG[id]||PET_CATALOG.calico;
-    return {...p,vitality:typeof p.vitality==='number'?p.vitality:60,id:c.id,name:c.name,rarity:c.rarity,asset:c.asset,skin:undefined};
+    return {...p,level:Math.max(1,Number(p.level)||1),exp:Math.max(0,Number(p.exp)||0),vitality:typeof p.vitality==='number'?Math.max(0,Math.min(100,p.vitality)):60,mood:typeof p.mood==='number'?p.mood:70,hunger:typeof p.hunger==='number'?p.hunger:70,id:c.id,name:c.name,rarity:c.rarity,asset:c.asset,skin:undefined};
   });
-  if(!S.pet.currentPetId)S.pet.currentPetId=S.pet.pets[0].id;
+  if(!S.pet.currentPetId)S.pet.currentPetId=S.pet.pets[0]?.id||'pending';
   S.pet.currentPetId=LEGACY_PET_MAP[S.pet.currentPetId]||S.pet.currentPetId;
-  if(!PET_CATALOG[S.pet.currentPetId])S.pet.currentPetId='calico';
+  if(!PET_CATALOG[S.pet.currentPetId]&&S.pet.pets.length)S.pet.currentPetId=S.pet.pets[0].id;
+  if(!S.pet.pets.length)S.pet.currentPetId='pending';
   if(!S.pet.foods)S.pet.foods={};
   if(!S.pet.accessories)S.pet.accessories={};
+  if(!S.pet.accessoryFragments)S.pet.accessoryFragments={};
+  if(!S.pet.equippedAccessories)S.pet.equippedAccessories={};
   if(!S.pet.ownedSkins)S.pet.ownedSkins=S.pet.pets.map(p=>p.id);
   S.pet.ownedSkins=[...new Set(S.pet.ownedSkins.map(id=>LEGACY_PET_MAP[id]||id).filter(id=>PET_CATALOG[id]))];
-  if(!S.pet.ownedSkins.includes('calico'))S.pet.ownedSkins.unshift('calico');
+  S.pet.pets.forEach(p=>{if(!S.pet.ownedSkins.includes(p.id))S.pet.ownedSkins.push(p.id)});
   if(typeof S.pet.gems!=='number')S.pet.gems=0;
+  if(typeof S.pet.pendingExp!=='number')S.pet.pendingExp=0;
+  if(!S.pet.onboarding)S.pet.onboarding={word:false,phrase:false,sentence:false,claimed:S.pet.pets.length>0};
+  ['word','phrase','sentence'].forEach(k=>{S.pet.onboarding[k]=!!S.pet.onboarding[k]});
+  S.pet.onboarding.claimed=!!(S.pet.onboarding.claimed||S.pet.pets.length>0);
+  if(!S.pet.lastVitalityTick)S.pet.lastVitalityTick=Date.now();
+  Object.keys(S.pet.equippedAccessories).forEach(slot=>{
+    const id=S.pet.equippedAccessories[slot];
+    if(!ACCESSORY_CATALOG[id]||!(S.pet.accessories[id]>0))delete S.pet.equippedAccessories[slot];
+  });
 }
-function savePet(){ensurePetState();localStorage.setItem('pet4',JSON.stringify(S.pet));queueSync('pet')}
-function currentPet(){
+function hasPet(){ensurePetState();return S.pet.pets.length>0}
+function rawCurrentPet(){return S.pet.pets.find(p=>p.id===S.pet.currentPetId)||S.pet.pets[0]||null}
+function applyVitalityDecay(){
   ensurePetState();
-  return S.pet.pets.find(p=>p.id===S.pet.currentPetId)||S.pet.pets[0];
+  const p=rawCurrentPet();
+  const now=Date.now();
+  const steps=Math.floor((now-(S.pet.lastVitalityTick||now))/VITALITY_DECAY_MS);
+  if(steps>0){
+    if(p)p.vitality=Math.max(0,(p.vitality||60)-steps*10);
+    S.pet.lastVitalityTick=(S.pet.lastVitalityTick||now)+steps*VITALITY_DECAY_MS;
+  }
+}
+function savePet(){ensurePetState();applyVitalityDecay();localStorage.setItem('pet4',JSON.stringify(S.pet));queueSync('pet')}
+function currentPet(){
+  ensurePetState();applyVitalityDecay();
+  return rawCurrentPet()||makePet('calico');
 }
 function expNeed(p){return 250+(Math.max(1,p.level)-1)*100}
 function addPetExp(amount){
-  const p=currentPet();let gain=amount;
+  ensurePetState();
+  const p=rawCurrentPet();
+  if(!p){S.pet.pendingExp=(S.pet.pendingExp||0)+amount;return 0}
+  let gain=amount,leveled=0;
   while(gain>0){
     const need=expNeed(p);
     const room=need-p.exp;
-    if(gain>=room){p.level++;p.exp=0;gain-=room;p.mood=Math.min(100,p.mood+6)}
+    if(gain>=room){p.level++;p.exp=0;gain-=room;leveled++}
     else{p.exp+=gain;gain=0}
   }
+  return leveled;
 }
-function petArt(kind,size=''){
+function petStageAsset(kind,level=1){
+  const c=PET_CATALOG[kind]||PET_CATALOG.calico;
+  if(level>=10&&c.assets?.adult)return c.assets.adult;
+  if(level>=5&&c.assets?.grown)return c.assets.grown;
+  return c.assets?.baby||c.asset;
+}
+function petArt(kind,size='',pet=null,withEquip=false){
   kind=LEGACY_PET_MAP[kind]||kind;
   const c=PET_CATALOG[kind]||PET_CATALOG.calico;
-  return `<img class="pet-img ${esc(size)}" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
+  const src=petStageAsset(kind,pet?.level||1);
+  const img=`<img class="pet-img pet-base ${esc(size)}" src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
+  if(!withEquip)return img;
+  const layers=Object.entries(S.pet?.equippedAccessories||{}).map(([slot,id])=>{
+    const a=ACCESSORY_CATALOG[id];if(!a)return '';
+    return `<img class="pet-equip slot-${esc(slot)}" src="${esc(a.asset)}" alt="" loading="lazy" onerror="this.remove()">`;
+  }).join('');
+  return `<div class="pet-stack">${img}${layers}</div>`;
 }
 function foodArt(kind){
   const c=FOOD_CATALOG[kind]||FOOD_CATALOG.fish;
@@ -1232,6 +1291,16 @@ function accessoryArt(kind){
   return `<img class="item-img accessory" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function rarityClass(r){return String(r||'N').toLowerCase()}
+function foodVitalityGain(food){return FOOD_VITALITY_GAIN[food?.rarity]||8}
+function vitalityInfo(v){
+  if(v>=70)return {cls:'good',label:'精神很好',hint:'今天照顾得不错'};
+  if(v>=30)return {cls:'normal',label:'正常',hint:'状态稳定'};
+  if(v>0)return {cls:'low',label:'低活力',hint:'它有点累了，喂点零食吧'};
+  return {cls:'resting',label:'休息中',hint:'喂点零食，让它恢复状态'};
+}
+function accessorySlot(id){return ACCESSORY_SLOT_MAP[id]||'special'}
+function isAccessoryEquipped(id){return Object.values(S.pet?.equippedAccessories||{}).includes(id)}
+function accessoryFragmentCount(id){return Math.max(0,Number(S.pet?.accessoryFragments?.[id])||0)}
 function setPetMsg(msg){const el=document.getElementById('pet-msg');if(el)el.textContent=msg||''}
 
 // ════════════════════════════════
@@ -1273,10 +1342,19 @@ function save(){localStorage.setItem('ds4',JSON.stringify(S.stats));localStorage
 
 function renderHomePet(){
   const card=document.getElementById('home-pet-card');if(!card)return;
-  ensurePetState();const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
-  card.innerHTML=`<div class="pet-stage" style="width:70px;height:70px;border-radius:18px">${petArt(p.id)}</div>
+  ensurePetState();applyVitalityDecay();
+  if(!hasPet()){
+    const done=petOnboardingCount();
+    card.innerHTML=`<div class="pet-stage" style="width:70px;height:70px;border-radius:18px"><div class="guide-icon" style="width:42px;height:42px;font-size:20px">?</div></div>
+      <div class="pet-mini-info"><div class="pet-mini-name">待领养伙伴</div>
+      <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 完成三小关后领取</div>
+      <div class="pet-mini-bar"><div class="pet-mini-fill" style="width:${Math.round(done/3*100)}%"></div></div></div>`;
+    return;
+  }
+  const p=currentPet(),info=vitalityInfo(p.vitality),pct=Math.min(100,p.vitality);
+  card.innerHTML=`<div class="pet-stage" style="width:70px;height:70px;border-radius:18px">${petArt(p.id,'',p,true)}</div>
     <div class="pet-mini-info"><div class="pet-mini-name">${esc(p.name)} · Lv.${p.level}</div>
-    <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 活力 ${p.vitality} · 心情 ${p.mood}</div>
+    <div class="pet-mini-sub"><span class="gem">${S.pet.gems}</span> · 活力 ${p.vitality}/100 · ${info.label}</div>
     <div class="pet-mini-bar"><div class="pet-mini-fill" style="width:${pct}%"></div></div></div>`;
 }
 function setPetView(v){
@@ -1285,24 +1363,73 @@ function setPetView(v){
   renderPets();
 }
 function renderPets(){
-  ensurePetState();
+  ensurePetState();applyVitalityDecay();
   const gem=document.getElementById('pet-gems');if(gem)gem.textContent=S.pet.gems;
   const root=document.getElementById('pet-content');if(!root)return;
   if(S.petView==='skins')return renderShop('skins');
   if(S.petView==='accessories')return renderShop('accessories');
   if(S.petView==='foods')return renderShop('foods');
   if(S.petView==='lottery')return renderLottery();
+  if(!hasPet())return renderPetOnboarding();
   const p=currentPet(),need=expNeed(p),pct=Math.min(100,Math.round(p.exp/need*100));
-  root.innerHTML=`<div class="pet-card"><div class="pet-profile"><div class="pet-stage">${petArt(p.id)}</div>
+  const info=vitalityInfo(p.vitality);
+  const ownedAccessories=Object.keys(S.pet.accessories||{}).filter(id=>S.pet.accessories[id]>0);
+  const fragments=Object.keys(S.pet.accessoryFragments||{}).filter(id=>ACCESSORY_CATALOG[id]&&S.pet.accessoryFragments[id]>0&&!S.pet.accessories[id]);
+  root.innerHTML=`<div class="pet-card"><div class="pet-profile"><div class="pet-stage">${petArt(p.id,'',p,true)}</div>
     <div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><div class="pet-name">${esc(p.name)}</div><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span></div>
     <div class="pet-level">Lv.${p.level}</div><div class="pet-exp"><span style="width:${pct}%"></span></div><div class="pet-exp-t">${p.exp}/${need}</div></div></div>
-    <div class="pet-stats"><div class="pet-stat"><b>${p.vitality}</b><span>活力</span></div><div class="pet-stat"><b>${p.mood}</b><span>心情</span></div><div class="pet-stat"><b>${p.hunger}</b><span>饱食</span></div></div>
-    <div class="pet-actions"><button class="pet-action" onclick="quickFeed()">喂食</button><button class="pet-action" onclick="setPetView('skins')">形象</button><button class="pet-action" onclick="setPetView('foods')">零食</button><button class="pet-action" onclick="setPetView('lottery')">抽奖</button></div></div>
-    <div class="sh" style="padding:18px 0 10px"><span class="st">已领养</span></div><div class="pet-grid">${S.pet.pets.map(pp=>petOwnedCard(pp)).join('')}</div>`;
+    <div class="pet-vitality"><div class="pet-vitality-top"><span>活力 ${p.vitality}/100 · ${info.label}</span><span>${esc(info.hint)}</span></div><div class="vitality-track"><div class="vitality-fill ${info.cls}" style="width:${p.vitality}%"></div></div></div>
+    <div class="pet-actions"><button class="pet-action" onclick="quickFeed()">喂食恢复</button><button class="pet-action" onclick="setPetView('accessories')">配饰商店</button><button class="pet-action" onclick="setPetView('foods')">零食商店</button><button class="pet-action" onclick="setPetView('lottery')">晶石抽奖</button></div></div>
+    <div class="sh" style="padding:18px 0 10px"><span class="st">我的宠物</span></div><div class="pet-grid">${S.pet.pets.map(pp=>petOwnedCard(pp)).join('')}</div>
+    <div class="sh" style="padding:18px 0 10px"><span class="st">我的配饰</span><span class="stag">抽奖得碎片，5 个合成 1 件</span></div>
+    ${ownedAccessories.length||fragments.length?`<div class="pet-grid">${ownedAccessories.map(id=>accessoryOwnedCard(id)).join('')}${fragments.map(id=>accessoryFragmentCard(id)).join('')}</div>`:`<div class="onboard-card"><div class="onboard-title">还没有配饰</div><div class="onboard-copy">抽奖会获得配饰碎片，集齐 5 个碎片后可合成。也可以在配饰商店直接兑换成品。</div><button class="shop-btn" onclick="setPetView('accessories')">去配饰商店</button></div>`}`;
 }
 function petOwnedCard(p){
   const active=p.id===S.pet.currentPetId;
-  return `<div class="shop-card"><div class="shop-art">${petArt(p.id)}</div><div class="shop-name">${esc(p.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span><span class="tag">Lv.${p.level}</span></div><button class="shop-btn ${active?'owned':''}" onclick="adoptPet('${p.id}')" ${active?'disabled':''}>${active?'当前伙伴':'设为当前'}</button></div>`;
+  return `<div class="shop-card"><div class="shop-art">${petArt(p.id,'',p,active)}</div><div class="shop-name">${esc(p.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span><span class="tag">Lv.${p.level}</span><span class="tag">活力 ${p.vitality}</span></div><button class="shop-btn ${active?'owned':''}" onclick="adoptPet('${p.id}')" ${active?'disabled':''}>${active?'当前伙伴':'设为当前'}</button></div>`;
+}
+function petOnboardingCount(){
+  ensurePetState();
+  const o=S.pet.onboarding||{};
+  return ['word','phrase','sentence'].filter(k=>o[k]).length;
+}
+function renderPetOnboarding(){
+  const root=document.getElementById('pet-content');if(!root)return;
+  const o=S.pet.onboarding||{},done=petOnboardingCount(),ready=done>=3;
+  const rows=[
+    ['word','单词 3 题','完成一组单词听写'],
+    ['phrase','短语 3 题','完成一组短语听写'],
+    ['sentence','句子 3 题','完成一组句子听写']
+  ];
+  root.innerHTML=`<div class="onboard-card"><div class="pet-profile"><div class="pet-stage"><div class="guide-icon" style="width:70px;height:70px;font-size:32px">?</div></div><div><div class="pet-name">待领养伙伴</div><div class="onboard-copy">先闯三小关，大约 8-10 分钟。完成后会领养第一只基础三花猫，之后学习赚晶石，买零食照顾它。</div><div class="pet-exp"><span style="width:${Math.round(done/3*100)}%"></span></div><div class="pet-exp-t">${done}/3</div></div></div><div class="task-list" style="margin-top:16px">${rows.map(([key,title,sub])=>`<div class="task-row"><div><b>${title}</b><span style="display:block">${sub}</span></div><div class="task-dot ${o[key]?'done':''}">${o[key]?'✓':'·'}</div></div>`).join('')}</div><button class="shop-btn ${ready?'':'owned'}" style="margin-top:16px" onclick="claimStarterPet()" ${ready?'':'disabled'}>${ready?'领取基础三花猫':'完成三小关后领取'}</button></div>`;
+}
+function markPetOnboarding(type,count){
+  ensurePetState();
+  if(hasPet()||!['word','phrase','sentence'].includes(type)||count<3)return false;
+  if(!S.pet.onboarding[type]){S.pet.onboarding[type]=true;return true}
+  return false;
+}
+function canClaimStarterPet(){
+  ensurePetState();
+  const o=S.pet.onboarding||{};
+  return !hasPet()&&!!(o.word&&o.phrase&&o.sentence);
+}
+function claimStarterPet(auto=false){
+  ensurePetState();
+  if(hasPet())return;
+  if(!canClaimStarterPet()){setPetMsg('完成单词、短语、句子各 3 题后即可领养。');return}
+  const p=makePet('calico');
+  S.pet.pets=[p];
+  S.pet.currentPetId='calico';
+  S.pet.ownedSkins=['calico'];
+  S.pet.onboarding.claimed=true;
+  const pending=S.pet.pendingExp||0;
+  S.pet.pendingExp=0;
+  if(pending)addPetExp(pending);
+  savePet();renderHomePet();renderPets();
+  setPetMsg('领养成功，基础三花猫加入你的背包。');
+  showRewardFx('feed',{title:'领养成功',exp:pending,note:'基础三花猫已加入背包'});
+  if(auto)setPetView('bag');
 }
 function renderShop(type){
   const root=document.getElementById('pet-content');if(!root)return;
@@ -1315,37 +1442,72 @@ function skinCard(id){
   return `<div class="shop-card"><div class="shop-art">${petArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">形象</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn ${owned?'owned':''}" onclick="${owned?`adoptPet('${id}')`:`buyItem('skin','${id}')`}">${owned?'使用':'购买'}</button></div>`;
 }
 function foodCard(id){
-  const c=FOOD_CATALOG[id],n=S.pet.foods[id]||0;
-  return `<div class="shop-card"><div class="shop-art">${foodArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">经验: ${c.exp}</span><span class="tag">库存: ${n}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('food','${id}')">购买</button><button class="shop-btn ${n?'':'owned'}" onclick="feedPet('${id}')" ${n?'':'disabled'}>喂食</button></div>`;
+  const c=FOOD_CATALOG[id];
+  return `<div class="shop-card"><div class="shop-art">${foodArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">活力 +${foodVitalityGain(c)}</span><span class="tag">经验 +${c.exp}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('food','${id}')">购买并喂食</button></div>`;
 }
 function accessoryCard(id){
-  const c=ACCESSORY_CATALOG[id],n=S.pet.accessories[id]||0;
-  return `<div class="shop-card"><div class="shop-art">${accessoryArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">库存: ${n}</span></div><div class="price"><span class="gem">${c.price}</span></div><button class="shop-btn" onclick="buyItem('accessory','${id}')">兑换</button></div>`;
+  const c=ACCESSORY_CATALOG[id],owned=S.pet.accessories[id]>0,frag=accessoryFragmentCount(id);
+  const equipped=isAccessoryEquipped(id);
+  return `<div class="shop-card"><div class="shop-art">${accessoryArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">${slotName(accessorySlot(id))}</span>${frag?`<span class="tag">碎片 ${frag}/5</span>`:''}</div><div class="price"><span class="gem">${c.price}</span></div>${owned?`<button class="shop-btn ${equipped?'owned':''}" onclick="${equipped?`unequipAccessory('${accessorySlot(id)}')`:`equipAccessory('${id}')`}">${equipped?'卸下':'装备'}</button>`:`<button class="shop-btn" onclick="buyItem('accessory','${id}')">兑换成品</button>`}</div>`;
 }
+function accessoryOwnedCard(id){
+  const c=ACCESSORY_CATALOG[id],equipped=isAccessoryEquipped(id),slot=accessorySlot(id);
+  return `<div class="shop-card"><div class="shop-art">${accessoryArt(id)}</div><div class="shop-name">${esc(c.name)}</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">${slotName(slot)}</span><span class="tag">已拥有</span></div><button class="shop-btn ${equipped?'owned':''}" onclick="${equipped?`unequipAccessory('${slot}')`:`equipAccessory('${id}')`}">${equipped?'卸下':'装备'}</button></div>`;
+}
+function accessoryFragmentCard(id){
+  const c=ACCESSORY_CATALOG[id],frag=accessoryFragmentCount(id),pct=Math.min(100,frag/5*100);
+  return `<div class="shop-card"><div class="shop-art">${accessoryArt(id)}</div><div class="shop-name">${esc(c.name)}碎片</div><div class="shop-tags"><span class="rar ${rarityClass(c.rarity)}">${esc(c.rarity)}</span><span class="tag">${slotName(accessorySlot(id))}</span></div><div class="frag-track"><span style="width:${pct}%"></span></div><div class="frag-text">${frag}/5 碎片</div><button class="shop-btn ${frag>=5?'':'owned'}" onclick="synthesizeAccessory('${id}')" ${frag>=5?'':'disabled'}>${frag>=5?'合成配饰':'继续收集'}</button></div>`;
+}
+function slotName(slot){return {hat:'帽子',scarf:'围巾',glasses:'眼镜',special:'特殊'}[slot]||'配饰'}
 function renderLottery(){
   const root=document.getElementById('pet-content');if(!root)return;
   root.innerHTML=`<div class="pet-card lottery"><div class="lottery-box">?</div><div class="pet-name">晶石抽奖</div><div class="pet-mini-sub">60 晶石一次，主要获得零食/配饰，小概率获得宠物形象</div><button class="btnp" onclick="drawLottery()">抽一次</button></div>`;
 }
 function buyItem(type,id){
   ensurePetState();const item=type==='skin'?PET_CATALOG[id]:type==='accessory'?ACCESSORY_CATALOG[id]:FOOD_CATALOG[id];
+  if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}
   if(!item)return;if(S.pet.gems<item.price){setPetMsg('晶石不足，完成练习可以获得更多晶石。');return}
   S.pet.gems-=item.price;
   if(type==='skin'){if(!S.pet.ownedSkins.includes(id))S.pet.ownedSkins.push(id);if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;setPetMsg(`已领养 ${item.name}`)}
-  else if(type==='accessory'){S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;setPetMsg(`已兑换配饰 ${item.name}`)}
-  else{S.pet.foods[id]=(S.pet.foods[id]||0)+1;setPetMsg(`已购买 ${item.name}`)}
+  else if(type==='accessory'){S.pet.accessories[id]=1;setPetMsg(`已兑换配饰 ${item.name}`)}
+  else{
+    const p=currentPet(),vitalityGain=foodVitalityGain(item);
+    p.vitality=Math.min(100,(p.vitality||60)+vitalityGain);const leveled=addPetExp(item.exp);
+    setPetMsg(`${p.name} 吃掉了 ${item.name}，活力 +${vitalityGain}，经验 +${item.exp}`);
+    savePet();renderHomePet();renderPets();showRewardFx('feed',{vitality:vitalityGain,exp:item.exp,note:leveled?'升级了':'今天照顾得不错'});
+    return;
+  }
   savePet();renderHomePet();renderPets();
 }
 function adoptPet(id){ensurePetState();if(!S.pet.pets.some(p=>p.id===id))S.pet.pets.push(makePet(id));S.pet.currentPetId=id;savePet();setPetMsg('已切换当前宠物。');renderHomePet();renderPets()}
-function feedPet(id){
-  ensurePetState();const f=FOOD_CATALOG[id];if(!f||!(S.pet.foods[id]>0)){setPetMsg('没有这份零食，先去零食商店购买。');return}
-  S.pet.foods[id]--;const p=currentPet();const vitalityGain=(f.rarity==='SR'||f.rarity==='SSR')?18:8;
-  p.hunger=Math.min(100,p.hunger+18);p.mood=Math.min(100,p.mood+f.mood);p.vitality=Math.min(100,(p.vitality||60)+vitalityGain);addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，活力 +${vitalityGain}，经验 +${f.exp}`);renderHomePet();renderPets();showRewardFx('feed',{vitality:vitalityGain,exp:f.exp,note:'心情提升'});
+function equipAccessory(id){
+  ensurePetState();if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}
+  const c=ACCESSORY_CATALOG[id];if(!c||!(S.pet.accessories[id]>0)){setPetMsg('背包里还没有这个配饰。');return}
+  const slot=accessorySlot(id);S.pet.equippedAccessories[slot]=id;savePet();setPetMsg(`已装备 ${c.name}`);renderHomePet();renderPets();showRewardFx('feed',{title:'配饰已穿戴',note:c.name});
 }
-function quickFeed(){const id=Object.keys(S.pet.foods||{}).find(k=>S.pet.foods[k]>0);if(id)feedPet(id);else{setPetView('foods');setPetMsg('先购买一份零食再喂食。')}}
+function unequipAccessory(slot){
+  ensurePetState();const id=S.pet.equippedAccessories?.[slot];if(id)delete S.pet.equippedAccessories[slot];
+  savePet();setPetMsg('已卸下配饰。');renderHomePet();renderPets();
+}
+function synthesizeAccessory(id){
+  ensurePetState();const c=ACCESSORY_CATALOG[id],frag=accessoryFragmentCount(id);
+  if(!c||frag<5){setPetMsg('配饰碎片还不够，集齐 5 个可以合成。');return}
+  S.pet.accessoryFragments[id]=frag-5;
+  S.pet.accessories[id]=1;
+  savePet();setPetMsg(`已合成配饰 ${c.name}`);renderHomePet();renderPets();showRewardFx('feed',{title:'配饰合成',note:c.name});
+}
+function feedPet(id){
+  ensurePetState();if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}
+  const f=FOOD_CATALOG[id];if(!f||!(S.pet.foods[id]>0)){setPetMsg('没有这份零食，先去零食商店购买。');return}
+  S.pet.foods[id]--;const p=currentPet();const vitalityGain=foodVitalityGain(f);
+  p.vitality=Math.min(100,(p.vitality||60)+vitalityGain);const leveled=addPetExp(f.exp);savePet();setPetMsg(`${p.name} 吃掉了 ${f.name}，活力 +${vitalityGain}，经验 +${f.exp}`);renderHomePet();renderPets();showRewardFx('feed',{vitality:vitalityGain,exp:f.exp,note:leveled?'升级了':'今天照顾得不错'});
+}
+function quickFeed(){ensurePetState();if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}const id=Object.keys(S.pet.foods||{}).find(k=>S.pet.foods[k]>0);if(id)feedPet(id);else{setPetView('foods');setPetMsg('先购买一份零食再喂食。')}}
 function lotteryPrizeArt(prize){
   if(!prize)return '<div class="guide-icon">?</div>';
   if(prize.type==='skin')return petArt(prize.id);
   if(prize.type==='accessory')return accessoryArt(prize.id);
+  if(prize.type==='fragment')return '<div class="lottery-frag">+1</div>';
   if(prize.type==='food')return foodArt(prize.id);
   return '<div class="guide-icon">晶</div>';
 }
@@ -1381,23 +1543,29 @@ function showLotteryWin(prize){
   showLotteryWin._timer=setTimeout(close,2000);
 }
 function drawLottery(){
-  ensurePetState();const cost=60;if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
+  ensurePetState();const cost=60;if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}
+  if(S.pet.gems<cost){setPetMsg('晶石不足，完成一组练习再来抽奖。');return}
   S.pet.gems-=cost;S.pet.lotteryCount=(S.pet.lotteryCount||0)+1;const r=Math.random();let msg='',prize=null;
-  if(r<.06){
+  if(r<.05){
     const id=weightedPick([
-      {id:'puppy',weight:28},{id:'penguin',weight:22},{id:'bunny',weight:18},
-      {id:'snowcat',weight:12},{id:'fox',weight:8},{id:'blackcat',weight:5},
-      {id:'corgi',weight:4},{id:'reindeer',weight:2},{id:'raccoon',weight:1}
+      {id:'puppy',weight:32},{id:'penguin',weight:28},
+      {id:'bunny',weight:10},{id:'snowcat',weight:9},{id:'fox',weight:9},
+      {id:'blackcat',weight:3},{id:'corgi',weight:3},{id:'reindeer',weight:4},
+      {id:'raccoon',weight:2}
     ]),c=PET_CATALOG[id];
     if(S.pet.ownedSkins.includes(id)){
-      S.pet.gems+=30;msg=`抽到重复 ${c.name}，转化为 30 晶石。`;prize={type:'gem',id,title:'重复转化',sub:`${c.name} 已拥有，返还 30 晶石`};
+      const expBack=c.rarity==='SSR'?80:c.rarity==='SR'?45:c.rarity==='R'?25:15;
+      addPetExp(expBack);msg=`抽到重复 ${c.name}，转化为宠物经验 +${expBack}。`;prize={type:'gem',id,title:'重复转化',sub:`${c.name} 已拥有，宠物经验 +${expBack}`};
     }else{
       S.pet.ownedSkins.push(id);S.pet.pets.push(makePet(id));msg=`抽到新伙伴：${c.name}`;prize={type:'skin',id,title:c.name,sub:`${c.rarity} 宠物形象已放入背包`};
     }
   }
-  else if(r<.30){
+  else if(r<.28){
     const ids=Object.keys(ACCESSORY_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)],c=ACCESSORY_CATALOG[id];
-    S.pet.accessories[id]=(S.pet.accessories[id]||0)+1;msg=`抽到配饰：${c.name}`;prize={type:'accessory',id,title:c.name,sub:`${c.rarity} 配饰已放入背包`};
+    S.pet.accessoryFragments[id]=accessoryFragmentCount(id)+1;
+    const frag=S.pet.accessoryFragments[id];
+    msg=`抽到 ${c.name} 碎片：${frag}/5`;
+    prize={type:'fragment',id,title:`${c.name}碎片`,sub:`${c.rarity} 配饰碎片 +1，集齐 5 个可合成`};
   }
   else{
     const ids=Object.keys(FOOD_CATALOG);const id=ids[Math.floor(Math.random()*ids.length)],c=FOOD_CATALOG[id];
@@ -1784,18 +1952,16 @@ function applyStudyReward(results,acc){
   const sig=results.map(r=>`${r.word.w}:${r.correct?'1':'0'}:${r.userAnswer}`).join('|')+'@'+Date.now();
   let gems=0,exp=0;
   results.forEach(r=>{if(r.correct){gems+=3;exp+=5}else{gems+=1;exp+=1}});
+  if(S.dictSource==='errors')exp+=Math.max(3,Math.ceil(results.length/2));
   const bonus=acc>=90?20:acc>=70?10:0;
   gems+=bonus;
   S.pet.gems+=gems;
-  addPetExp(exp);
-  const p=currentPet();
-  const vitality=12+(acc>=80?8:0)+(S.dictSource==='errors'?10:0);
-  p.vitality=Math.min(100,(p.vitality||60)+vitality);
-  p.hunger=Math.max(0,p.hunger-Math.ceil(results.length/4));
-  p.mood=Math.min(100,p.mood+(acc>=70?4:0));
+  const leveled=addPetExp(exp);
+  const p=rawCurrentPet();
+  const onboardingChanged=markPetOnboarding(S.type,results.length);
   S.pet.lastRewardSig=sig;
   savePet();renderHomePet();
-  return {gems,exp,bonus,vitality,pet:p};
+  return {gems,exp,bonus,leveled,onboardingChanged,readyToClaim:canClaimStarterPet(),pet:p||null};
 }
 
 // ════════════════════════════════
@@ -1812,7 +1978,7 @@ function showResult(){
   document.getElementById('r-ok').textContent=ok;
   document.getElementById('r-ng').textContent=ng.length;
   const rc=document.getElementById('reward-card');
-  if(rc){rc.classList.add('on');rc.innerHTML=`本组获得 <span class="gem">${reward.gems}</span> · 活力 +${reward.vitality} · 宠物经验 +${reward.exp}${reward.bonus?` · 准确率奖励 +${reward.bonus}`:''}<br>${esc(reward.pet.name)} 现在 Lv.${reward.pet.level}`;}
+  if(rc){rc.classList.add('on');rc.innerHTML=`本组获得 <span class="gem">${reward.gems}</span> · 宠物经验 +${reward.exp}${reward.bonus?` · 准确率奖励 +${reward.bonus}`:''}${reward.leveled?` · 升级 +${reward.leveled}`:''}<br>${reward.pet?`${esc(reward.pet.name)} 现在 Lv.${reward.pet.level}`:(reward.readyToClaim?'三小关完成，可以领取基础三花猫':'完成三小关后领取第一只宠物')}`;}
   const el=document.getElementById('r-wrongs');
   if(ng.length){
     el.innerHTML=`<div class="wh">需复习项 (${ng.length})</div><div class="wlist">${ng.map(r=>`<div class="wr fu"><div><div class="wrw">${esc(r.word.w.substring(0,48))}</div><div class="wrm">${esc(r.word.m)}</div></div><span class="wry">${esc(r.userAnswer)}</span></div>`).join('')}</div>`;
@@ -1824,10 +1990,11 @@ function showResult(){
   document.getElementById('pfill').style.width='100%';
   hideDict();
   showSc('sc-result');
+  if(reward.readyToClaim&&!reward.pet)setTimeout(()=>claimStarterPet(true),650);
   const isErrorRun=S.dictSource==='errors';
   const title=isErrorRun?'薄弱项修复':(acc>=90?'稳定发挥':'本组完成');
   const note=isErrorRun?'这些词我帮你记住了，明天再检查一遍。':(acc>=80?'听写状态很稳':'继续下一组会更熟');
-  setTimeout(()=>showRewardFx(isErrorRun?'errors':'practice',{title,gems:reward.gems,vitality:reward.vitality,exp:reward.exp,note}),180);
+  setTimeout(()=>showRewardFx(isErrorRun?'errors':'practice',{title,gems:reward.gems,exp:reward.exp,note}),180);
 }
 function retryWrong(){
   const items=S.results.filter(r=>!r.correct).map(r=>r.word);
@@ -2027,6 +2194,10 @@ function doImport(){
     }
   }
   if(!words.length){msg.textContent='未能解析到任何内容';return}
+  if(!isPaidUser()&&words.length>FREE_BANK_ITEM_LIMIT){
+    msg.textContent=`免费账号单个词库最多 ${FREE_BANK_ITEM_LIMIT} 条；当前 ${words.length} 条，请拆分词库或升级后再导入`;
+    return;
+  }
   const key='custom_'+Date.now();
   if(!S.custom[t])S.custom[t]={};
   S.custom[t][key]={name,icon:'自',desc:`自定义·${words.length}${t==='word'?'词':t==='phrase'?'条':'句'}`,builtin:false,words};
