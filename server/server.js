@@ -29,7 +29,8 @@ const DEFAULT_ALLOWED_ORIGINS = [
 ];
 const ALLOWED_ORIGINS = new Set([...DEFAULT_ALLOWED_ORIGINS, ...CORS_ORIGINS]);
 const SNAPSHOT_KEYS = ['ds4', 'eb4', 'cu4', 'fv4', 'sho4', 'dk4', 'sm4', 'pet4', 'guide4'];
-const MAX_PAYLOAD_BYTES = 2 * 1024 * 1024;
+const FREE_SNAPSHOT_BYTES = 10 * 1024 * 1024;
+const MAX_PAYLOAD_BYTES = 100 * 1024 * 1024;
 
 fs.mkdirSync(path.dirname(DATABASE_PATH), { recursive: true });
 const db = new Database(DATABASE_PATH);
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
   nickname TEXT NOT NULL,
+  is_paid INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -52,6 +54,10 @@ CREATE TABLE IF NOT EXISTS user_snapshots (
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 `);
+const userColumns = db.prepare('PRAGMA table_info(users)').all().map(col => col.name);
+if (!userColumns.includes('is_paid')) {
+  db.prepare('ALTER TABLE users ADD COLUMN is_paid INTEGER NOT NULL DEFAULT 0').run();
+}
 
 const app = express();
 app.set('trust proxy', 1);
@@ -79,7 +85,7 @@ function normalizeEmail(email) {
 }
 
 function publicUser(row) {
-  return row ? { id: row.id, email: row.email, nickname: row.nickname, createdAt: row.created_at } : null;
+  return row ? { id: row.id, email: row.email, nickname: row.nickname, isPaid: !!row.is_paid, plan: row.is_paid ? 'paid' : 'free', createdAt: row.created_at } : null;
 }
 
 function signToken(user) {
@@ -101,7 +107,7 @@ function requireAuth(req, res, next) {
   }
 }
 
-function validateSnapshot(input) {
+function validateSnapshot(input, user) {
   if (!input || typeof input !== 'object') throw new Error('snapshot must be an object');
   const version = Number(input.version || 1);
   const data = input.data && typeof input.data === 'object' ? input.data : null;
@@ -116,7 +122,11 @@ function validateSnapshot(input) {
     data: clean
   };
   const json = JSON.stringify(payload);
-  if (Buffer.byteLength(json, 'utf8') > MAX_PAYLOAD_BYTES) throw new Error('snapshot is too large');
+  const bytes = Buffer.byteLength(json, 'utf8');
+  const limit = user?.is_paid ? MAX_PAYLOAD_BYTES : FREE_SNAPSHOT_BYTES;
+  if (bytes > limit) {
+    throw new Error(user?.is_paid ? '同步数据过大，请联系管理员扩容' : '免费账号云端空间最多 10MB，请精简自定义词库或升级');
+  }
   return { payload, json };
 }
 
@@ -164,7 +174,7 @@ app.get('/api/sync', requireAuth, (req, res) => {
 
 app.put('/api/sync', requireAuth, (req, res) => {
   try {
-    const { payload, json } = validateSnapshot(req.body);
+    const { payload, json } = validateSnapshot(req.body, req.user);
     db.prepare(`
       INSERT INTO user_snapshots (user_id, version, payload_json, updated_at)
       VALUES (?, ?, ?, CURRENT_TIMESTAMP)
