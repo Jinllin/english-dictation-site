@@ -13,4 +13,4 @@ services:
       - key: DATABASE_PATH
         value: ./data/dictation.sqlite
       - key: CORS_ORIGINS
-        value: https://jinllin.github.io,http://localhost:3000,http://127.0.0.1:3000
+        value: https://jinllin.github.io,https://myechopet.com,https://www.myechopet.com,http://localhost:3000,http://127.0.0.1:3000

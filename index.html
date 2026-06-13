@@ -138,8 +138,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .px{width:72px;height:72px;image-rendering:pixelated;position:relative;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
 .px::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;background:#111;box-shadow:8px -8px var(--p1,#C28A4C),16px -8px var(--p1,#C28A4C),24px 0 var(--p1,#C28A4C),32px 8px var(--p1,#C28A4C),40px 16px var(--p1,#C28A4C),40px 24px var(--p1,#C28A4C),32px 32px var(--p1,#C28A4C),24px 40px var(--p2,#FFF4D8),16px 40px var(--p2,#FFF4D8),8px 32px var(--p1,#C28A4C),0 24px var(--p1,#C28A4C),0 16px var(--p1,#C28A4C),16px 16px #111,32px 16px #111,24px 24px var(--p2,#FFF4D8),8px 48px #111,32px 48px #111,-8px 16px var(--p3,#8D5E35),-16px 8px var(--p3,#8D5E35)}
 .px.dog{--p1:#D6A15D;--p2:#FFF4E0;--p3:#8A5A2C}.px.sheep{--p1:#F2E6D8;--p2:#FFFFFF;--p3:#A65A4A}.px.westie{--p1:#F8F4E8;--p2:#FFFFFF;--p3:#A06B3C}.px.cat{--p1:#C48B4E;--p2:#FFF1D4;--p3:#7A4B2A}
-.pet-stack{width:92px;height:92px;position:relative;display:flex;align-items:center;justify-content:center}.pet-stack .pet-img{position:absolute;left:0;top:0}.pet-stack .pet-base{z-index:1}.pet-equip{position:absolute;object-fit:contain;image-rendering:pixelated;pointer-events:none;z-index:2;filter:drop-shadow(0 3px 0 rgba(0,0,0,.14))}
-.pet-equip.slot-hat{width:52%;height:52%;left:24%;top:-2%}.pet-equip.slot-scarf{width:62%;height:42%;left:19%;top:48%}.pet-equip.slot-glasses{width:52%;height:34%;left:24%;top:33%}.pet-equip.slot-special{width:58%;height:58%;left:48%;top:35%}
+.pet-stack{width:92px;height:92px;position:relative;display:flex;align-items:center;justify-content:center}
 .pet-stage .pet-stack{width:112px;height:112px}.pet-mini .pet-stack{width:58px;height:58px}.shop-art .pet-stack{width:112px;height:112px}
 .pet-img,.item-img{width:92px;height:92px;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.16))}
 .pet-stage .pet-img{width:112px;height:112px}.pet-mini .pet-img{width:58px;height:58px}.shop-art .pet-img{width:112px;height:112px}.shop-art .item-img{width:88px;height:88px}.shop-art .item-img.accessory{width:82px;height:82px}
@@ -873,6 +872,8 @@ const ACCESSORY_SLOT_MAP={
   roundGlasses:'glasses',squareGlasses:'glasses',sunglasses:'glasses',starGlasses:'glasses',monocle:'glasses',
   tailBow:'special',tailRibbon:'special'
 };
+const PET_WORN_COMBOS={};
+const ACCESSORY_SLOT_PRIORITY=['scarf','hat','glasses','special'];
 const FOOD_VITALITY_GAIN={N:8,R:14,SR:22,SSR:35};
 const VITALITY_DECAY_MS=6*60*60*1000;
 const GUIDE_STEPS=[
@@ -1264,8 +1265,23 @@ function addPetExp(amount){
   }
   return leveled;
 }
-function petStageAsset(kind,level=1){
+function equippedAccessoryIds(equipped=S.pet?.equippedAccessories||{}){
+  return ACCESSORY_SLOT_PRIORITY.map(slot=>equipped[slot]).filter(id=>ACCESSORY_CATALOG[id]);
+}
+function wornComboKey(ids){return ids.slice().sort().join('__')}
+function primaryAccessoryId(ids){
+  return ACCESSORY_SLOT_PRIORITY.map(slot=>S.pet?.equippedAccessories?.[slot]).find(id=>ids.includes(id))||ids[0]||'';
+}
+function wornVariantAsset(kind,id){return `assets/pixel-pet/worn/${kind}/${id}.png`}
+function petStageAsset(kind,level=1,equipped=null){
   const c=PET_CATALOG[kind]||PET_CATALOG.calico;
+  const ids=equippedAccessoryIds(equipped||{});
+  if(ids.length===1)return wornVariantAsset(kind,ids[0]);
+  if(ids.length>1){
+    const combo=PET_WORN_COMBOS[kind]?.[wornComboKey(ids)];
+    if(combo)return combo;
+    return wornVariantAsset(kind,primaryAccessoryId(ids));
+  }
   if(level>=10&&c.assets?.adult)return c.assets.adult;
   if(level>=5&&c.assets?.grown)return c.assets.grown;
   return c.assets?.baby||c.asset;
@@ -1273,14 +1289,11 @@ function petStageAsset(kind,level=1){
 function petArt(kind,size='',pet=null,withEquip=false){
   kind=LEGACY_PET_MAP[kind]||kind;
   const c=PET_CATALOG[kind]||PET_CATALOG.calico;
-  const src=petStageAsset(kind,pet?.level||1);
+  const equipped=withEquip?(S.pet?.equippedAccessories||{}):null;
+  const src=petStageAsset(kind,pet?.level||1,equipped);
   const img=`<img class="pet-img pet-base ${esc(size)}" src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
   if(!withEquip)return img;
-  const layers=Object.entries(S.pet?.equippedAccessories||{}).map(([slot,id])=>{
-    const a=ACCESSORY_CATALOG[id];if(!a)return '';
-    return `<img class="pet-equip slot-${esc(slot)}" src="${esc(a.asset)}" alt="" loading="lazy" onerror="this.remove()">`;
-  }).join('');
-  return `<div class="pet-stack">${img}${layers}</div>`;
+  return `<div class="pet-stack">${img}</div>`;
 }
 function foodArt(kind){
   const c=FOOD_CATALOG[kind]||FOOD_CATALOG.fish;
@@ -1483,7 +1496,12 @@ function adoptPet(id){ensurePetState();if(!S.pet.pets.some(p=>p.id===id))S.pet.p
 function equipAccessory(id){
   ensurePetState();if(!hasPet()){setPetMsg('先完成新手任务领取宠物。');return}
   const c=ACCESSORY_CATALOG[id];if(!c||!(S.pet.accessories[id]>0)){setPetMsg('背包里还没有这个配饰。');return}
-  const slot=accessorySlot(id);S.pet.equippedAccessories[slot]=id;savePet();setPetMsg(`已装备 ${c.name}`);renderHomePet();renderPets();showRewardFx('feed',{title:'配饰已穿戴',note:c.name});
+  const slot=accessorySlot(id);S.pet.equippedAccessories[slot]=id;
+  const ids=equippedAccessoryIds(S.pet.equippedAccessories);
+  const p=rawCurrentPet();
+  const comboReady=ids.length<=1||!!(p&&PET_WORN_COMBOS[p.id]?.[wornComboKey(ids)]);
+  savePet();setPetMsg(comboReady?`已装备 ${c.name}`:`已装备 ${c.name}。当前多件组合暂无完整穿戴图，先显示主配饰专属图。`);
+  renderHomePet();renderPets();showRewardFx('feed',{title:'配饰已穿戴',note:c.name});
 }
 function unequipAccessory(slot){
   ensurePetState();const id=S.pet.equippedAccessories?.[slot];if(id)delete S.pet.equippedAccessories[slot];
