@@ -796,6 +796,7 @@ const AUTH_TOKEN_KEY='auth4';
 const API_BASE_KEY='api4';
 const SYNC_AT_KEY='syncAt4';
 const GUIDE_KEY='guide4';
+const ASSET_VERSION='20260613-sizefix';
 const DEFAULT_API_BASE=(()=>{
   if(location.protocol==='file:')return 'http://localhost:3000';
   return '';
@@ -811,6 +812,10 @@ let AUTH={
   lastSync:localStorage.getItem(SYNC_AT_KEY)||''
 };
 function isPaidUser(){return !!(AUTH.user&&AUTH.user.isPaid)}
+function assetUrl(src){
+  if(!src)return '';
+  return `${src}${src.includes('?')?'&':'?'}v=${ASSET_VERSION}`;
+}
 
 const PET_CATALOG={
   calico:{id:'calico',name:'基础三花猫',rarity:'N',asset:'assets/pixel-pet/base-pets/base-01-calico-cat.png',price:0},
@@ -951,7 +956,7 @@ function renderGuide(){
   const hero=document.getElementById('guide-hero');
   const pet=(PET_CATALOG.calico||{}).asset;
   const icon=step.kind==='book'?'错':step.kind==='gem'?'晶':step.kind==='sync'?'云':'E';
-  if(hero)hero.innerHTML=step.kind==='pet'&&pet?`<img class="guide-pet" src="${esc(pet)}" alt="EchoPet">`:`<div class="guide-icon">${icon}</div>`;
+  if(hero)hero.innerHTML=step.kind==='pet'&&pet?`<img class="guide-pet" src="${esc(assetUrl(pet))}" alt="EchoPet">`:`<div class="guide-icon">${icon}</div>`;
   const title=document.getElementById('guide-title');if(title)title.textContent=step.title;
   const copy=document.getElementById('guide-copy');if(copy)copy.textContent=step.copy;
   const dots=document.getElementById('guide-dots');if(dots)dots.innerHTML=GUIDE_STEPS.map((_,i)=>`<span class="guide-dot${i===S.guideIndex?' on':''}"></span>`).join('');
@@ -1291,17 +1296,17 @@ function petArt(kind,size='',pet=null,withEquip=false){
   const c=PET_CATALOG[kind]||PET_CATALOG.calico;
   const equipped=withEquip?(S.pet?.equippedAccessories||{}):null;
   const src=petStageAsset(kind,pet?.level||1,equipped);
-  const img=`<img class="pet-img pet-base ${esc(size)}" src="${esc(src)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
+  const img=`<img class="pet-img pet-base ${esc(size)}" src="${esc(assetUrl(src))}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
   if(!withEquip)return img;
   return `<div class="pet-stack">${img}</div>`;
 }
 function foodArt(kind){
   const c=FOOD_CATALOG[kind]||FOOD_CATALOG.fish;
-  return `<img class="item-img" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
+  return `<img class="item-img" src="${esc(assetUrl(c.asset))}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function accessoryArt(kind){
   const c=ACCESSORY_CATALOG[kind]||ACCESSORY_CATALOG.scarfRed;
-  return `<img class="item-img accessory" src="${esc(c.asset)}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
+  return `<img class="item-img accessory" src="${esc(assetUrl(c.asset))}" alt="${esc(c.name)}" loading="lazy" onerror="this.remove();this.parentElement?.classList.add('asset-missing')">`;
 }
 function rarityClass(r){return String(r||'N').toLowerCase()}
 function foodVitalityGain(food){return FOOD_VITALITY_GAIN[food?.rarity]||8}
