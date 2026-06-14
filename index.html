@@ -1794,18 +1794,25 @@ function finalizeSession(results){
 // ════════════════════════════════
 //  AUDIO
 // ════════════════════════════════
-let speechToken=0;
+let speechToken=0,currentAudio=null;
 function stopAudio(){
   speechToken++;
+  if(currentAudio){try{currentAudio.pause();currentAudio.src=''}catch(e){}currentAudio=null}
   if('speechSynthesis' in window)speechSynthesis.cancel();
   document.getElementById('playbtn')?.classList.remove('go')
 }
 function normalizeSpeechText(text){
   return String(text||'').replace(/\s+/g,' ').trim();
 }
-function prepareSpeechText(text){
+function isSimpleEnglishWord(text){
+  return /^[A-Za-z][A-Za-z'-]*$/.test(normalizeSpeechText(text));
+}
+function prepareSpeechText(text,mode='auto'){
   const clean=normalizeSpeechText(text);
   if(!clean)return '';
+  if((mode==='word'||mode==='auto')&&isSimpleEnglishWord(clean)){
+    return `${clean}. ${clean}.`;
+  }
   const hasEnd=/[.!?。！？]$/.test(clean);
   if(hasEnd)return clean;
   return `${clean}.`;
@@ -1833,15 +1840,62 @@ function pickEnglishVoice(){
   const voices=loadEnglishVoices();
   return voices.sort((a,b)=>voiceScore(b)-voiceScore(a))[0]||null;
 }
-function speakEnglish(text,{rate=S.speed,onEnd=null}={}){
+function pronCache(){
+  try{return JSON.parse(localStorage.getItem('pron4')||'{}')}catch(e){return {}}
+}
+function savePronCache(cache){
+  try{localStorage.setItem('pron4',JSON.stringify(cache))}catch(e){}
+}
+async function getPronunciationAudioUrl(word){
+  const clean=normalizeSpeechText(word).toLowerCase();
+  if(!isSimpleEnglishWord(clean))return '';
+  const cache=pronCache();
+  if(cache[clean])return cache[clean];
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(),1400);
+  try{
+    const res=await fetch(`${apiBase()}/api/pronunciation?word=${encodeURIComponent(clean)}`,{signal:ctrl.signal});
+    if(!res.ok)return '';
+    const data=await res.json();
+    const url=data&&data.found&&data.url?String(data.url):'';
+    if(url){cache[clean]=url;savePronCache(cache)}
+    return url;
+  }catch(e){
+    return '';
+  }finally{
+    clearTimeout(timer);
+  }
+}
+function playAudioUrl(url,{onEnd=null}={}){
+  const token=++speechToken;
+  if(currentAudio){try{currentAudio.pause();currentAudio.src=''}catch(e){}}
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+  currentAudio=new Audio(url);
+  currentAudio.preload='auto';
+  currentAudio.onended=()=>{if(token===speechToken&&onEnd)onEnd()};
+  currentAudio.onerror=()=>{if(token===speechToken&&onEnd)onEnd()};
+  currentAudio.play().catch(()=>{if(token===speechToken&&onEnd)onEnd()});
+  return true;
+}
+function rateForSpeech(mode,rate){
+  const n=Number(rate)||.88;
+  if(mode==='word'){
+    if(n>=1)return .84;
+    if(n>=.9)return .8;
+    return .72;
+  }
+  if(mode==='phrase')return Math.max(.68,Math.min(.9,n));
+  return Math.max(.62,Math.min(.98,n));
+}
+function speakEnglish(text,{rate=S.speed,mode='auto',onEnd=null}={}){
   if(!('speechSynthesis' in window))return false;
   const clean=normalizeSpeechText(text);
   if(!clean)return false;
   const token=++speechToken;
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(prepareSpeechText(clean));
+  const u=new SpeechSynthesisUtterance(prepareSpeechText(clean,mode));
   u.lang='en-US';
-  u.rate=Math.max(.62,Math.min(.98,Number(rate)||.88));
+  u.rate=rateForSpeech(mode,rate);
   u.pitch=.98;
   u.volume=1;
   const v=pickEnglishVoice();
@@ -1855,12 +1909,16 @@ function speakEnglish(text,{rate=S.speed,onEnd=null}={}){
   },90);
   return true;
 }
-function playAudio(){
+async function playAudio(){
   const item=S.words[S.idx];if(!item)return;
   const btn=document.getElementById('playbtn');if(!btn)return;
   btn.classList.add('go');
   const text=item.w; // always speak full sentence/word/phrase
-  if(!speakEnglish(text,{rate:S.speed,onEnd:()=>btn.classList.remove('go')}))btn.classList.remove('go');
+  if(S.type==='word'&&isSimpleEnglishWord(text)){
+    const url=await getPronunciationAudioUrl(text);
+    if(url&&playAudioUrl(url,{onEnd:()=>btn.classList.remove('go')}))return;
+  }
+  if(!speakEnglish(text,{rate:S.speed,mode:S.type,onEnd:()=>btn.classList.remove('go')}))btn.classList.remove('go');
 }
 function updateSpeedButton(){
   const el=document.getElementById('spdbtn');
@@ -2214,7 +2272,7 @@ function renderEB(){
 }
 function setEbf(f){S.ebf=f;renderEB()}
 function playOne(w){
-  speakEnglish(w,{rate:.82});
+  speakEnglish(w,{rate:.82,mode:isSimpleEnglishWord(w)?'word':'phrase'});
 }
 function practiceErrors(){
   let items=Object.values(S.errors);

@@ -14,6 +14,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-only-change-me';
 const DATABASE_PATH = process.env.DATABASE_PATH || path.join(__dirname, 'data', 'dictation.sqlite');
+const FRONTEND_ROOT = process.env.FRONTEND_ROOT || path.join(__dirname, '..');
+const WORD_AUDIO_DIR = process.env.WORD_AUDIO_DIR || path.join(FRONTEND_ROOT, 'assets', 'audio', 'words');
 const CORS_ORIGINS = (process.env.CORS_ORIGINS || '')
   .split(',')
   .map(s => s.trim())
@@ -53,6 +55,15 @@ CREATE TABLE IF NOT EXISTS user_snapshots (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS pronunciations (
+  normalized_word TEXT PRIMARY KEY,
+  audio_url TEXT NOT NULL,
+  source TEXT NOT NULL DEFAULT 'system',
+  hit_count INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 `);
 const userColumns = db.prepare('PRAGMA table_info(users)').all().map(col => col.name);
 if (!userColumns.includes('is_paid')) {
@@ -82,6 +93,19 @@ const authLimiter = rateLimit({
 
 function normalizeEmail(email) {
   return String(email || '').trim().toLowerCase();
+}
+
+function normalizeWord(input) {
+  return String(input || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[’‘]/g, "'")
+    .replace(/^[^a-z]+|[^a-z]+$/g, '')
+    .replace(/[^a-z'-]/g, '');
+}
+
+function wordAudioFileName(word) {
+  return `${word.replace(/'/g, '').replace(/[^a-z-]/g, '-')}.mp3`;
 }
 
 function publicUser(row) {
@@ -132,6 +156,37 @@ function validateSnapshot(input, user) {
 
 app.get('/health', (req, res) => {
   res.json({ ok: true, service: 'english-dictation-server', time: new Date().toISOString() });
+});
+
+app.get('/api/pronunciation', (req, res) => {
+  const word = normalizeWord(req.query?.word);
+  if (!word || word.length > 64 || !/^[a-z][a-z'-]*$/.test(word)) {
+    return res.status(400).json({ found: false, error: 'invalid_word' });
+  }
+
+  const cached = db.prepare('SELECT audio_url, source FROM pronunciations WHERE normalized_word = ?').get(word);
+  if (cached) {
+    db.prepare('UPDATE pronunciations SET hit_count = hit_count + 1, updated_at = CURRENT_TIMESTAMP WHERE normalized_word = ?').run(word);
+    return res.json({ found: true, word, url: cached.audio_url, source: cached.source });
+  }
+
+  const fileName = wordAudioFileName(word);
+  const filePath = path.join(WORD_AUDIO_DIR, fileName);
+  if (fs.existsSync(filePath)) {
+    const url = `/assets/audio/words/${fileName}`;
+    db.prepare(`
+      INSERT INTO pronunciations (normalized_word, audio_url, source, hit_count, updated_at)
+      VALUES (?, ?, 'system', 1, CURRENT_TIMESTAMP)
+      ON CONFLICT(normalized_word) DO UPDATE SET
+        audio_url = excluded.audio_url,
+        source = excluded.source,
+        hit_count = pronunciations.hit_count + 1,
+        updated_at = CURRENT_TIMESTAMP
+    `).run(word, url);
+    return res.json({ found: true, word, url, source: 'system' });
+  }
+
+  return res.json({ found: false, word });
 });
 
 app.post('/api/auth/register', authLimiter, async (req, res) => {
