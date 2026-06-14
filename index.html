@@ -757,6 +757,11 @@ const BUILTIN_SB={
 // ════════════════════════════════
 //  STATE
 // ════════════════════════════════
+const savedSpeechSpeed=localStorage.getItem('sp4');
+if(!localStorage.getItem('sp4d75')){
+  if(savedSpeechSpeed===null||savedSpeechSpeed==='0.9')localStorage.setItem('sp4','0.75');
+  localStorage.setItem('sp4d75','1');
+}
 let S={
   type:'word', bank:'cet4', count:20, speed:Number(localStorage.getItem('sp4')||0.75),
   words:[], idx:0, results:[], answered:false,
