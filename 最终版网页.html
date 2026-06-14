@@ -639,64 +639,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 //  BUILT-IN WORD BANKS
 // ════════════════════════════════
 const BUILTIN_WB={
-  cet4:{name:'CET-4',icon:'4级',desc:'四级核心词汇',builtin:true,words:[
-    {w:'abandon',m:'放弃',p:'/əˈbændən/'},{w:'absorb',m:'吸收',p:'/əbˈzɔːrb/'},{w:'abstract',m:'抽象的',p:'/ˈæbstrækt/'},
-    {w:'abundant',m:'丰富的',p:'/əˈbʌndənt/'},{w:'academic',m:'学术的',p:'/ˌækəˈdemɪk/'},{w:'accelerate',m:'加速',p:'/əkˈseləreɪt/'},
-    {w:'accomplish',m:'完成',p:'/əˈkɒmplɪʃ/'},{w:'accurate',m:'精确的',p:'/ˈækjərət/'},{w:'achieve',m:'实现',p:'/əˈtʃiːv/'},
-    {w:'acknowledge',m:'承认',p:'/əkˈnɒlɪdʒ/'},{w:'acquire',m:'获得',p:'/əˈkwaɪər/'},{w:'adequate',m:'足够的',p:'/ˈædɪkwət/'},
-    {w:'adjust',m:'调整',p:'/əˈdʒʌst/'},{w:'adopt',m:'采用',p:'/əˈdɒpt/'},{w:'advantage',m:'优势',p:'/ədˈvɑːntɪdʒ/'},
-    {w:'aggressive',m:'侵略性的',p:'/əˈɡresɪv/'},{w:'agriculture',m:'农业',p:'/ˈæɡrɪkʌltʃər/'},{w:'alternative',m:'替代的',p:'/ɔːlˈtɜːrnətɪv/'},
-    {w:'ambitious',m:'有雄心的',p:'/æmˈbɪʃəs/'},{w:'annual',m:'年度的',p:'/ˈænjuəl/'},{w:'anticipate',m:'预期',p:'/ænˈtɪsɪpeɪt/'},
-    {w:'anxiety',m:'焦虑',p:'/æŋˈzaɪəti/'},{w:'appreciate',m:'感激',p:'/əˈpriːʃieɪt/'},{w:'approach',m:'方法',p:'/əˈproʊtʃ/'},
-    {w:'appropriate',m:'适当的',p:'/əˈproʊpriət/'},{w:'architecture',m:'建筑学',p:'/ˈɑːrkɪtektʃər/'},{w:'artificial',m:'人造的',p:'/ˌɑːrtɪˈfɪʃl/'},
-    {w:'aspect',m:'方面',p:'/ˈæspekt/'},{w:'assume',m:'假设',p:'/əˈsuːm/'},{w:'atmosphere',m:'氛围',p:'/ˈætməsfɪr/'},
-    {w:'attempt',m:'尝试',p:'/əˈtempt/'},{w:'attitude',m:'态度',p:'/ˈætɪtjuːd/'},{w:'authority',m:'权威',p:'/əˈθɒrəti/'},
-    {w:'available',m:'可用的',p:'/əˈveɪləbl/'},{w:'barrier',m:'障碍',p:'/ˈbæriər/'},{w:'benefit',m:'益处',p:'/ˈbenɪfɪt/'},
-    {w:'boundary',m:'边界',p:'/ˈbaʊndəri/'},{w:'brilliant',m:'杰出的',p:'/ˈbrɪliənt/'},{w:'budget',m:'预算',p:'/ˈbʌdʒɪt/'},
-    {w:'calculate',m:'计算',p:'/ˈkælkjuleɪt/'},{w:'campaign',m:'运动',p:'/kæmˈpeɪn/'},{w:'candidate',m:'候选人',p:'/ˈkændɪdət/'},
-    {w:'capable',m:'有能力的',p:'/ˈkeɪpəbl/'},{w:'challenge',m:'挑战',p:'/ˈtʃælɪndʒ/'},{w:'characteristic',m:'特征',p:'/ˌkærɪktəˈrɪstɪk/'},
-    {w:'collapse',m:'倒塌',p:'/kəˈlæps/'},{w:'colleague',m:'同事',p:'/ˈkɒliːɡ/'},{w:'communicate',m:'交流',p:'/kəˈmjuːnɪkeɪt/'},
-    {w:'compete',m:'竞争',p:'/kəmˈpiːt/'},{w:'complicated',m:'复杂的',p:'/ˈkɒmplɪkeɪtɪd/'},{w:'concentrate',m:'集中',p:'/ˈkɒnsntreɪt/'},
-    {w:'confidence',m:'信心',p:'/ˈkɒnfɪdəns/'},{w:'consequence',m:'后果',p:'/ˈkɒnsɪkwəns/'},{w:'contribute',m:'贡献',p:'/kənˈtrɪbjuːt/'},
-    {w:'convince',m:'说服',p:'/kənˈvɪns/'},{w:'crucial',m:'关键的',p:'/ˈkruːʃl/'},{w:'deadline',m:'截止日期',p:'/ˈdedlaɪn/'},
-    {w:'decline',m:'下降',p:'/dɪˈklaɪn/'},{w:'demonstrate',m:'展示',p:'/ˈdemənstreɪt/'},{w:'desperate',m:'绝望的',p:'/ˈdespərət/'},
-    {w:'determine',m:'决定',p:'/dɪˈtɜːrmɪn/'},{w:'discipline',m:'纪律',p:'/ˈdɪsɪplɪn/'},{w:'distinguish',m:'区分',p:'/dɪˈstɪŋɡwɪʃ/'},
-    {w:'eliminate',m:'消除',p:'/ɪˈlɪmɪneɪt/'},{w:'emerge',m:'出现',p:'/ɪˈmɜːrdʒ/'},{w:'emphasis',m:'强调',p:'/ˈemfəsɪs/'},
-    {w:'encounter',m:'遭遇',p:'/ɪnˈkaʊntər/'},{w:'enhance',m:'增强',p:'/ɪnˈhæns/'},{w:'enormous',m:'巨大的',p:'/ɪˈnɔːrməs/'},
-  ]},
-  cet6:{name:'CET-6',icon:'6级',desc:'六级高频词汇',builtin:true,words:[
-    {w:'abolish',m:'废除',p:'/əˈbɒlɪʃ/'},{w:'absurd',m:'荒谬的',p:'/əbˈsɜːrd/'},{w:'accumulate',m:'积累',p:'/əˈkjuːmjəleɪt/'},
-    {w:'adhere',m:'坚持',p:'/ədˈhɪər/'},{w:'adjacent',m:'邻近的',p:'/əˈdʒeɪsnt/'},{w:'aesthetic',m:'审美的',p:'/iːsˈθetɪk/'},
-    {w:'alleviate',m:'减轻',p:'/əˈliːvieɪt/'},{w:'allocate',m:'分配',p:'/ˈæləkeɪt/'},{w:'analogy',m:'类比',p:'/əˈnælədʒi/'},
-    {w:'anonymous',m:'匿名的',p:'/əˈnɒnɪməs/'},{w:'arbitrary',m:'任意的',p:'/ˈɑːrbɪtrəri/'},{w:'authentic',m:'真实的',p:'/ɔːˈθentɪk/'},
-    {w:'autonomous',m:'自治的',p:'/ɔːˈtɒnəməs/'},{w:'betray',m:'背叛',p:'/bɪˈtreɪ/'},{w:'bureaucracy',m:'官僚主义',p:'/bjʊˈrɒkrəsi/'},
-    {w:'catastrophe',m:'灾难',p:'/kəˈtæstrəfi/'},{w:'compatible',m:'兼容的',p:'/kəmˈpætəbl/'},{w:'compelling',m:'令人信服的',p:'/kəmˈpelɪŋ/'},
-    {w:'comprehensive',m:'全面的',p:'/ˌkɒmprɪˈhensɪv/'},{w:'consensus',m:'共识',p:'/kənˈsensəs/'},{w:'consolidate',m:'巩固',p:'/kənˈsɒlɪdeɪt/'},
-    {w:'contempt',m:'蔑视',p:'/kənˈtempt/'},{w:'curriculum',m:'课程',p:'/kəˈrɪkjələm/'},{w:'deteriorate',m:'恶化',p:'/dɪˈtɪəriəreɪt/'},
-    {w:'dilemma',m:'困境',p:'/dɪˈlemə/'},{w:'empirical',m:'经验性的',p:'/ɪmˈpɪrɪkl/'},{w:'endeavour',m:'努力',p:'/ɪnˈdevər/'},
-    {w:'entrepreneur',m:'企业家',p:'/ˌɒntrəprəˈnɜːr/'},{w:'equivalent',m:'等价的',p:'/ɪˈkwɪvələnt/'},{w:'exaggerate',m:'夸张',p:'/ɪɡˈzædʒəreɪt/'},
-    {w:'fluctuate',m:'波动',p:'/ˈflʌktʃueɪt/'},{w:'hypothesis',m:'假设',p:'/haɪˈpɒθəsɪs/'},{w:'infrastructure',m:'基础设施',p:'/ˈɪnfrəstrʌktʃər/'},
-    {w:'legislation',m:'立法',p:'/ˌledʒɪsˈleɪʃn/'},{w:'phenomenon',m:'现象',p:'/fɪˈnɒmɪnən/'},
-  ]},
-  ielts:{name:'IELTS',icon:'雅思',desc:'雅思核心词汇',builtin:true,words:[
-    {w:'aggregate',m:'合计',p:'/ˈæɡrɪɡət/'},{w:'albeit',m:'尽管',p:'/ɔːlˈbiːɪt/'},{w:'ascertain',m:'确定',p:'/ˌæsərˈteɪn/'},
-    {w:'assimilate',m:'同化',p:'/əˈsɪmɪleɪt/'},{w:'benchmark',m:'基准',p:'/ˈbentʃmɑːrk/'},{w:'catastrophic',m:'灾难性的',p:'/ˌkætəˈstrɒfɪk/'},
-    {w:'chronological',m:'按时间顺序的',p:'/ˌkrɒnəˈlɒdʒɪkl/'},{w:'coincide',m:'同时发生',p:'/ˌkoʊɪnˈsaɪd/'},{w:'commodity',m:'商品',p:'/kəˈmɒdəti/'},
-    {w:'constraint',m:'限制',p:'/kənˈstreɪnt/'},{w:'contaminate',m:'污染',p:'/kənˈtæmɪneɪt/'},{w:'correlation',m:'相关性',p:'/ˌkɒrəˈleɪʃn/'},
-    {w:'criterion',m:'标准',p:'/kraɪˈtɪəriən/'},{w:'deforestation',m:'滥伐森林',p:'/diːˌfɒrɪˈsteɪʃn/'},{w:'demographic',m:'人口统计的',p:'/ˌdeməˈɡræfɪk/'},
-    {w:'displacement',m:'位移',p:'/dɪsˈpleɪsmənt/'},{w:'fluctuate',m:'波动',p:'/ˈflʌktʃueɪt/'},{w:'hypothesis',m:'假设',p:'/haɪˈpɒθəsɪs/'},
-    {w:'legislation',m:'立法',p:'/ˌledʒɪsˈleɪʃn/'},{w:'maintenance',m:'维护',p:'/ˈmeɪntənəns/'},{w:'phenomenon',m:'现象',p:'/fɪˈnɒmɪnən/'},
-    {w:'predominantly',m:'主要地',p:'/prɪˈdɒmɪnəntli/'},{w:'questionnaire',m:'问卷',p:'/ˌkwestʃəˈneər/'},{w:'sustainability',m:'可持续性',p:'/səˌsteɪnəˈbɪlɪti/'},
-  ]},
-  postgrad:{name:'考研',icon:'考研',desc:'考研英语高频',builtin:true,words:[
-    {w:'abundance',m:'丰富',p:'/əˈbʌndəns/'},{w:'advocate',m:'提倡',p:'/ˈædvəkeɪt/'},{w:'alleviate',m:'减轻',p:'/əˈliːvieɪt/'},
-    {w:'articulate',m:'表达清晰的',p:'/ɑːrˈtɪkjələt/'},{w:'aspiration',m:'渴望',p:'/ˌæspəˈreɪʃn/'},{w:'bureaucracy',m:'官僚主义',p:'/bjʊˈrɒkrəsi/'},
-    {w:'catastrophe',m:'灾难',p:'/kəˈtæstrəfi/'},{w:'collaboration',m:'合作',p:'/kəˌlæbəˈreɪʃn/'},{w:'conscience',m:'良心',p:'/ˈkɒnʃəns/'},
-    {w:'consolidate',m:'巩固',p:'/kənˈsɒlɪdeɪt/'},{w:'controversy',m:'争议',p:'/ˈkɒntrəvɜːrsi/'},{w:'deficiency',m:'缺乏',p:'/dɪˈfɪʃnsi/'},
-    {w:'deteriorate',m:'恶化',p:'/dɪˈtɪəriəreɪt/'},{w:'diminish',m:'减少',p:'/dɪˈmɪnɪʃ/'},{w:'endeavour',m:'努力',p:'/ɪnˈdevər/'},
-    {w:'entrepreneur',m:'企业家',p:'/ˌɒntrəprəˈnɜːr/'},{w:'fluctuate',m:'波动',p:'/ˈflʌktʃueɪt/'},{w:'legislation',m:'立法',p:'/ˌledʒɪsˈleɪʃn/'},
-    {w:'phenomenon',m:'现象',p:'/fɪˈnɒmɪnən/'},{w:'predominantly',m:'主要地',p:'/prɪˈdɒmɪnəntli/'},
-  ]}
+  cet4:{name:'CET-4',icon:'4级',desc:'四级核心词汇',builtin:true,count:4422,src:'assets/data/word-banks/cet4.json',words:[]},
+  cet6:{name:'CET-6',icon:'6级',desc:'六级高频词汇',builtin:true,count:5516,src:'assets/data/word-banks/cet6.json',words:[]},
+  ielts:{name:'IELTS',icon:'雅思',desc:'雅思核心词汇',builtin:true,count:9386,src:'assets/data/word-banks/ielts.json',words:[]},
+  postgrad:{name:'考研',icon:'考研',desc:'考研英语高频',builtin:true,count:5489,src:'assets/data/word-banks/postgrad.json',words:[]}
 };
 const BUILTIN_PB={
   cet4:{name:'CET-4',icon:'4级',desc:'四级必备短语',builtin:true,words:[
@@ -775,7 +721,7 @@ const BUILTIN_SB={
 //  STATE
 // ════════════════════════════════
 let S={
-  type:'word', bank:'cet4', count:20, speed:1.0,
+  type:'word', bank:'cet4', count:20, speed:Number(localStorage.getItem('sp4')||0.9),
   words:[], idx:0, results:[], answered:false,
   stats: JSON.parse(localStorage.getItem('ds4')||'{"total":0,"correct":0,"streak":0,"lastDate":"","mastered":{}}'),
   errors: JSON.parse(localStorage.getItem('eb4')||'{}'),
@@ -1330,6 +1276,30 @@ function getBanks(type){
   return {...base,...custom};
 }
 function currentBanks(){ return getBanks(S.type); }
+function bankCount(bank){
+  return Number.isFinite(Number(bank?.count)) ? Number(bank.count) : (bank?.words?.length||0);
+}
+const WORD_BANK_LOADS={};
+async function ensureBankLoaded(type,key){
+  const bank=getBanks(type)[key];
+  if(!bank)return null;
+  if(type!=='word'||!bank.src||bank.words?.length)return bank;
+  if(!WORD_BANK_LOADS[key]){
+    WORD_BANK_LOADS[key]=fetch(bank.src,{cache:'force-cache'})
+      .then(res=>{if(!res.ok)throw new Error(`HTTP ${res.status}`);return res.json()})
+      .then(rows=>{
+        bank.words=Array.isArray(rows)?rows:[];
+        bank.count=bank.words.length;
+        return bank;
+      })
+      .catch(err=>{
+        console.warn('word bank load failed',key,err);
+        setPetMsg('词库暂时加载失败，请检查网络后重试。');
+        return bank;
+      });
+  }
+  return WORD_BANK_LOADS[key];
+}
 
 // ════════════════════════════════
 //  INIT
@@ -1342,6 +1312,7 @@ function init(){
     h<6?'夜深了，坚持就是胜利':h<12?'早上好，新的一天':h<18?'下午好，保持节奏':'晚上好，再练一组';
   renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();renderHomePet();renderPets();authInit();
   if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+  updateSpeedButton();
 }
 
 function refreshStats(){
@@ -1353,7 +1324,7 @@ function refreshStats(){
   if(s.lastDate&&s.lastDate!==today&&Math.floor((new Date(today)-new Date(s.lastDate))/864e5)>1)s.streak=0;
   document.getElementById('strk-n').textContent=s.streak+'天';
   const bk=currentBanks()[S.bank];
-  document.getElementById('btag').textContent=bk?bk.words.length+(S.type==='word'?' 词':S.type==='phrase'?' 条':' 句'):'';
+  document.getElementById('btag').textContent=bk?bankCount(bk)+(S.type==='word'?' 词':S.type==='phrase'?' 条':' 句'):'';
   renderHomePet();
 }
 function save(){localStorage.setItem('ds4',JSON.stringify(S.stats));localStorage.setItem('eb4',JSON.stringify(S.errors));localStorage.setItem('cu4',JSON.stringify(S.custom));queueSync('study')}
@@ -1631,7 +1602,7 @@ function renderBanks(){
   Object.entries(banks).forEach(([k,b])=>{
     const el=document.createElement('div');
     el.className='bi'+(k===S.bank?' on':'');
-    el.innerHTML=`<div class="bl"><div class="bic">${b.icon}</div><div><div class="bn">${b.name}</div><div class="bd-t">${b.desc}</div></div></div><div class="bc">${b.words.length}</div>`;
+    el.innerHTML=`<div class="bl"><div class="bic">${b.icon}</div><div><div class="bn">${b.name}</div><div class="bd-t">${b.desc}</div></div></div><div class="bc">${bankCount(b)}</div>`;
     el.onclick=()=>{S.bank=k;renderBanks();refreshStats()};
     list.appendChild(el);
   });
@@ -1696,23 +1667,62 @@ function finalizeSession(results){
 //  AUDIO
 // ════════════════════════════════
 function stopAudio(){if('speechSynthesis' in window)speechSynthesis.cancel();document.getElementById('playbtn')?.classList.remove('go')}
+function normalizeSpeechText(text){
+  return String(text||'').replace(/\s+/g,' ').trim();
+}
+function voiceScore(v){
+  const name=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();
+  let score=0;
+  if(lang==='en-us')score+=40;
+  else if(lang.startsWith('en-us'))score+=35;
+  else if(lang.startsWith('en-gb'))score+=24;
+  else if(lang.startsWith('en'))score+=16;
+  if(/samantha|alex|karen|daniel|moira|tessa/i.test(v.name))score+=28;
+  if(/google.*(us|english)|microsoft.*(aria|jenny|guy|zira|david)/i.test(v.name))score+=24;
+  if(/premium|enhanced|natural|neural/i.test(v.name))score+=18;
+  if(/compact|novelty|whisper|robot|bad news|bells|boing/i.test(v.name))score-=35;
+  if(v.localService)score+=3;
+  return score;
+}
+function pickEnglishVoice(){
+  if(!('speechSynthesis' in window))return null;
+  const voices=speechSynthesis.getVoices().filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
+  return voices.sort((a,b)=>voiceScore(b)-voiceScore(a))[0]||null;
+}
+function speakEnglish(text,{rate=S.speed,onEnd=null}={}){
+  if(!('speechSynthesis' in window))return false;
+  const clean=normalizeSpeechText(text);
+  if(!clean)return false;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(clean);
+  u.lang='en-US';
+  u.rate=Math.max(.65,Math.min(1.05,Number(rate)||.9));
+  u.pitch=.96;
+  u.volume=1;
+  const v=pickEnglishVoice();
+  if(v)u.voice=v;
+  if(onEnd){u.onend=onEnd;u.onerror=onEnd}
+  speechSynthesis.speak(u);
+  return true;
+}
 function playAudio(){
   const item=S.words[S.idx];if(!item)return;
   const btn=document.getElementById('playbtn');if(!btn)return;
   btn.classList.add('go');
-  if(!('speechSynthesis' in window)){btn.classList.remove('go');return}
-  speechSynthesis.cancel();
   const text=item.w; // always speak full sentence/word/phrase
-  const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=S.speed;u.pitch=1;
-  const vs=speechSynthesis.getVoices();
-  const v=vs.find(v=>/samantha|karen|daniel/i.test(v.name)&&v.lang.startsWith('en'))||vs.find(v=>v.lang.startsWith('en-US'))||vs.find(v=>v.lang.startsWith('en'));
-  if(v)u.voice=v;
-  u.onend=()=>btn.classList.remove('go');u.onerror=()=>btn.classList.remove('go');
-  speechSynthesis.speak(u);
+  if(!speakEnglish(text,{rate:S.speed,onEnd:()=>btn.classList.remove('go')}))btn.classList.remove('go');
+}
+function updateSpeedButton(){
+  const el=document.getElementById('spdbtn');
+  if(!el)return;
+  const label=({0.75:'0.75×',0.9:'0.9×',1:'1.0×'})[S.speed]||`${S.speed}×`;
+  el.textContent=label;
 }
 function cycleSpd(){
-  const a=[0.7,1.0,1.3],b=['0.7×','1.0×','1.3×'],n=(a.indexOf(S.speed)+1)%3;
-  S.speed=a[n];document.getElementById('spdbtn').textContent=b[n];
+  const a=[0.75,0.9,1.0],n=(a.indexOf(Number(S.speed))+1)%3;
+  S.speed=a[n];
+  localStorage.setItem('sp4',String(S.speed));
+  updateSpeedButton();
 }
 
 // ════════════════════════════════
@@ -1723,9 +1733,9 @@ function toggleOrder(){
   document.getElementById('order-btn').classList.toggle('on',!S.randomOrder);
   document.getElementById('random-btn').classList.toggle('on',S.randomOrder);
 }
-function startDict(){
-  const banks=currentBanks();
-  const b=banks[S.bank];if(!b||!b.words.length)return alert('该词库没有内容，请先导入。');
+async function startDict(){
+  const b=await ensureBankLoaded(S.type,S.bank);
+  if(!b||!b.words?.length)return alert('该词库暂时没有内容，或公共词库加载失败，请稍后重试。');
   const items=[...b.words];
   if(S.randomOrder)items.sort(()=>Math.random()-.5);
   runDict(items.slice(0,Math.min(S.count,items.length)),b.name);
@@ -2054,10 +2064,7 @@ function renderEB(){
 }
 function setEbf(f){S.ebf=f;renderEB()}
 function playOne(w){
-  if(!('speechSynthesis' in window))return;speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=1;
-  const v=speechSynthesis.getVoices().find(v=>v.lang.startsWith('en-US'))||speechSynthesis.getVoices().find(v=>v.lang.startsWith('en'));
-  if(v)u.voice=v;speechSynthesis.speak(u);
+  speakEnglish(w,{rate:.9});
 }
 function practiceErrors(){
   let items=Object.values(S.errors);
