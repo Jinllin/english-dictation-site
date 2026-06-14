@@ -93,12 +93,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .bi{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;
   background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--r);cursor:pointer;transition:all .15s}
 .bi:active{transform:scale(.985)}.bi.on{border-color:var(--t1);background:var(--s2)}
-.bl{display:flex;align-items:center;gap:11px}
+.bl{display:flex;align-items:center;gap:11px;min-width:0}
+.bl>div:last-child{min-width:0}
 .bic{width:38px;height:38px;border-radius:var(--rsm);background:var(--s2);display:flex;align-items:center;justify-content:center;
   font-weight:700;font-size:11px;font-family:var(--mono);color:var(--t2)}
 .bi.on .bic{background:var(--t1);color:#fff}
 .bn{font-size:14px;font-weight:600;letter-spacing:-.01em}.bd-t{font-size:11px;color:var(--t3);margin-top:1px}
 .bc{font-size:12px;color:var(--t3);font-family:var(--mono);font-weight:500}
+.bank-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:10px}
+.bank-view{border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:6px 9px;font-family:var(--sans);font-size:11px;font-weight:800;cursor:pointer}
+.bank-view:active{transform:translateY(1px)}
 
 .cpills{display:flex;gap:8px;padding:0 20px;margin-bottom:22px}
 .cp{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;border:1.5px solid var(--bd);
@@ -126,7 +130,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .pet-profile{display:grid;grid-template-columns:136px 1fr;gap:18px;align-items:center}.pet-stage{height:136px;background:var(--s2);border-radius:28px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .pet-name{font-size:27px;font-weight:800;letter-spacing:-.04em}.rar{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;border-radius:50%;font-size:13px;font-weight:800;background:var(--s2);color:var(--t3);font-family:var(--mono)}.rar.r{background:#DDEEFF;color:#2878D8}.rar.sr{background:#F3D8FF;color:#B326D8}.rar.ssr{background:#FFF1B8;color:#B36B00;border:1px solid rgba(179,107,0,.22);box-shadow:0 0 0 3px rgba(255,209,102,.18)}
 .pet-level{font-size:28px;font-weight:800;font-family:var(--mono);margin-top:10px}.pet-exp{height:8px;background:var(--s3);border-radius:10px;margin-top:10px;overflow:hidden}.pet-exp>span{display:block;height:100%;background:var(--t1);border-radius:10px}.pet-exp-t{font-size:12px;color:var(--t3);text-align:right;margin-top:5px;font-family:var(--mono)}
-.pet-vitality{background:var(--s2);border-radius:16px;padding:12px;margin-top:16px}.pet-vitality-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--t2);font-weight:800}.vitality-track{height:8px;background:var(--s3);border-radius:999px;overflow:hidden;margin-top:8px}.vitality-fill{height:100%;border-radius:999px;background:#40B76A}.vitality-fill.normal{background:var(--t1)}.vitality-fill.low{background:#D88B26}.vitality-fill.resting{background:#B94B4B}
+.pet-vitality{background:var(--s2);border-radius:16px;padding:12px;margin-top:16px}.pet-vitality-top{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--t2);font-weight:800;gap:10px}.pet-vitality-rule{font-size:11px;color:var(--t3);line-height:1.5;margin-top:7px}.vitality-track{height:8px;background:var(--s3);border-radius:999px;overflow:hidden;margin-top:8px}.vitality-fill{height:100%;border-radius:999px;background:#40B76A}.vitality-fill.normal{background:var(--t1)}.vitality-fill.low{background:#D88B26}.vitality-fill.resting{background:#B94B4B}
 .pet-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:18px}.pet-stat{background:var(--s2);border-radius:14px;padding:10px;text-align:center}.pet-stat b{display:block;font-size:16px}.pet-stat span{font-size:11px;color:var(--t3)}
 .pet-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.pet-action{border:none;background:var(--s2);border-radius:18px;padding:13px 10px;font-family:var(--sans);font-weight:800;font-size:15px;color:var(--t1);cursor:pointer}
 .pet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.shop-card{background:var(--sur);border:1px solid var(--bd);border-radius:22px;padding:14px;box-shadow:0 14px 35px rgba(17,17,17,.04)}
@@ -338,6 +342,20 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btnp{flex:1}.mbtnc{flex:1;padding:14px;background:var(--s2);color:var(--t2);border:1px solid var(--bd);border-radius:var(--r);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer}
 .modal-msg{font-size:12px;text-align:center;min-height:16px;color:var(--ng)}
+.bank-modal{max-width:620px}
+.bank-toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+.bank-search{width:100%;padding:11px 12px;border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);font-family:var(--sans);font-size:13px;outline:none}
+.bank-search:focus{border-color:var(--t1)}
+.bank-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:var(--rsm);padding:10px 12px;font-family:var(--sans);font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap}
+.bank-mini.danger{color:var(--ng)}
+.bank-mini.hidden{display:none}
+.bank-list{flex:1;min-height:180px;overflow:auto;border:1px solid var(--bd);border-radius:var(--r);background:var(--s2)}
+.bank-row{display:grid;grid-template-columns:minmax(92px,1fr) minmax(120px,1.5fr) auto;gap:10px;align-items:start;padding:10px 12px;border-bottom:1px solid var(--bd);font-size:12px}
+.bank-row:last-child{border-bottom:none}
+.bank-word{font-family:var(--mono);font-weight:800;color:var(--t1);word-break:break-word}
+.bank-meaning{color:var(--t2);line-height:1.45;word-break:break-word}
+.bank-phonetic{color:var(--t3);font-family:var(--mono);white-space:nowrap}
+.bank-empty{padding:28px 16px;text-align:center;color:var(--t3);font-size:13px}
 .auth-switch{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.auth-mode{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:var(--rsm);padding:10px;font-family:var(--sans);font-size:13px;font-weight:800;cursor:pointer}.auth-mode.on{background:var(--t1);border-color:var(--t1);color:#fff}.auth-fields{display:flex;flex-direction:column;gap:8px}.auth-nickname-wrap.hidden{display:none}.auth-input{width:100%;padding:11px 12px;font-size:13px;font-family:var(--sans);border:1.5px solid var(--bd);border-radius:var(--rsm);background:var(--s2);color:var(--t1);outline:none}.auth-input:focus{border-color:var(--t1)}.auth-row{display:flex;gap:8px}.auth-row .btnp,.auth-row .mbtnc{padding:12px}.auth-status{font-size:12px;color:var(--t3);line-height:1.5;min-height:18px;text-align:center}.auth-status.ok{color:var(--ok)}.auth-status.ng{color:var(--ng)}
 .guide-card{display:flex;flex-direction:column;gap:14px;min-height:280px}.guide-hero{height:112px;border:1px solid var(--bd);border-radius:18px;background:linear-gradient(180deg,var(--s2),var(--sur));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.guide-pet{width:84px;height:84px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.12))}.guide-icon{width:72px;height:72px;border-radius:24px;background:var(--t1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800}.guide-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.guide-copy{font-size:14px;line-height:1.7;color:var(--t2)}.guide-dots{display:flex;justify-content:center;gap:6px;padding:4px 0}.guide-dot{width:6px;height:6px;border-radius:999px;background:var(--bd);transition:all .2s}.guide-dot.on{width:18px;background:var(--t1)}.guide-actions{display:flex;gap:8px}.guide-actions .mbtnc{flex:.38}.guide-actions .btnp{flex:1}
 .fx-layer{position:fixed;inset:0;z-index:500;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding-top:max(18px,env(safe-area-inset-top));overflow:hidden}.reward-toast{margin-top:8px;max-width:min(420px,calc(100vw - 28px));background:rgba(20,20,20,.92);color:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.22);display:flex;align-items:center;gap:12px;animation:toastIn 1.35s ease both}.reward-mark{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}.reward-main{font-size:14px;font-weight:800;letter-spacing:-.01em}.reward-sub{font-size:12px;color:rgba(255,255,255,.76);margin-top:2px;line-height:1.45}.fx-gem{position:fixed;width:14px;height:14px;border-radius:4px;background:linear-gradient(135deg,#4ee3ff,#6c5cff 50%,#ffb13d);box-shadow:0 0 0 2px rgba(255,255,255,.75),0 10px 24px rgba(55,110,255,.28);animation:gemFly 1.1s cubic-bezier(.2,.8,.2,1) both}.pet-stage.fx-fed,.pet-mini.fx-fed .pet-stage{animation:petHop .7s ease both}.pet-mini-bar.fx-glow,.pet-exp.fx-glow,.vitality-track.fx-glow{box-shadow:0 0 0 3px rgba(47,139,83,.14),0 0 18px rgba(47,139,83,.28)}.wr.fx-mastered,.ei.fx-mastered{animation:masteredFade 1s ease both}
@@ -557,6 +575,25 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div style="padding:0 20px 12px;display:flex;flex-direction:column;gap:8px">
     <button class="btnp" id="eb-go" onclick="practiceErrors()">练习错题</button>
     <button style="width:100%;padding:10px;background:none;border:1px solid var(--bd);border-radius:var(--r);font-family:var(--sans);font-size:12px;color:var(--t3);cursor:pointer" onclick="clearAllData()">清空全部数据</button>
+  </div>
+</div>
+
+<!-- ── BANK VIEWER MODAL ── -->
+<div class="modal-bg" id="bank-bg" onclick="closeBankViewerBg(event)">
+  <div class="modal bank-modal">
+    <div class="modal-title" id="bank-title">词库详情</div>
+    <p class="modal-sub" id="bank-sub">查看词库内容</p>
+    <div class="bank-toolbar">
+      <input class="bank-search" id="bank-search" placeholder="搜索英文或中文释义" oninput="renderBankViewerRows()">
+      <button class="bank-mini hidden" id="bank-edit-btn" onclick="editViewedBank()">编辑</button>
+      <button class="bank-mini danger hidden" id="bank-delete-btn" onclick="deleteViewedBank()">删除</button>
+    </div>
+    <div class="bank-list" id="bank-list"></div>
+    <div class="modal-msg" id="bank-msg"></div>
+    <div class="modal-btns">
+      <button class="mbtnc" onclick="closeBankViewer()">关闭</button>
+      <button class="btnp" onclick="startViewedBank()">开始练习</button>
+    </div>
   </div>
 </div>
 
@@ -1262,6 +1299,15 @@ function vitalityInfo(v){
   if(v>0)return {cls:'low',label:'低活力',hint:'它有点累了，喂点零食吧'};
   return {cls:'resting',label:'休息中',hint:'喂点零食，让它恢复状态'};
 }
+function vitalityDecayText(){
+  const now=Date.now();
+  const last=S.pet?.lastVitalityTick||now;
+  const remain=Math.max(0,VITALITY_DECAY_MS-(now-last));
+  const h=Math.floor(remain/3600000);
+  const m=Math.max(1,Math.ceil((remain%3600000)/60000));
+  const next=h>0?`${h}小时${m}分后`:`${m}分钟后`;
+  return `活力每 6 小时下降 10 点，只能通过零食恢复 · 下次约 ${next}`;
+}
 function accessorySlot(id){return ACCESSORY_SLOT_MAP[id]||'special'}
 function isAccessoryEquipped(id){return Object.values(S.pet?.equippedAccessories||{}).includes(id)}
 function accessoryFragmentCount(id){return Math.max(0,Number(S.pet?.accessoryFragments?.[id])||0)}
@@ -1279,6 +1325,8 @@ function currentBanks(){ return getBanks(S.type); }
 function bankCount(bank){
   return Number.isFinite(Number(bank?.count)) ? Number(bank.count) : (bank?.words?.length||0);
 }
+const BANK_VIEW_LIMIT=420;
+let VIEW_BANK={type:'word',key:''};
 const WORD_BANK_LOADS={};
 async function ensureBankLoaded(type,key){
   const bank=getBanks(type)[key];
@@ -1299,6 +1347,85 @@ async function ensureBankLoaded(type,key){
       });
   }
   return WORD_BANK_LOADS[key];
+}
+function bankUnit(type){return type==='word'?'词':type==='phrase'?'条':'句'}
+function bankCanEdit(type,key,bank){return !!bank&&!bank.builtin&&!!S.custom?.[type]?.[key]}
+function bankRows(bank){return Array.isArray(bank?.words)?bank.words:[]}
+function rowSearchText(row){
+  return [row?.w,row?.m,row?.p,row?.blank].map(v=>String(v||'').toLowerCase()).join(' ');
+}
+async function openBankViewer(type,key){
+  const initial=getBanks(type)[key];
+  if(!initial){alert('没有找到这个词库');return}
+  VIEW_BANK={type,key};
+  document.getElementById('bank-title').textContent=initial.name||'词库详情';
+  document.getElementById('bank-sub').textContent=`${initial.builtin?'系统内置词库，只可查看不可删改':'自定义词库，可编辑或删除'} · 共 ${bankCount(initial)} ${bankUnit(type)}`;
+  document.getElementById('bank-search').value='';
+  document.getElementById('bank-edit-btn').classList.toggle('hidden',!bankCanEdit(type,key,initial));
+  document.getElementById('bank-delete-btn').classList.toggle('hidden',!bankCanEdit(type,key,initial));
+  document.getElementById('bank-list').innerHTML='<div class="bank-empty">正在加载词库内容...</div>';
+  document.getElementById('bank-msg').textContent=initial.src?'公共词库较大，请稍等片刻':'';
+  document.getElementById('bank-bg').classList.add('on');
+  const bank=await ensureBankLoaded(type,key);
+  if(VIEW_BANK.type!==type||VIEW_BANK.key!==key)return;
+  document.getElementById('bank-sub').textContent=`${bank.builtin?'系统内置词库，只可查看不可删改':'自定义词库，可编辑或删除'} · 共 ${bankCount(bank)} ${bankUnit(type)}`;
+  renderBankViewerRows();
+}
+function closeBankViewer(){document.getElementById('bank-bg')?.classList.remove('on')}
+function closeBankViewerBg(e){if(e.target===document.getElementById('bank-bg'))closeBankViewer()}
+function renderBankViewerRows(){
+  const list=document.getElementById('bank-list');
+  const msg=document.getElementById('bank-msg');
+  if(!list)return;
+  const bank=getBanks(VIEW_BANK.type)[VIEW_BANK.key];
+  const rows=bankRows(bank);
+  const q=cleanImportCell(document.getElementById('bank-search')?.value||'').toLowerCase();
+  const filtered=q?rows.filter(row=>rowSearchText(row).includes(q)):rows;
+  const shown=filtered.slice(0,BANK_VIEW_LIMIT);
+  if(!shown.length){
+    list.innerHTML='<div class="bank-empty">没有匹配到内容</div>';
+    if(msg)msg.textContent='';
+    return;
+  }
+  list.innerHTML=shown.map(row=>{
+    const extra=VIEW_BANK.type==='sentence'&&row.blank?`重点：${esc(row.blank)}`:(row.p?esc(row.p):'');
+    return `<div class="bank-row"><div class="bank-word">${esc(row.w||'')}</div><div class="bank-meaning">${esc(row.m||'')}</div><div class="bank-phonetic">${extra}</div></div>`;
+  }).join('');
+  if(msg)msg.textContent=filtered.length>shown.length?`已显示前 ${shown.length} 条，可搜索英文或中文快速定位`:`已显示 ${filtered.length} 条`;
+}
+function bankToImportText(bank,type){
+  return bankRows(bank).map(row=>{
+    if(type==='sentence')return [row.w||'',row.m||'',row.blank||''].join('|');
+    return [row.w||'',row.m||'',row.p||''].join(',');
+  }).join('\n');
+}
+function editViewedBank(){
+  const {type,key}=VIEW_BANK;
+  const bank=getBanks(type)[key];
+  if(!bankCanEdit(type,key,bank))return;
+  closeBankViewer();
+  openImport(type,key);
+}
+function deleteViewedBank(){
+  const {type,key}=VIEW_BANK;
+  const bank=getBanks(type)[key];
+  if(!bankCanEdit(type,key,bank))return;
+  if(!confirm(`确定删除自定义词库「${bank.name}」吗？系统词库不会受影响。`))return;
+  delete S.custom[type][key];
+  if(S.type===type&&S.bank===key)S.bank=Object.keys(getBanks(type))[0]||'cet4';
+  save();
+  closeBankViewer();
+  renderBanks();
+  refreshStats();
+}
+function startViewedBank(){
+  const {type,key}=VIEW_BANK;
+  if(!getBanks(type)[key])return;
+  closeBankViewer();
+  S.type=type;S.bank=key;
+  document.querySelectorAll('.mt').forEach(el=>el.classList.toggle('on',el.dataset.t===type));
+  renderBanks();renderSentenceMode();refreshStats();
+  startDict();
 }
 
 // ════════════════════════════════
@@ -1367,7 +1494,7 @@ function renderPets(){
   root.innerHTML=`<div class="pet-card"><div class="pet-profile"><div class="pet-stage">${petArt(p.id,'',p,true)}</div>
     <div><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><div class="pet-name">${esc(p.name)}</div><span class="rar ${rarityClass(p.rarity)}">${esc(p.rarity)}</span></div>
     <div class="pet-level">Lv.${p.level}</div><div class="pet-exp"><span style="width:${pct}%"></span></div><div class="pet-exp-t">${p.exp}/${need}</div></div></div>
-    <div class="pet-vitality"><div class="pet-vitality-top"><span>活力 ${p.vitality}/100 · ${info.label}</span><span>${esc(info.hint)}</span></div><div class="vitality-track"><div class="vitality-fill ${info.cls}" style="width:${p.vitality}%"></div></div></div>
+    <div class="pet-vitality"><div class="pet-vitality-top"><span>活力 ${p.vitality}/100 · ${info.label}</span><span>${esc(info.hint)}</span></div><div class="vitality-track"><div class="vitality-fill ${info.cls}" style="width:${p.vitality}%"></div></div><div class="pet-vitality-rule">${esc(vitalityDecayText())}</div></div>
     <div class="pet-actions"><button class="pet-action" onclick="quickFeed()">喂食恢复</button><button class="pet-action" onclick="setPetView('accessories')">配饰商店</button><button class="pet-action" onclick="setPetView('foods')">零食商店</button><button class="pet-action" onclick="setPetView('lottery')">晶石抽奖</button></div></div>
     <div class="sh" style="padding:18px 0 10px"><span class="st">我的宠物</span></div><div class="pet-grid">${S.pet.pets.map(pp=>petOwnedCard(pp)).join('')}</div>
     <div class="sh" style="padding:18px 0 10px"><span class="st">我的配饰</span><span class="stag">抽奖得碎片，5 个合成 1 件</span></div>
@@ -1602,8 +1729,9 @@ function renderBanks(){
   Object.entries(banks).forEach(([k,b])=>{
     const el=document.createElement('div');
     el.className='bi'+(k===S.bank?' on':'');
-    el.innerHTML=`<div class="bl"><div class="bic">${b.icon}</div><div><div class="bn">${b.name}</div><div class="bd-t">${b.desc}</div></div></div><div class="bc">${bankCount(b)}</div>`;
+    el.innerHTML=`<div class="bl"><div class="bic">${b.icon}</div><div><div class="bn">${b.name}</div><div class="bd-t">${b.desc}</div></div></div><div class="bank-actions"><div class="bc">${bankCount(b)}</div><button class="bank-view" type="button">查看</button></div>`;
     el.onclick=()=>{S.bank=k;renderBanks();refreshStats()};
+    el.querySelector('.bank-view').onclick=(ev)=>{ev.stopPropagation();openBankViewer(S.type,k)};
     list.appendChild(el);
   });
 }
@@ -1984,9 +2112,9 @@ function applyStudyReward(results,acc){
   ensurePetState();
   const sig=results.map(r=>`${r.word.w}:${r.correct?'1':'0'}:${r.userAnswer}`).join('|')+'@'+Date.now();
   let gems=0,exp=0;
-  results.forEach(r=>{if(r.correct){gems+=3;exp+=5}else{gems+=1;exp+=1}});
+  results.forEach(r=>{if(r.correct){gems+=6;exp+=5}else{gems+=2;exp+=1}});
   if(S.dictSource==='errors')exp+=Math.max(3,Math.ceil(results.length/2));
-  const bonus=acc>=90?20:acc>=70?10:0;
+  const bonus=acc>=90?40:acc>=70?20:0;
   gems+=bonus;
   S.pet.gems+=gems;
   const leveled=addPetExp(exp);
@@ -2086,17 +2214,23 @@ const FMT_HINTS={
   phrase:`粘贴格式：短语,中文含义\nExcel格式：A列短语 / B列中文\n\n示例：\nbring to light,揭露\nat the mercy of,任由…摆布`,
   sentence:`粘贴格式：英文句子|中文翻译|重点词（重点词可省略）\nExcel格式：A列英文句子 / B列中文 / C列重点词（可省略）\n\n示例：\nShe managed to accomplish the task in time.|她及时完成了任务。|accomplish\nPrices tend to fluctuate in a free market.|价格在自由市场中会波动。|fluctuate`
 };
-function openImport(){
-  S.impType='word';
-  document.querySelectorAll('.mt2').forEach(el=>el.classList.toggle('on',el.dataset.it==='word'));
-  document.getElementById('imp-fmt').textContent=FMT_HINTS.word;
-  document.getElementById('imp-ta').value='';document.getElementById('imp-name').value='';document.getElementById('imp-msg').textContent='';
+function openImport(editType='',editKey=''){
+  const editing=!!editKey;
+  const editBank=editing?getBanks(editType)[editKey]:null;
+  S.impType=editing?editType:'word';
+  S.importEditKey=editing?editKey:'';
+  document.querySelectorAll('.mt2').forEach(el=>el.classList.toggle('on',el.dataset.it===S.impType));
+  document.getElementById('imp-fmt').textContent=FMT_HINTS[S.impType];
+  document.getElementById('imp-ta').value=editing?bankToImportText(editBank,S.impType):'';
+  document.getElementById('imp-name').value=editing?(editBank?.name||''):'';
+  document.getElementById('imp-msg').textContent=editing?'正在编辑自定义词库，保存后会覆盖原内容。':'';
   document.getElementById('imp-file').value='';document.getElementById('imp-file-name').textContent='支持 .xlsx / .xls / .csv / .tsv，也可直接粘贴内容';
   document.getElementById('modal-bg').classList.add('on');document.getElementById('modal').classList.add('on');
 }
-function closeImport(){document.getElementById('modal-bg').classList.remove('on')}
+function closeImport(){S.importEditKey='';document.getElementById('modal-bg').classList.remove('on')}
 function closeImportBg(e){if(e.target===document.getElementById('modal-bg'))closeImport()}
 function pickImpType(t){
+  if(S.importEditKey){document.getElementById('imp-msg').textContent='编辑已有词库时不能切换类型';return}
   S.impType=t;
   document.querySelectorAll('.mt2').forEach(el=>el.classList.toggle('on',el.dataset.it===t));
   document.getElementById('imp-fmt').textContent=FMT_HINTS[t];
@@ -2228,9 +2362,11 @@ function doImport(){
     msg.textContent=`免费账号单个词库最多 ${FREE_BANK_ITEM_LIMIT} 条；当前 ${words.length} 条，请拆分词库或升级后再导入`;
     return;
   }
-  const key='custom_'+Date.now();
+  const editKey=S.importEditKey&&S.custom[t]?.[S.importEditKey]?S.importEditKey:'';
+  const key=editKey||'custom_'+Date.now();
   if(!S.custom[t])S.custom[t]={};
   S.custom[t][key]={name,icon:'自',desc:`自定义·${words.length}${t==='word'?'词':t==='phrase'?'条':'句'}`,builtin:false,words};
+  S.importEditKey='';
   save();
   closeImport();
   // Switch to the newly imported type + bank
@@ -2238,7 +2374,7 @@ function doImport(){
   document.querySelectorAll('.mt').forEach(el=>el.classList.toggle('on',el.dataset.t===t));
   renderBanks();renderSentenceMode();refreshStats();
   tab('home');
-  alert(`成功导入 ${words.length} 个${t==='word'?'单词':t==='phrase'?'短语':'句子'}。词库名：${name}`);
+  alert(`${editKey?'成功更新':'成功导入'} ${words.length} 个${t==='word'?'单词':t==='phrase'?'短语':'句子'}。词库名：${name}`);
 }
 
 // ════════════════════════════════
