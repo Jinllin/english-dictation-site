@@ -758,7 +758,7 @@ const BUILTIN_SB={
 //  STATE
 // ════════════════════════════════
 let S={
-  type:'word', bank:'cet4', count:20, speed:Number(localStorage.getItem('sp4')||0.9),
+  type:'word', bank:'cet4', count:20, speed:Number(localStorage.getItem('sp4')||0.75),
   words:[], idx:0, results:[], answered:false,
   stats: JSON.parse(localStorage.getItem('ds4')||'{"total":0,"correct":0,"streak":0,"lastDate":"","mastered":{}}'),
   errors: JSON.parse(localStorage.getItem('eb4')||'{}'),
@@ -1812,12 +1812,7 @@ function isSimpleEnglishWord(text){
 function prepareSpeechText(text,mode='auto'){
   const clean=normalizeSpeechText(text);
   if(!clean)return '';
-  if((mode==='word'||mode==='auto')&&isSimpleEnglishWord(clean)){
-    return `${clean}. ${clean}.`;
-  }
-  const hasEnd=/[.!?。！？]$/.test(clean);
-  if(hasEnd)return clean;
-  return `${clean}.`;
+  return clean;
 }
 function loadEnglishVoices(){
   if(!('speechSynthesis' in window))return [];
@@ -1880,13 +1875,9 @@ function playAudioUrl(url,{onEnd=null}={}){
   return true;
 }
 function rateForSpeech(mode,rate){
-  const n=Number(rate)||.88;
-  if(mode==='word'){
-    if(n>=1)return .84;
-    if(n>=.9)return .8;
-    return .72;
-  }
-  if(mode==='phrase')return Math.max(.68,Math.min(.9,n));
+  const n=Number(rate)||.75;
+  if(mode==='word')return Math.max(.65,Math.min(1,n));
+  if(mode==='phrase')return Math.max(.65,Math.min(.95,n));
   return Math.max(.62,Math.min(.98,n));
 }
 function speakEnglish(text,{rate=S.speed,mode='auto',onEnd=null}={}){
@@ -2274,7 +2265,7 @@ function renderEB(){
 }
 function setEbf(f){S.ebf=f;renderEB()}
 function playOne(w){
-  speakEnglish(w,{rate:.82,mode:isSimpleEnglishWord(w)?'word':'phrase'});
+  speakEnglish(w,{rate:S.speed||.75,mode:isSimpleEnglishWord(w)?'word':'phrase'});
 }
 function practiceErrors(){
   let items=Object.values(S.errors);
