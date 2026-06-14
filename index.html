@@ -1438,7 +1438,7 @@ function init(){
   document.getElementById('greet').textContent=
     h<6?'夜深了，坚持就是胜利':h<12?'早上好，新的一天':h<18?'下午好，保持节奏':'晚上好，再练一组';
   renderBanks();renderCounts();renderSentenceMode();refreshStats();renderEB();renderHomePet();renderPets();authInit();
-  if('speechSynthesis' in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+  if('speechSynthesis' in window){loadEnglishVoices();speechSynthesis.onvoiceschanged=()=>loadEnglishVoices()}
   updateSpeedButton();
 }
 
@@ -1794,43 +1794,65 @@ function finalizeSession(results){
 // ════════════════════════════════
 //  AUDIO
 // ════════════════════════════════
-function stopAudio(){if('speechSynthesis' in window)speechSynthesis.cancel();document.getElementById('playbtn')?.classList.remove('go')}
+let speechToken=0;
+function stopAudio(){
+  speechToken++;
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+  document.getElementById('playbtn')?.classList.remove('go')
+}
 function normalizeSpeechText(text){
   return String(text||'').replace(/\s+/g,' ').trim();
+}
+function prepareSpeechText(text){
+  const clean=normalizeSpeechText(text);
+  if(!clean)return '';
+  const hasEnd=/[.!?。！？]$/.test(clean);
+  if(hasEnd)return clean;
+  return `${clean}.`;
+}
+function loadEnglishVoices(){
+  if(!('speechSynthesis' in window))return [];
+  return speechSynthesis.getVoices().filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
 }
 function voiceScore(v){
   const name=(v.name||'').toLowerCase(),lang=(v.lang||'').toLowerCase();
   let score=0;
-  if(lang==='en-us')score+=40;
-  else if(lang.startsWith('en-us'))score+=35;
-  else if(lang.startsWith('en-gb'))score+=24;
-  else if(lang.startsWith('en'))score+=16;
-  if(/samantha|alex|karen|daniel|moira|tessa/i.test(v.name))score+=28;
-  if(/google.*(us|english)|microsoft.*(aria|jenny|guy|zira|david)/i.test(v.name))score+=24;
-  if(/premium|enhanced|natural|neural/i.test(v.name))score+=18;
-  if(/compact|novelty|whisper|robot|bad news|bells|boing/i.test(v.name))score-=35;
+  if(lang==='en-us')score+=60;
+  else if(lang.startsWith('en-us'))score+=54;
+  else if(lang.startsWith('en-gb'))score+=38;
+  else if(lang.startsWith('en'))score+=24;
+  if(/samantha|ava|allison|susan|alex|karen|daniel|moira|tessa|victoria/i.test(v.name))score+=42;
+  if(/google.*(us|english)|microsoft.*(aria|jenny|guy|zira|david)/i.test(v.name))score+=38;
+  if(/premium|enhanced|natural|neural/i.test(v.name))score+=26;
+  if(/compact|novelty|whisper|robot|bad news|bells|boing|bubbles|cellos|organ|trinoids|zarvox/i.test(v.name))score-=80;
   if(v.localService)score+=3;
   return score;
 }
 function pickEnglishVoice(){
   if(!('speechSynthesis' in window))return null;
-  const voices=speechSynthesis.getVoices().filter(v=>(v.lang||'').toLowerCase().startsWith('en'));
+  const voices=loadEnglishVoices();
   return voices.sort((a,b)=>voiceScore(b)-voiceScore(a))[0]||null;
 }
 function speakEnglish(text,{rate=S.speed,onEnd=null}={}){
   if(!('speechSynthesis' in window))return false;
   const clean=normalizeSpeechText(text);
   if(!clean)return false;
+  const token=++speechToken;
   speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(clean);
+  const u=new SpeechSynthesisUtterance(prepareSpeechText(clean));
   u.lang='en-US';
-  u.rate=Math.max(.65,Math.min(1.05,Number(rate)||.9));
-  u.pitch=.96;
+  u.rate=Math.max(.62,Math.min(.98,Number(rate)||.88));
+  u.pitch=.98;
   u.volume=1;
   const v=pickEnglishVoice();
   if(v)u.voice=v;
-  if(onEnd){u.onend=onEnd;u.onerror=onEnd}
-  speechSynthesis.speak(u);
+  const done=()=>{if(token===speechToken&&onEnd)onEnd()};
+  if(onEnd){u.onend=done;u.onerror=done}
+  setTimeout(()=>{
+    if(token!==speechToken)return;
+    speechSynthesis.speak(u);
+    setTimeout(()=>{try{speechSynthesis.resume()}catch(e){}},220);
+  },90);
   return true;
 }
 function playAudio(){
@@ -1897,7 +1919,7 @@ function loadItem(){
     body.removeEventListener('click',bodyClick);
     handleGo();
   });
-  setTimeout(playAudio,400);
+  setTimeout(playAudio,650);
 }
 
 function renderWordItem(body){
@@ -2192,7 +2214,7 @@ function renderEB(){
 }
 function setEbf(f){S.ebf=f;renderEB()}
 function playOne(w){
-  speakEnglish(w,{rate:.9});
+  speakEnglish(w,{rate:.82});
 }
 function practiceErrors(){
   let items=Object.values(S.errors);
