@@ -57,13 +57,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .logo{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;letter-spacing:-.03em}
 .lm{width:30px;height:30px;background:var(--t1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
 .strk{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--gold);background:var(--gbg);padding:5px 11px;border-radius:20px;border:1px solid color-mix(in srgb,var(--gold),transparent 60%)}
+.trial-pill{display:none;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ng);background:var(--ngbg);padding:5px 11px;border-radius:20px;border:1px solid color-mix(in srgb,var(--ng),transparent 60%);font-family:var(--mono)}
+.trial-pill.on{display:flex}
+.trial-pill::before{content:'试用';font-size:10px;color:var(--ng);opacity:.72;letter-spacing:.04em;font-family:var(--sans)}
 .strk::before{content:'连续';font-size:10px;color:var(--gold);opacity:.72;letter-spacing:.04em}
 .acct-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:7px 10px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;max-width:118px}
 .acct-btn.on{color:var(--ok);background:var(--okbg);border-color:color-mix(in srgb,var(--ok),transparent 62%)}
 .acct-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);flex-shrink:0}.acct-btn.on .sync-dot{background:var(--ok)}
 .sync-card{margin:0 20px 16px;padding:12px 14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:none;gap:10px;align-items:center;justify-content:space-between}
-.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
+.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
 
 /* ── SCREENS ── */
 .sc{display:none;flex-direction:column;flex:1;padding-bottom:76px}.sc.on{display:flex}
@@ -438,6 +441,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="dark-icon"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></svg>
       </button>
       <div class="strk"><span id="strk-n">0天</span></div>
+      <div class="trial-pill" id="trial-pill"><span id="trial-n">5:00</span></div>
     </div>
   </div>
   <div class="hero">
@@ -826,6 +830,31 @@ function isTrialExpired(){
   if(!Number.isFinite(created))return false;
   return (Date.now()-created)>TRIAL_MINUTES*60*1000;
 }
+function trialRemainingMs(){
+  if(!AUTH.user||!AUTH.user.createdAt)return null;
+  if(isPaidUser())return null;
+  const created=new Date(AUTH.user.createdAt).getTime();
+  if(!Number.isFinite(created))return null;
+  return TRIAL_MINUTES*60*1000-(Date.now()-created);
+}
+function updateTrialCountdown(){
+  const pill=document.getElementById('trial-pill');
+  const n=document.getElementById('trial-n');
+  if(!pill||!n)return;
+  if(!AUTH.token||isPaidUser()){pill.classList.remove('on');return}
+  const remaining=trialRemainingMs();
+  if(remaining===null){pill.classList.remove('on');return}
+  if(remaining<=0){
+    pill.classList.remove('on');
+    if(!document.getElementById('unlock-bg')?.classList.contains('on'))openUnlock();
+    return;
+  }
+  pill.classList.add('on');
+  const totalSec=Math.ceil(remaining/1000);
+  const m=Math.floor(totalSec/60);
+  const s=totalSec%60;
+  n.textContent=`${m}:${String(s).padStart(2,'0')}`;
+}
 function openUnlock(){
   const hint=document.getElementById('unlock-email-hint');
   if(hint)hint.textContent=(AUTH.user&&AUTH.user.email)||'';
@@ -844,6 +873,7 @@ async function doActivate(){
     document.getElementById('unlock-bg')?.classList.remove('on');
     setUnlockStatus('');
     if(input)input.value='';
+    updateTrialCountdown();
   }catch(err){setUnlockStatus(err.message,'ng')}
 }
 function setUnlockStatus(msg,kind){
@@ -1068,7 +1098,11 @@ async function apiFetch(path,opts={}){
     throw new Error(`服务器连接失败，请稍后再试或检查后端服务：${base||location.origin}`);
   }
   const data=await res.json().catch(()=>({}));
-  if(!res.ok)throw new Error(data.error||`请求失败 (${res.status})`);
+  if(!res.ok){
+    const err=new Error(data.error||`请求失败 (${res.status})`);
+    err.data=data;
+    throw err;
+  }
   return data;
 }
 function queueSync(reason='auto'){
@@ -1083,6 +1117,7 @@ async function authInit(){
   try{
     const data=await apiFetch('/api/auth/me');
     AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
+    updateTrialCountdown();
     if(isTrialExpired()){openUnlock();}else{maybeShowGuide();}
   }catch(err){
     AUTH.token='';AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
@@ -1120,6 +1155,7 @@ async function doAuth(mode=AUTH.mode){
     AUTH.ready=true;
     localStorage.setItem(AUTH_TOKEN_KEY,AUTH.token);
     renderAuth();
+    updateTrialCountdown();
     await resolveFirstSync();
     closeAuth();
     if(mode==='register')maybeShowGuide();
@@ -1151,7 +1187,14 @@ async function syncNow(reason='manual',showDone=true){
     localStorage.setItem(SYNC_AT_KEY,AUTH.lastSync);
     renderAuth();
     if(showDone)setAuthStatus('已同步到云端','ok');
-  }catch(err){setAuthStatus(`本地已保存，云端同步失败：${err.message}`,'ng')}
+  }catch(err){
+    if(err.data?.trialExpired){
+      setAuthStatus('本地已保存，云端同步已暂停','ng');
+      openUnlock();
+    }else{
+      setAuthStatus(`本地已保存，云端同步失败：${err.message}`,'ng');
+    }
+  }
   finally{AUTH.busy=false}
 }
 async function syncPull(ask=true){
@@ -1199,7 +1242,7 @@ function installAuthGate(){
   installAuthGate.done=true;
   document.addEventListener('click',requireLoginForUse,true);
   document.addEventListener('submit',requireLoginForUse,true);
-  setInterval(()=>{if(AUTH.token&&isTrialExpired())openUnlock()},15000);
+  setInterval(updateTrialCountdown,1000);
 }
 function normalizeAnswer(v){
   return String(v||'')
