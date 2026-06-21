@@ -67,7 +67,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .acct-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);flex-shrink:0}.acct-btn.on .sync-dot{background:var(--ok)}
 .sync-card{margin:0 20px 16px;padding:12px 14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:none;gap:10px;align-items:center;justify-content:space-between}
-.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.trial-line{display:none;margin-top:5px;font-size:11px;font-weight:800;color:#9a6500;line-height:1.35}.trial-line.on{display:block}.trial-line.expired{color:var(--ng)}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
+.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.trial-line{display:none;margin-top:5px;font-size:11px;font-weight:800;color:#9a6500;line-height:1.35}.trial-line.on{display:block}.trial-line.expired{color:var(--ng)}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}.sync-mini.unlock-mini{display:none;background:#fff1f1;border-color:#ffd1d1;color:var(--ng)}.sync-mini.unlock-mini.on{display:inline-flex;align-items:center;justify-content:center}
 
 /* ── SCREENS ── */
 .sc{display:none;flex-direction:column;flex:1;padding-bottom:76px}.sc.on{display:flex}
@@ -324,9 +324,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-bg.on{display:flex}
 .modal{background:var(--sur);color:var(--t1);border-radius:20px 20px 0 0;width:100%;max-width:460px;padding:24px 20px 32px;max-height:90dvh;display:flex;flex-direction:column;gap:14px;overflow:hidden}
 .unlock-bg{align-items:center;padding:18px;background:rgba(18,18,18,.38);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
-.unlock-modal{position:relative;max-width:360px;border-radius:18px;padding:22px;gap:14px;box-shadow:0 22px 70px rgba(0,0,0,.2)}
+.unlock-modal{position:relative;max-width:360px;border-radius:18px;padding:22px;gap:14px;box-shadow:0 22px 70px rgba(0,0,0,.2);max-height:calc(100dvh - 36px);overflow:auto}
 .unlock-modal .modal-title{font-size:17px;line-height:1.2}
 .unlock-modal .modal-sub{margin-top:-6px}
+.pay-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:16px}
+.pay-qr-img{width:min(210px,70vw);max-height:260px;object-fit:contain;border-radius:12px;background:#fff}
+.pay-qr-caption{font-size:12px;line-height:1.45;text-align:center;color:var(--t3)}
 .modal-close{position:absolute;right:14px;top:12px;width:30px;height:30px;border:none;background:transparent;color:var(--t3);font-size:24px;line-height:1;cursor:pointer;font-family:var(--sans)}
 .modal-close:active{transform:scale(.94)}
 .unlock-actions{justify-content:flex-end;align-items:center;margin-top:4px}
@@ -470,8 +473,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
       <div class="trial-line" id="trial-line"></div>
     </div>
     <div class="sync-actions">
-      <button class="sync-mini" onclick="syncPull(true)">恢复</button>
-      <button class="sync-mini primary" onclick="syncNow('manual')">同步</button>
+      <button class="sync-mini" id="sync-restore-btn" onclick="syncPull(true)">恢复</button>
+      <button class="sync-mini primary" id="sync-now-btn" onclick="syncNow('manual')">同步</button>
+      <button class="sync-mini unlock-mini" id="unlock-open-mini" onclick="openUnlock()">激活</button>
     </div>
   </div>
   <div class="pet-mini" onclick="tab('pets')" id="home-pet-card"></div>
@@ -675,7 +679,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div class="modal unlock-modal" id="unlock-modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeUnlock()" aria-label="关闭">×</button>
     <div class="modal-title">使用激活码</div>
-    <p class="modal-sub">激活码请自己联系管理员获取</p>
+    <p class="modal-sub">免费试用 5 分钟已用完。转账后联系管理员获取激活码，永久使用。</p>
+    <div class="pay-qr-wrap">
+      <img class="pay-qr-img" src="assets/wechat-pay-qr.jpg" alt="微信收款码">
+      <div class="pay-qr-caption">微信扫码转账 ¥19.9，联系时请告知注册邮箱</div>
+    </div>
     <div class="auth-fields" style="gap:10px">
       <input class="auth-input" id="unlock-code-input" placeholder="请输入激活码 *" maxlength="64">
     </div>
@@ -870,9 +878,18 @@ function updateTrialCountdown(){
   const pill=document.getElementById('trial-pill');
   const n=document.getElementById('trial-n');
   const line=document.getElementById('trial-line');
+  const unlockMini=document.getElementById('unlock-open-mini');
+  const syncRestore=document.getElementById('sync-restore-btn');
+  const syncNowBtn=document.getElementById('sync-now-btn');
+  const setUnlockEntry=on=>{
+    unlockMini?.classList.toggle('on',!!on);
+    if(syncRestore)syncRestore.style.display=on?'none':'inline-flex';
+    if(syncNowBtn)syncNowBtn.style.display=on?'none':'inline-flex';
+  };
   const hide=()=>{
     pill?.classList.remove('on','expired');
     if(line){line.classList.remove('on','expired');line.textContent=''}
+    setUnlockEntry(false);
   };
   if(!AUTH.token||!AUTH.user||isPaidUser()){hide();return}
   const remaining=trialRemainingMs();
@@ -884,9 +901,11 @@ function updateTrialCountdown(){
       line.classList.add('on','expired');
       line.textContent='试用已结束，请输入激活码继续使用';
     }
+    setUnlockEntry(true);
     if(!document.getElementById('unlock-bg')?.classList.contains('on'))openUnlock();
     return;
   }
+  setUnlockEntry(false);
   const clock=formatTrialClock(remaining);
   pill?.classList.add('on');
   pill?.classList.remove('expired');
