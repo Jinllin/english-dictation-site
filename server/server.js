@@ -33,6 +33,7 @@ const ALLOWED_ORIGINS = new Set([...DEFAULT_ALLOWED_ORIGINS, ...CORS_ORIGINS]);
 const SNAPSHOT_KEYS = ['ds4', 'eb4', 'cu4', 'fv4', 'sho4', 'dk4', 'sm4', 'pet4', 'guide4'];
 const FREE_SNAPSHOT_BYTES = 10 * 1024 * 1024;
 const MAX_PAYLOAD_BYTES = 100 * 1024 * 1024;
+const TRIAL_MINUTES = 5;
 
 fs.mkdirSync(path.dirname(DATABASE_PATH), { recursive: true });
 const db = new Database(DATABASE_PATH);
@@ -114,6 +115,20 @@ function publicUser(row) {
 
 function signToken(user) {
   return jwt.sign({ sub: String(user.id), email: user.email }, JWT_SECRET, { expiresIn: '30d' });
+}
+
+function isTrialExpired(user) {
+  if (user.is_paid) return false;
+  const createdMs = new Date(user.created_at).getTime();
+  if (!Number.isFinite(createdMs)) return false;
+  return (Date.now() - createdMs) > TRIAL_MINUTES * 60 * 1000;
+}
+
+function requireTrialOrPaid(req, res, next) {
+  if (isTrialExpired(req.user)) {
+    return res.status(403).json({ error: '试用已结束，请转账 ¥19.9 解锁永久使用权限', trialExpired: true });
+  }
+  next();
 }
 
 function requireAuth(req, res, next) {
@@ -227,7 +242,7 @@ app.get('/api/sync', requireAuth, (req, res) => {
   res.json({ snapshot: { ...snapshot, savedAt: row.updated_at } });
 });
 
-app.put('/api/sync', requireAuth, (req, res) => {
+app.put('/api/sync', requireAuth, requireTrialOrPaid, (req, res) => {
   try {
     const { payload, json } = validateSnapshot(req.body, req.user);
     db.prepare(`

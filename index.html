@@ -652,6 +652,27 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   </div>
 </div>
 
+<!-- ── UNLOCK / TRIAL EXPIRED MODAL ── -->
+<div class="modal-bg" id="unlock-bg">
+  <div class="modal" id="unlock-modal">
+    <div class="modal-title">试用已结束</div>
+    <p class="modal-sub">免费试用 5 分钟已用完。转账 <strong>¥19.9</strong> 一次性买断，永久使用，还能向我提优化建议。</p>
+    <div class="auth-fields" style="gap:10px">
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;background:var(--s2);border-radius:var(--rsm);padding:12px 14px">
+        微信/支付宝转账 <strong>¥19.9</strong> 至：<br>
+        <span style="color:var(--t1);font-weight:700">（在此填写你的收款方式，如微信号/收款码）</span><br>
+        转账备注你的注册邮箱：<strong id="unlock-email-hint"></strong><br>
+        24 小时内为你开通永久权限。
+      </div>
+    </div>
+    <div class="auth-status" id="unlock-status"></div>
+    <div class="auth-row">
+      <button class="mbtnc" onclick="checkUnlockStatus()">我已转账，刷新状态</button>
+      <button class="btnp" onclick="logout()">退出登录</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── NEW USER GUIDE ── -->
 <div class="modal-bg" id="guide-bg" onclick="closeGuideBg(event)">
   <div class="modal" id="guide-modal">
@@ -790,6 +811,7 @@ const DEFAULT_API_BASE=(()=>{
   return '';
 })();
 const FREE_BANK_ITEM_LIMIT=4000;
+const TRIAL_MINUTES=5;
 let AUTH={
   token:localStorage.getItem(AUTH_TOKEN_KEY)||'',
   user:null,
@@ -800,6 +822,38 @@ let AUTH={
   lastSync:localStorage.getItem(SYNC_AT_KEY)||''
 };
 function isPaidUser(){return !!(AUTH.user&&AUTH.user.isPaid)}
+function isTrialExpired(){
+  if(!AUTH.user||!AUTH.user.createdAt)return false;
+  if(isPaidUser())return false;
+  const created=new Date(AUTH.user.createdAt).getTime();
+  if(!Number.isFinite(created))return false;
+  return (Date.now()-created)>TRIAL_MINUTES*60*1000;
+}
+function openUnlock(){
+  const hint=document.getElementById('unlock-email-hint');
+  if(hint)hint.textContent=(AUTH.user&&AUTH.user.email)||'';
+  document.getElementById('unlock-bg')?.classList.add('on');
+}
+function closeUnlockBg(){/* 试用过期不允许通过点击背景关闭，需转账解锁或退出登录 */}
+async function checkUnlockStatus(){
+  if(!AUTH.token)return;
+  try{
+    const data=await apiFetch('/api/auth/me');
+    AUTH.user=data.user;
+    if(isPaidUser()){
+      document.getElementById('unlock-bg')?.classList.remove('on');
+      setUnlockStatus('已解锁，欢迎回来！','ok');
+    }else{
+      setUnlockStatus('还未查到付款记录，请确认转账备注是否填写了注册邮箱。','ng');
+    }
+  }catch(err){setUnlockStatus(err.message,'ng')}
+}
+function setUnlockStatus(msg,kind){
+  const el=document.getElementById('unlock-status');
+  if(!el)return;
+  el.textContent=msg||'';
+  el.className='auth-status'+(kind?` ${kind}`:'');
+}
 function assetUrl(src){
   if(!src)return '';
   return `${src}${src.includes('?')?'&':'?'}v=${ASSET_VERSION}`;
@@ -1031,7 +1085,7 @@ async function authInit(){
   try{
     const data=await apiFetch('/api/auth/me');
     AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
-    maybeShowGuide();
+    if(isTrialExpired()){openUnlock();}else{maybeShowGuide();}
   }catch(err){
     AUTH.token='';AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
   }
@@ -1121,20 +1175,33 @@ function logout(){
 function isAuthGateOpenTarget(target){
   return !!target.closest('#auth-bg,#guide-bg');
 }
+function isUnlockGateOpenTarget(target){
+  return !!target.closest('#unlock-bg');
+}
 function requireLoginForUse(e){
-  if(AUTH.token)return;
-  const target=e.target;
-  if(isAuthGateOpenTarget(target))return;
-  e.preventDefault();
-  e.stopPropagation();
-  openAuth();
-  setAuthStatus('请先登录后再使用网站功能','ng');
+  if(!AUTH.token){
+    const target=e.target;
+    if(isAuthGateOpenTarget(target))return;
+    e.preventDefault();
+    e.stopPropagation();
+    openAuth();
+    setAuthStatus('请先登录后再使用网站功能','ng');
+    return;
+  }
+  if(isTrialExpired()){
+    const target=e.target;
+    if(isUnlockGateOpenTarget(target))return;
+    e.preventDefault();
+    e.stopPropagation();
+    openUnlock();
+  }
 }
 function installAuthGate(){
   if(installAuthGate.done)return;
   installAuthGate.done=true;
   document.addEventListener('click',requireLoginForUse,true);
   document.addEventListener('submit',requireLoginForUse,true);
+  setInterval(()=>{if(AUTH.token&&isTrialExpired())openUnlock()},15000);
 }
 function normalizeAnswer(v){
   return String(v||'')
