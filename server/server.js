@@ -118,8 +118,41 @@ function wordAudioFileName(word) {
   return `${word.replace(/'/g, '').replace(/[^a-z-]/g, '-')}.mp3`;
 }
 
+function parseStoredDateMs(value) {
+  if (!value) return NaN;
+  const text = String(value).trim();
+  const normalized = text.includes('T') ? text : `${text.replace(' ', 'T')}Z`;
+  return new Date(normalized).getTime();
+}
+
+function trialInfo(row) {
+  if (!row || row.is_paid) {
+    return { trialEndsAt: null, trialRemainingMs: null, trialExpired: false };
+  }
+  const createdMs = parseStoredDateMs(row.created_at);
+  if (!Number.isFinite(createdMs)) {
+    return { trialEndsAt: null, trialRemainingMs: null, trialExpired: false };
+  }
+  const endsMs = createdMs + TRIAL_MINUTES * 60 * 1000;
+  const remaining = Math.max(0, endsMs - Date.now());
+  return {
+    trialEndsAt: new Date(endsMs).toISOString(),
+    trialRemainingMs: remaining,
+    trialExpired: remaining <= 0
+  };
+}
+
 function publicUser(row) {
-  return row ? { id: row.id, email: row.email, nickname: row.nickname, isPaid: !!row.is_paid, plan: row.is_paid ? 'paid' : 'free', createdAt: row.created_at } : null;
+  if (!row) return null;
+  return {
+    id: row.id,
+    email: row.email,
+    nickname: row.nickname,
+    isPaid: !!row.is_paid,
+    plan: row.is_paid ? 'paid' : 'free',
+    createdAt: row.created_at,
+    ...trialInfo(row)
+  };
 }
 
 function signToken(user) {
@@ -127,15 +160,12 @@ function signToken(user) {
 }
 
 function isTrialExpired(user) {
-  if (user.is_paid) return false;
-  const createdMs = new Date(user.created_at).getTime();
-  if (!Number.isFinite(createdMs)) return false;
-  return (Date.now() - createdMs) > TRIAL_MINUTES * 60 * 1000;
+  return trialInfo(user).trialExpired;
 }
 
 function requireTrialOrPaid(req, res, next) {
   if (isTrialExpired(req.user)) {
-    return res.status(403).json({ error: '试用已结束，请转账 ¥19.9 解锁永久使用权限', trialExpired: true });
+    return res.status(403).json({ error: '试用已结束，请输入激活码继续使用', trialExpired: true });
   }
   next();
 }

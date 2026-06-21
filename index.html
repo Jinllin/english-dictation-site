@@ -57,16 +57,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .logo{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:700;letter-spacing:-.03em}
 .lm{width:30px;height:30px;background:var(--t1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
 .strk{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--gold);background:var(--gbg);padding:5px 11px;border-radius:20px;border:1px solid color-mix(in srgb,var(--gold),transparent 60%)}
-.trial-pill{display:none;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--ng);background:var(--ngbg);padding:5px 11px;border-radius:20px;border:1px solid color-mix(in srgb,var(--ng),transparent 60%);font-family:var(--mono)}
+.trial-pill{display:none;align-items:center;gap:5px;font-size:12px;font-weight:800;color:#7a4b00;background:#fff7dc;padding:5px 11px;border-radius:20px;border:1px solid rgba(179,107,0,.28);font-family:var(--mono)}
 .trial-pill.on{display:flex}
-.trial-pill::before{content:'试用';font-size:10px;color:var(--ng);opacity:.72;letter-spacing:.04em;font-family:var(--sans)}
+.trial-pill.expired{color:var(--ng);background:var(--ngbg);border-color:color-mix(in srgb,var(--ng),transparent 60%)}
+.trial-pill::before{content:'试用';font-size:10px;color:currentColor;opacity:.72;letter-spacing:.04em;font-family:var(--sans)}
 .strk::before{content:'连续';font-size:10px;color:var(--gold);opacity:.72;letter-spacing:.04em}
 .acct-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:7px 10px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;max-width:118px}
 .acct-btn.on{color:var(--ok);background:var(--okbg);border-color:color-mix(in srgb,var(--ok),transparent 62%)}
 .acct-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);flex-shrink:0}.acct-btn.on .sync-dot{background:var(--ok)}
 .sync-card{margin:0 20px 16px;padding:12px 14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:none;gap:10px;align-items:center;justify-content:space-between}
-.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
+.sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.trial-line{display:none;margin-top:5px;font-size:11px;font-weight:800;color:#9a6500;line-height:1.35}.trial-line.on{display:block}.trial-line.expired{color:var(--ng)}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}
 
 /* ── SCREENS ── */
 .sc{display:none;flex-direction:column;flex:1;padding-bottom:76px}.sc.on{display:flex}
@@ -322,6 +323,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .modal-bg.on{display:flex}
 .modal{background:var(--sur);color:var(--t1);border-radius:20px 20px 0 0;width:100%;max-width:460px;padding:24px 20px 32px;max-height:90dvh;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.unlock-bg{align-items:center;padding:18px;background:rgba(18,18,18,.38);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.unlock-modal{position:relative;max-width:360px;border-radius:18px;padding:22px;gap:14px;box-shadow:0 22px 70px rgba(0,0,0,.2)}
+.unlock-modal .modal-title{font-size:17px;line-height:1.2}
+.unlock-modal .modal-sub{margin-top:-6px}
+.modal-close{position:absolute;right:14px;top:12px;width:30px;height:30px;border:none;background:transparent;color:var(--t3);font-size:24px;line-height:1;cursor:pointer;font-family:var(--sans)}
+.modal-close:active{transform:scale(.94)}
+.unlock-actions{justify-content:flex-end;align-items:center;margin-top:4px}
+.unlock-actions .mbtnc{flex:0 0 auto;border:none;background:transparent;padding:12px 14px;color:var(--t1)}
+.unlock-actions .btnp{flex:0 0 auto;min-width:82px;padding:12px 22px;border-radius:12px}
 .modal-title{font-size:18px;font-weight:700;letter-spacing:-.02em}
 .modal-sub{font-size:13px;color:var(--t2);line-height:1.6;margin-top:-6px}
 .modal-tabs{display:flex;gap:0;margin-bottom:2px}
@@ -454,7 +464,11 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
     <div class="sc2 fu" style="animation-delay:.15s"><div class="sn" id="s-mas">0</div><div class="sl">已掌握</div></div>
   </div>
   <div class="sync-card" id="sync-card">
-    <div class="sync-info"><div class="sync-title" id="sync-title">账号同步</div><div class="sync-sub" id="sync-sub">登录后可在多设备同步学习数据</div></div>
+    <div class="sync-info">
+      <div class="sync-title" id="sync-title">账号同步</div>
+      <div class="sync-sub" id="sync-sub">登录后可在多设备同步学习数据</div>
+      <div class="trial-line" id="trial-line"></div>
+    </div>
     <div class="sync-actions">
       <button class="sync-mini" onclick="syncPull(true)">恢复</button>
       <button class="sync-mini primary" onclick="syncNow('manual')">同步</button>
@@ -657,18 +671,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 </div>
 
 <!-- ── UNLOCK / TRIAL EXPIRED MODAL ── -->
-<div class="modal-bg" id="unlock-bg">
-  <div class="modal" id="unlock-modal">
+<div class="modal-bg unlock-bg" id="unlock-bg" onclick="closeUnlockBg(event)">
+  <div class="modal unlock-modal" id="unlock-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeUnlock()" aria-label="关闭">×</button>
     <div class="modal-title">使用激活码</div>
-    <p class="modal-sub">免费试用 5 分钟已用完。激活码请微信扫码联系我获取（转账 ¥19.9 一次性买断，永久使用）。</p>
-    <img src="assets/wechat-pay-qr.jpg" alt="微信收款码" style="width:100%;max-width:200px;margin:0 auto 14px;border-radius:var(--rsm);display:block">
+    <p class="modal-sub">激活码请自己联系管理员获取</p>
     <div class="auth-fields" style="gap:10px">
-      <div style="font-size:12px;color:var(--t3)">你的注册邮箱：<strong id="unlock-email-hint" style="color:var(--t1)"></strong>（联系时请告知此邮箱）</div>
       <input class="auth-input" id="unlock-code-input" placeholder="请输入激活码 *" maxlength="64">
     </div>
     <div class="auth-status" id="unlock-status"></div>
-    <div class="auth-row">
-      <button class="mbtnc" onclick="logout()">退出登录</button>
+    <div class="auth-row unlock-actions">
+      <button class="mbtnc" onclick="closeUnlock()">取消</button>
       <button class="btnp" onclick="doActivate()">激活</button>
     </div>
   </div>
@@ -820,47 +833,77 @@ let AUTH={
   timer:null,
   busy:false,
   ready:false,
-  lastSync:localStorage.getItem(SYNC_AT_KEY)||''
+  lastSync:localStorage.getItem(SYNC_AT_KEY)||'',
+  trialRefAt:Date.now()
 };
+function setAuthUser(user){
+  AUTH.user=user||null;
+  AUTH.trialRefAt=Date.now();
+}
 function isPaidUser(){return !!(AUTH.user&&AUTH.user.isPaid)}
 function isTrialExpired(){
-  if(!AUTH.user||!AUTH.user.createdAt)return false;
   if(isPaidUser())return false;
-  const created=new Date(AUTH.user.createdAt).getTime();
-  if(!Number.isFinite(created))return false;
-  return (Date.now()-created)>TRIAL_MINUTES*60*1000;
+  if(!AUTH.user)return false;
+  const remaining=trialRemainingMs();
+  if(remaining!==null)return remaining<=0;
+  return !!AUTH.user.trialExpired;
 }
 function trialRemainingMs(){
-  if(!AUTH.user||!AUTH.user.createdAt)return null;
-  if(isPaidUser())return null;
-  const created=new Date(AUTH.user.createdAt).getTime();
+  if(!AUTH.user||isPaidUser())return null;
+  const serverRemaining=Number(AUTH.user.trialRemainingMs);
+  if(Number.isFinite(serverRemaining)){
+    return serverRemaining-(Date.now()-(AUTH.trialRefAt||Date.now()));
+  }
+  const endMs=new Date(AUTH.user.trialEndsAt||'').getTime();
+  if(Number.isFinite(endMs))return endMs-Date.now();
+  const created=new Date(AUTH.user.createdAt||'').getTime();
   if(!Number.isFinite(created))return null;
   return TRIAL_MINUTES*60*1000-(Date.now()-created);
+}
+function formatTrialClock(ms){
+  const totalSec=Math.max(0,Math.ceil(ms/1000));
+  const m=Math.floor(totalSec/60);
+  const s=totalSec%60;
+  return `${m}:${String(s).padStart(2,'0')}`;
 }
 function updateTrialCountdown(){
   const pill=document.getElementById('trial-pill');
   const n=document.getElementById('trial-n');
-  if(!pill||!n)return;
-  if(!AUTH.token||isPaidUser()){pill.classList.remove('on');return}
+  const line=document.getElementById('trial-line');
+  const hide=()=>{
+    pill?.classList.remove('on','expired');
+    if(line){line.classList.remove('on','expired');line.textContent=''}
+  };
+  if(!AUTH.token||!AUTH.user||isPaidUser()){hide();return}
   const remaining=trialRemainingMs();
-  if(remaining===null){pill.classList.remove('on');return}
+  if(remaining===null){hide();return}
   if(remaining<=0){
-    pill.classList.remove('on');
+    pill?.classList.add('on','expired');
+    if(n)n.textContent='已结束';
+    if(line){
+      line.classList.add('on','expired');
+      line.textContent='试用已结束，请输入激活码继续使用';
+    }
     if(!document.getElementById('unlock-bg')?.classList.contains('on'))openUnlock();
     return;
   }
-  pill.classList.add('on');
-  const totalSec=Math.ceil(remaining/1000);
-  const m=Math.floor(totalSec/60);
-  const s=totalSec%60;
-  n.textContent=`${m}:${String(s).padStart(2,'0')}`;
+  const clock=formatTrialClock(remaining);
+  pill?.classList.add('on');
+  pill?.classList.remove('expired');
+  if(n)n.textContent=clock;
+  if(line){
+    line.classList.add('on');
+    line.classList.remove('expired');
+    line.textContent=`试用剩余 ${clock}，结束后需激活码继续使用`;
+  }
 }
 function openUnlock(){
-  const hint=document.getElementById('unlock-email-hint');
-  if(hint)hint.textContent=(AUTH.user&&AUTH.user.email)||'';
+  setUnlockStatus('');
   document.getElementById('unlock-bg')?.classList.add('on');
+  setTimeout(()=>document.getElementById('unlock-code-input')?.focus(),60);
 }
-function closeUnlockBg(){/* 试用过期不允许通过点击背景关闭，需转账解锁或退出登录 */}
+function closeUnlock(){document.getElementById('unlock-bg')?.classList.remove('on')}
+function closeUnlockBg(e){if(e&&e.target!==document.getElementById('unlock-bg'))return;closeUnlock()}
 async function doActivate(){
   if(!AUTH.token)return;
   const input=document.getElementById('unlock-code-input');
@@ -869,11 +912,13 @@ async function doActivate(){
   try{
     setUnlockStatus('正在激活…');
     const data=await apiFetch('/api/activate',{method:'POST',body:JSON.stringify({code})});
-    AUTH.user=data.user;
-    document.getElementById('unlock-bg')?.classList.remove('on');
+    setAuthUser(data.user);
+    closeUnlock();
     setUnlockStatus('');
     if(input)input.value='';
+    renderAuth();
     updateTrialCountdown();
+    setAuthStatus('已激活，云端同步已恢复','ok');
   }catch(err){setUnlockStatus(err.message,'ng')}
 }
 function setUnlockStatus(msg,kind){
@@ -1083,9 +1128,14 @@ function renderAuth(){
   const card=document.getElementById('sync-card');if(card)card.classList.toggle('on',logged);
   const title=document.getElementById('sync-title');if(title)title.textContent=logged?`已登录：${AUTH.user.nickname||AUTH.user.email}`:'账号同步';
   const sub=document.getElementById('sync-sub');
-  if(sub)sub.textContent=logged?(AUTH.lastSync?`上次同步：${new Date(AUTH.lastSync).toLocaleString()}`:'已登录，完成练习后会自动同步'):'登录后可在多设备同步学习数据';
+  if(sub){
+    if(!logged)sub.textContent='登录后可在多设备同步学习数据';
+    else if(AUTH.lastSync)sub.textContent=`上次同步：${new Date(AUTH.lastSync).toLocaleString()}`;
+    else sub.textContent=isPaidUser()?'已激活，完成练习后会自动同步':'免费试用中，完成练习后会自动同步';
+  }
   const syncRow=document.getElementById('auth-sync-row');if(syncRow)syncRow.style.display=logged?'flex':'none';
   const logoutBtn=document.getElementById('logout-btn');if(logoutBtn)logoutBtn.style.display=logged?'block':'none';
+  updateTrialCountdown();
 }
 async function apiFetch(path,opts={}){
   const base=apiBase();
@@ -1116,11 +1166,11 @@ async function authInit(){
   if(!AUTH.token){AUTH.ready=true;setTimeout(()=>openAuth(),120);return}
   try{
     const data=await apiFetch('/api/auth/me');
-    AUTH.user=data.user;AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
+    setAuthUser(data.user);AUTH.ready=true;renderAuth();setAuthStatus('已登录，完成练习后会自动同步','ok');
     updateTrialCountdown();
     if(isTrialExpired()){openUnlock();}else{maybeShowGuide();}
   }catch(err){
-    AUTH.token='';AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
+    AUTH.token='';setAuthUser(null);AUTH.ready=true;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();
   }
 }
 function openAuth(){
@@ -1151,7 +1201,7 @@ async function doAuth(mode=AUTH.mode){
       method:'POST',
       body:JSON.stringify(body)
     });
-    AUTH.token=data.token;AUTH.user=data.user;
+    AUTH.token=data.token;setAuthUser(data.user);
     AUTH.ready=true;
     localStorage.setItem(AUTH_TOKEN_KEY,AUTH.token);
     renderAuth();
@@ -1210,7 +1260,7 @@ async function syncPull(ask=true){
   }catch(err){setAuthStatus(err.message,'ng')}
 }
 function logout(){
-  AUTH.token='';AUTH.user=null;localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();setAuthStatus('已退出登录');
+  AUTH.token='';setAuthUser(null);localStorage.removeItem(AUTH_TOKEN_KEY);renderAuth();setAuthStatus('已退出登录');
   openAuth();
 }
 function isAuthGateOpenTarget(target){
