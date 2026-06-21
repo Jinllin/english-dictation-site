@@ -65,6 +65,15 @@ CREATE TABLE IF NOT EXISTS pronunciations (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS activation_codes (
+  code TEXT PRIMARY KEY,
+  email TEXT,
+  used INTEGER NOT NULL DEFAULT 0,
+  used_by_user_id INTEGER,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  used_at TEXT
+);
 `);
 const userColumns = db.prepare('PRAGMA table_info(users)').all().map(col => col.name);
 if (!userColumns.includes('is_paid')) {
@@ -233,6 +242,21 @@ app.post('/api/auth/login', authLimiter, async (req, res) => {
 
 app.get('/api/auth/me', requireAuth, (req, res) => {
   res.json({ user: publicUser(req.user) });
+});
+
+app.post('/api/activate', requireAuth, (req, res) => {
+  const code = String(req.body?.code || '').trim();
+  if (!code) return res.status(400).json({ error: '请输入激活码' });
+  const row = db.prepare('SELECT * FROM activation_codes WHERE code = ?').get(code);
+  if (!row) return res.status(404).json({ error: '激活码不存在，请检查是否输入正确' });
+  if (row.used) return res.status(409).json({ error: '该激活码已被使用' });
+  if (row.email && normalizeEmail(row.email) !== req.user.email) {
+    return res.status(403).json({ error: '该激活码不是为你的账号生成的' });
+  }
+  db.prepare('UPDATE activation_codes SET used = 1, used_by_user_id = ?, used_at = CURRENT_TIMESTAMP WHERE code = ?').run(req.user.id, code);
+  db.prepare('UPDATE users SET is_paid = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(req.user.id);
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
+  res.json({ ok: true, user: publicUser(user) });
 });
 
 app.get('/api/sync', requireAuth, (req, res) => {

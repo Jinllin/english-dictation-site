@@ -655,20 +655,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 <!-- ── UNLOCK / TRIAL EXPIRED MODAL ── -->
 <div class="modal-bg" id="unlock-bg">
   <div class="modal" id="unlock-modal">
-    <div class="modal-title">试用已结束</div>
-    <p class="modal-sub">免费试用 5 分钟已用完。转账 <strong>¥19.9</strong> 一次性买断，永久使用，还能向我提优化建议。</p>
+    <div class="modal-title">使用激活码</div>
+    <p class="modal-sub">免费试用 5 分钟已用完。激活码请微信扫码联系我获取（转账 ¥19.9 一次性买断，永久使用）。</p>
+    <img src="assets/wechat-pay-qr.jpg" alt="微信收款码" style="width:100%;max-width:200px;margin:0 auto 14px;border-radius:var(--rsm);display:block">
     <div class="auth-fields" style="gap:10px">
-      <div style="font-size:13px;color:var(--t2);line-height:1.6;background:var(--s2);border-radius:var(--rsm);padding:12px 14px">
-        微信/支付宝转账 <strong>¥19.9</strong> 至：<br>
-        <span style="color:var(--t1);font-weight:700">（在此填写你的收款方式，如微信号/收款码）</span><br>
-        转账备注你的注册邮箱：<strong id="unlock-email-hint"></strong><br>
-        24 小时内为你开通永久权限。
-      </div>
+      <div style="font-size:12px;color:var(--t3)">你的注册邮箱：<strong id="unlock-email-hint" style="color:var(--t1)"></strong>（联系时请告知此邮箱）</div>
+      <input class="auth-input" id="unlock-code-input" placeholder="请输入激活码 *" maxlength="64">
     </div>
     <div class="auth-status" id="unlock-status"></div>
     <div class="auth-row">
-      <button class="mbtnc" onclick="checkUnlockStatus()">我已转账，刷新状态</button>
-      <button class="btnp" onclick="logout()">退出登录</button>
+      <button class="mbtnc" onclick="logout()">退出登录</button>
+      <button class="btnp" onclick="doActivate()">激活</button>
     </div>
   </div>
 </div>
@@ -835,17 +832,18 @@ function openUnlock(){
   document.getElementById('unlock-bg')?.classList.add('on');
 }
 function closeUnlockBg(){/* 试用过期不允许通过点击背景关闭，需转账解锁或退出登录 */}
-async function checkUnlockStatus(){
+async function doActivate(){
   if(!AUTH.token)return;
+  const input=document.getElementById('unlock-code-input');
+  const code=(input?.value||'').trim();
+  if(!code){setUnlockStatus('请输入激活码','ng');return}
   try{
-    const data=await apiFetch('/api/auth/me');
+    setUnlockStatus('正在激活…');
+    const data=await apiFetch('/api/activate',{method:'POST',body:JSON.stringify({code})});
     AUTH.user=data.user;
-    if(isPaidUser()){
-      document.getElementById('unlock-bg')?.classList.remove('on');
-      setUnlockStatus('已解锁，欢迎回来！','ok');
-    }else{
-      setUnlockStatus('还未查到付款记录，请确认转账备注是否填写了注册邮箱。','ng');
-    }
+    document.getElementById('unlock-bg')?.classList.remove('on');
+    setUnlockStatus('');
+    if(input)input.value='';
   }catch(err){setUnlockStatus(err.message,'ng')}
 }
 function setUnlockStatus(msg,kind){
