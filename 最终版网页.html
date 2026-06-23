@@ -327,9 +327,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .unlock-modal{position:relative;max-width:360px;border-radius:18px;padding:22px;gap:14px;box-shadow:0 22px 70px rgba(0,0,0,.2);max-height:calc(100dvh - 36px);overflow:auto}
 .unlock-modal .modal-title{font-size:17px;line-height:1.2}
 .unlock-modal .modal-sub{margin-top:-6px}
-.pay-qr-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 12px;background:var(--s2);border:1px solid var(--bd);border-radius:16px}
-.pay-qr-img{width:min(210px,70vw);max-height:260px;object-fit:contain;border-radius:12px;background:#fff}
-.pay-qr-caption{font-size:12px;line-height:1.45;text-align:center;color:var(--t3)}
+.pay-qr-wrap{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:14px;background:var(--s2);border:1px solid var(--bd);border-radius:16px}
+.pay-home-badge{align-self:flex-start;font-size:11px;font-weight:800;color:var(--ok);background:rgba(40,167,69,.1);border:1px solid rgba(40,167,69,.18);border-radius:999px;padding:4px 8px}
+.pay-home-title{font-size:15px;font-weight:800;color:var(--t1);line-height:1.35}
+.pay-home-steps{margin:0;padding-left:18px;color:var(--t2);font-size:12px;line-height:1.65}
+.pay-home-link{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:var(--t1);color:#fff;text-decoration:none;font-size:14px;font-weight:800}
+.pay-home-link:active{transform:translateY(1px)}
+.pay-qr-caption{font-size:12px;line-height:1.45;text-align:left;color:var(--t3)}
 .modal-close{position:absolute;right:14px;top:12px;width:30px;height:30px;border:none;background:transparent;color:var(--t3);font-size:24px;line-height:1;cursor:pointer;font-family:var(--sans)}
 .modal-close:active{transform:scale(.94)}
 .unlock-actions{justify-content:flex-end;align-items:center;margin-top:4px}
@@ -679,10 +683,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   <div class="modal unlock-modal" id="unlock-modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeUnlock()" aria-label="关闭">×</button>
     <div class="modal-title">使用激活码</div>
-    <p class="modal-sub">免费试用 5 分钟已用完。转账后联系管理员获取激活码，永久使用。</p>
+    <p class="modal-sub">免费试用 5 分钟已用完。前往小红书主页店铺购买激活码后即可永久使用。</p>
     <div class="pay-qr-wrap">
-      <img class="pay-qr-img" src="assets/wechat-pay-qr.jpg" alt="微信收款码">
-      <div class="pay-qr-caption">微信扫码转账 ¥19.9，联系时请告知注册邮箱</div>
+      <div class="pay-home-badge">小红书店铺</div>
+      <div class="pay-home-title">到主页店铺购买激活码</div>
+      <ol class="pay-home-steps">
+        <li>点击下方按钮打开小红书主页</li>
+        <li>进入主页店铺购买激活码</li>
+        <li>购买后请按店铺指引填写注册邮箱</li>
+      </ol>
+      <a class="pay-home-link" href="https://xhslink.com/m/8grbn4iSfun" target="_blank" rel="noopener noreferrer">打开小红书主页</a>
+      <div class="pay-qr-caption">拿到激活码后，回到本页输入即可解锁。</div>
     </div>
     <div class="auth-fields" style="gap:10px">
       <input class="auth-input" id="unlock-code-input" placeholder="请输入激活码 *" maxlength="64">
