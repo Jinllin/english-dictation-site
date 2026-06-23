@@ -62,9 +62,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .trial-pill.expired{color:var(--ng);background:var(--ngbg);border-color:color-mix(in srgb,var(--ng),transparent 60%)}
 .trial-pill::before{content:'试用';font-size:10px;color:currentColor;opacity:.72;letter-spacing:.04em;font-family:var(--sans)}
 .strk::before{content:'连续';font-size:10px;color:var(--gold);opacity:.72;letter-spacing:.04em}
-.acct-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:7px 10px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;max-width:118px}
+.acct-btn{display:flex;align-items:center;gap:6px;border:1px solid var(--bd);background:var(--sur);color:var(--t2);border-radius:999px;padding:7px 10px;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;max-width:148px}
 .acct-btn.on{color:var(--ok);background:var(--okbg);border-color:color-mix(in srgb,var(--ok),transparent 62%)}
 .acct-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#acct-label,.sync-user-name{display:inline-flex;align-items:center;gap:5px;min-width:0;vertical-align:middle}
+.acct-name,.sync-user-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.vip-badge{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#fff4bd,#d99617 48%,#8d5a00);border:1px solid rgba(132,83,0,.35);box-shadow:0 1px 4px rgba(151,92,0,.22),inset 0 1px 0 rgba(255,255,255,.62);color:#fff;font-size:11px;font-weight:900;font-family:var(--sans);line-height:1;text-shadow:0 1px 1px rgba(91,54,0,.35);overflow:visible!important}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--t4);flex-shrink:0}.acct-btn.on .sync-dot{background:var(--ok)}
 .sync-card{margin:0 20px 16px;padding:12px 14px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);display:none;gap:10px;align-items:center;justify-content:space-between}
 .sync-card.on{display:flex}.sync-info{min-width:0}.sync-title{font-size:13px;font-weight:700}.sync-sub{font-size:11px;color:var(--t3);margin-top:2px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.trial-line{display:none;margin-top:5px;font-size:11px;font-weight:800;color:#9a6500;line-height:1.35}.trial-line.on{display:block}.trial-line.expired{color:var(--ng)}.sync-actions{display:flex;gap:6px;flex-shrink:0}.sync-mini{border:1px solid var(--bd);background:var(--s2);color:var(--t2);border-radius:8px;padding:7px 9px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer}.sync-mini.primary{background:var(--t1);border-color:var(--t1);color:#fff}.sync-mini.unlock-mini{display:none;background:#fff1f1;border-color:#ffd1d1;color:var(--ng)}.sync-mini.unlock-mini.on{display:inline-flex;align-items:center;justify-content:center}
@@ -334,6 +337,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
 .pay-home-link{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:12px;background:var(--t1);color:#fff;text-decoration:none;font-size:14px;font-weight:800}
 .pay-home-link:active{transform:translateY(1px)}
 .pay-qr-caption{font-size:12px;line-height:1.45;text-align:left;color:var(--t3)}
+.activation-success{position:fixed;inset:0;z-index:420;display:none;align-items:center;justify-content:center;background:var(--bg);color:var(--t1);padding:24px;overflow:hidden}
+.activation-success.on{display:flex}
+.activation-success canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.activation-card{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;transform:translateY(18px);animation:success-pop .45s cubic-bezier(.2,.9,.2,1) both}
+.activation-mark{width:34px;height:34px;border-radius:50%;border:2px solid var(--t1);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900}
+.activation-title{font-size:22px;font-weight:900;letter-spacing:0;line-height:1.25}
+.activation-copy{font-size:14px;color:var(--t2);line-height:1.6}
+.activation-continue{margin-top:6px;border:none;background:var(--t1);color:#fff;border-radius:12px;padding:13px 28px;font-size:14px;font-weight:900;font-family:var(--sans);cursor:pointer}
+.activation-continue:active{transform:translateY(1px)}
+@keyframes success-pop{from{opacity:0;transform:translateY(32px) scale(.96)}to{opacity:1;transform:translateY(18px) scale(1)}}
 .modal-close{position:absolute;right:14px;top:12px;width:30px;height:30px;border:none;background:transparent;color:var(--t3);font-size:24px;line-height:1;cursor:pointer;font-family:var(--sans)}
 .modal-close:active{transform:scale(.94)}
 .unlock-actions{justify-content:flex-end;align-items:center;margin-top:4px}
@@ -706,6 +719,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);min-height:100
   </div>
 </div>
 
+<!-- ── ACTIVATION SUCCESS ── -->
+<div class="activation-success" id="activation-success" aria-live="polite">
+  <canvas id="activation-confetti"></canvas>
+  <div class="activation-card">
+    <div class="activation-mark">V</div>
+    <div class="activation-title">激活成功</div>
+    <div class="activation-copy">恭喜你已成为 EchoPet VIP</div>
+    <button class="activation-continue" onclick="closeActivationSuccess()">继续</button>
+  </div>
+</div>
+
 <!-- ── NEW USER GUIDE ── -->
 <div class="modal-bg" id="guide-bg" onclick="closeGuideBg(event)">
   <div class="modal" id="guide-modal">
@@ -860,6 +884,15 @@ function setAuthUser(user){
   AUTH.trialRefAt=Date.now();
 }
 function isPaidUser(){return !!(AUTH.user&&AUTH.user.isPaid)}
+function vipBadgeHtml(){return '<span class="vip-badge" title="已激活 VIP">V</span>'}
+function authDisplayName(){
+  if(!AUTH.user)return '';
+  return AUTH.user.nickname||AUTH.user.email||'EchoPet用户';
+}
+function authNameHtml(text){
+  const safe=esc(text||'EchoPet用户');
+  return `<span class="acct-name">${safe}</span>${isPaidUser()?vipBadgeHtml():''}`;
+}
 function isTrialExpired(){
   if(isPaidUser())return false;
   if(!AUTH.user)return false;
@@ -949,6 +982,7 @@ async function doActivate(){
     renderAuth();
     updateTrialCountdown();
     setAuthStatus('已激活，云端同步已恢复','ok');
+    showActivationSuccess();
   }catch(err){setUnlockStatus(err.message,'ng')}
 }
 function setUnlockStatus(msg,kind){
@@ -1078,6 +1112,69 @@ function setAuthStatus(msg,type=''){
   const el=document.getElementById('auth-status');if(el){el.textContent=msg||'';el.className='auth-status '+type}
   const sub=document.getElementById('sync-sub');if(sub&&msg)sub.textContent=msg;
 }
+function showActivationSuccess(){
+  const wrap=document.getElementById('activation-success');
+  if(!wrap)return;
+  wrap.classList.add('on');
+  runActivationConfetti();
+}
+function closeActivationSuccess(){
+  document.getElementById('activation-success')?.classList.remove('on');
+}
+function runActivationConfetti(){
+  const canvas=document.getElementById('activation-confetti');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const resize=()=>{
+    canvas.width=Math.floor(innerWidth*dpr);
+    canvas.height=Math.floor(innerHeight*dpr);
+    canvas.style.width=innerWidth+'px';
+    canvas.style.height=innerHeight+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  };
+  resize();
+  const colors=['#ff5d73','#ffad3d','#f7f943','#78f36d','#45c8f4','#a163f7','#ff4ff3'];
+  const pieces=Array.from({length:120},()=>({
+    x:Math.random()*innerWidth,
+    y:-20-Math.random()*innerHeight*.42,
+    w:4+Math.random()*7,
+    h:8+Math.random()*10,
+    vx:-1.4+Math.random()*2.8,
+    vy:1.4+Math.random()*2.8,
+    rot:Math.random()*Math.PI,
+    spin:-.16+Math.random()*.32,
+    color:colors[Math.floor(Math.random()*colors.length)],
+    shape:Math.random()<.28?'circle':'rect'
+  }));
+  const start=performance.now();
+  const duration=3600;
+  function frame(now){
+    const t=now-start;
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    pieces.forEach(p=>{
+      p.x+=p.vx+Math.sin((t+p.y)*.006)*.35;
+      p.y+=p.vy;
+      p.rot+=p.spin;
+      if(p.y>innerHeight+24){
+        p.y=-24;
+        p.x=Math.random()*innerWidth;
+      }
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle=p.color;
+      if(p.shape==='circle'){
+        ctx.beginPath();ctx.ellipse(0,0,p.w*.65,p.w*.42,0,0,Math.PI*2);ctx.fill();
+      }else{
+        ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      }
+      ctx.restore();
+    });
+    if(t<duration&&document.getElementById('activation-success')?.classList.contains('on'))requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
 function guideSeen(){return localStorage.getItem(GUIDE_KEY)==='done'}
 function openGuide(force=false){
   if(!force&&guideSeen())return;
@@ -1154,9 +1251,10 @@ function showRewardFx(type,payload={}){
 function renderAuth(){
   const logged=!!(AUTH.token&&AUTH.user);
   document.getElementById('acct-btn')?.classList.toggle('on',logged);
-  const label=document.getElementById('acct-label');if(label)label.textContent=logged?(AUTH.user.nickname||AUTH.user.email):'未登录';
+  const name=authDisplayName();
+  const label=document.getElementById('acct-label');if(label)label.innerHTML=logged?authNameHtml(name):'未登录';
   const card=document.getElementById('sync-card');if(card)card.classList.toggle('on',logged);
-  const title=document.getElementById('sync-title');if(title)title.textContent=logged?`已登录：${AUTH.user.nickname||AUTH.user.email}`:'账号同步';
+  const title=document.getElementById('sync-title');if(title)title.innerHTML=logged?`已登录：<span class="sync-user-name"><span class="sync-user-text">${esc(name)}</span>${isPaidUser()?vipBadgeHtml():''}</span>`:'账号同步';
   const sub=document.getElementById('sync-sub');
   if(sub){
     if(!logged)sub.textContent='登录后可在多设备同步学习数据';
